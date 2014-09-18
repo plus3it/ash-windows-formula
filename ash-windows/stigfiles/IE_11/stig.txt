@@ -5,7 +5,7 @@ Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
 ProxySettingsPerUser
 DWORD:1
 
-;Internet Explorer must be configured to make Proxy settings per user
+;Automatic configuration of Internet Explorer connections must be disallowed
 ;SV-40530r1_rule
 Computer
 Software\Policies\Microsoft\Internet Explorer\Control Panel
@@ -75,7 +75,7 @@ Software\Policies\Microsoft\Internet Explorer\Main
 Update_Check_Page
 SZ:
 
-;First Run Customize settings must be enabled as home page
+;First Run Wizard settings must be established for a home page
 ;SV-40701r1_rule
 Computer
 Software\Policies\Microsoft\Internet Explorer\Main
@@ -89,7 +89,7 @@ Software\Policies\Microsoft\Internet Explorer\PhishingFilter
 EnabledV9
 DWORD:0
 
-;Updates to web site lists from Microsoft must be disallowed
+;Updates to website lists from Microsoft must be disallowed
 ;SV-40706r1_rule
 Computer
 Software\Policies\Microsoft\Internet Explorer\BrowserEmulation
@@ -117,14 +117,14 @@ Software\Policies\Microsoft\Internet Explorer\Privacy
 EnableInPrivateBrowsing
 DWORD:0
 
-;Launching programs and unsafe files property must be set to prompt (Internet zone)
+;Security Warning for unsafe files must be set to prompt (Internet zone)
 ;SV-40732r1_rule
 Computer
 Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
 1806
 DWORD:1
 
-;Launching programs and unsafe files property must be set to prompt (Restricted Site zone)
+;Security Warning for unsafe files must be disallowed (Restricted Sites zone)
 ;SV-40732r1_rule
 Computer
 Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
@@ -172,3 +172,52 @@ Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\Ext
 NoFirsttimeprompt
 DWORD:1
+
+;Do Not Track header must be sent
+;SV-45046r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DoNotTrack
+DWORD:1
+
+;Ability to install new versions of Internet Explorer automatically must be disallowed
+;SV-45063r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+EnableAutoUpgrade
+DWORD:0
+
+;Displaying of the reveal password button must be disallowed
+;SV-45140r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DisablePasswordReveal
+DWORD:1
+
+;Internet Explorer accelerator functionality must be disallowed
+;SV-45217r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Activities
+NoActivities
+DWORD:1
+
+;Legacy filter functionality must be disallowed (Internet zone)
+;SV-45217r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+270B
+DWORD:3
+
+;Legacy filter functionality must be disallowed (Restricted Sites zone)
+;SV-45270r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+270B
+DWORD:3
+
+;URL Suggestions must be disallowed
+;SV-45454r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\DomainSuggestion
+Enabled
+DWORD:0
