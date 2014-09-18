@@ -1,0 +1,1 @@
+#No additional stig requirements

@@ -1,0 +1,8 @@
+;The Microsoft security baseline configures this setting to 1. However, many internal applications continue
+;to use self-signed certificates. If this item is set to 1, those applications are inaccessible.
+;The ash delta state configures this setting back to 0, which is the OS default.
+;Prevent Ignore Certificate Errors Delta:
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
+PreventIgnoreCertErrors
+DWORD:0

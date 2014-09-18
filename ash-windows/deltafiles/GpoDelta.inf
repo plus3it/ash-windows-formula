@@ -1,0 +1,27 @@
+[Unicode]
+Unicode=yes
+[Version]
+signature="$CHICAGO$"
+Revision=1
+[System Access]
+;The STIGs for different OS versions are inconsistent in their requirement to rename the Guest account. For the sake of build 
+;and operations consistency, the Ash Delta policy ensures the Guest account will be renamed on all builds.
+;Microsoft Security Baseline Original Setting:
+;not defined
+NewGuestName = "xGuest"
+;The STIGs for different OS versions are inconsistent in their requirement to rename the Administrator account. For the sake of build 
+;and operations consistency, the Ash Delta policy ensures the Administrator account will be renamed on all builds.
+;Microsoft Security Baseline Original Setting:
+;not defined
+NewAdministratorName = "xAdministrator"
+[Privilege Rights]
+; The MS Security Baseline denies "NT Authority\Local account" the right to logon remotely, as part the pass the hash protections
+; That setting will disable remote desktop connectivity for the local administrator account, which causes problems when the machine
+; is not joined to an Active Directory domain. Since this framework is intended to be applied to any system, regardless of domain 
+; status, the setting below removes this restriction. Recommend that the pass the has protection be re-applied by a GPO, if desired.
+; Microsoft Security Baseline Original Settings: 
+; SeDenyRemoteInteractiveLogonRight = *S-1-5-113,*S-1-5-32-546
+; SeDenyNetworkLogonRight = *S-1-5-113,*S-1-5-32-546
+; Delta settings:
+SeDenyRemoteInteractiveLogonRight = *S-1-5-32-546
+SeDenyNetworkLogonRight = *S-1-5-32-546

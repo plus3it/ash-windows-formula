@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://www.microsoft.com/GroupPolicy/PolicyDefinitions">
+  <displayName>enter display name here</displayName>
+  <description>enter description here</description>
+  <resources>
+    <stringTable>
+      <string id="EMET">EMET</string>
+      <string id="EMET_HELP">Enhanced Mitigation Experience Toolkit</string>
+      <string id="EMET_DEP">System DEP</string>
+      <string id="EMET_DEP_HELP">System-wide Data Execution Prevention setting</string>
+      <string id="EMET_ASLR">System ASLR</string>
+      <string id="EMET_ASLR_HELP">System-wide Address Space Layout Randomization setting</string>
+      <string id="EMET_SEHOP">System SEHOP</string>
+      <string id="EMET_SEHOP_HELP">System-wide Structured Exception Handler Overwrite Protection setting</string>
+      <string id="EMET_REPORTING">Reporting</string>
+      <string id="EMET_REPORTING_HELP">Configure reporting (Windows Event Log, Tray Icon, Early Warning)</string>
+      <string id="EMET_ADVANCED">Default Action and Mitigation Settings</string>
+      <string id="EMET_ADVANCED_HELP">Configure default action after detection and advanced ROP mitigation settings</string>
+      <string id="EMET_AGENT">EMET Agent Visibility</string>
+      <string id="EMET_AGENT_HELP">Configure EMET Agent visibility at startup</string>
+      <string id="EMET_TrayIconMsg">EMET Agent Custom Message</string>
+      <string id="EMET_TrayIconMsg_HELP">Configure a custom Tray Icon Message for EMET Agent to notify users</string>
+      <string id="EMET_AppSettings">Application Configuration</string>
+      <string id="EMET_AppSettings_HELP">Custom EMET configuration for applications</string>
+      <string id="AlwaysOn">Always On</string>
+      <string id="ApplicationOptOut">Application Opt-Out</string>
+      <string id="ApplicationOptIn">Application Opt-In</string>
+      <string id="Disabled">Disabled</string>
+      <string id="Enabled">Enabled</string>
+      <string id="StopProgram">Stop Program</string>
+      <string id="AuditOnly">Audit Only</string>
+      <string id="UserConfigured">User Configured</string>
+      <string id="SUPPORTED_ProductOnly">Client: Windows XP SP3 and later. Server: Windows Server 2003 SP1 and later.</string>
+      <string id="SUPPORTED_ProductOnly_Reporting">Client: Windows XP SP3 and later. Server: Windows Server 2003 SP1 and later. NOTE: Early Warning is not available on Windows XP and Windows Server 2003.</string>	  
+      <string id="EMET_Office">Default Protections for Recommended Software</string>
+      <string id="EMET_Office_HELP">Apply recommended EMET protections to WordPad, Microsoft Office, Adobe Acrobat, Adobe Acrobat Reader, and Oracle Java</string>
+      <string id="EMET_IE">Default Protections for Internet Explorer</string>
+      <string id="EMET_IE_HELP">Apply recommended EMET protections to Internet Explorer</string>
+      <string id="EMET_MISC">Default Protections for Popular Software</string>
+      <string id="EMET_MISC_HELP">Apply suggested EMET protections to other popular software</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="TrayIconMsg">
+       <textBox refId="TrayIconMsg_TextBox">
+       <label>Tray Icon Message</label>
+       <defaultValue>Custom Message</defaultValue>
+     </textBox>
+      </presentation>
+      <presentation id="ASLR_DropDownList">
+        <dropdownList refId="ASLR_DropDownList_Box" defaultItem="0">ASLR Setting:</dropdownList>
+      </presentation>
+      <presentation id="DEP_DropDownList">
+        <dropdownList refId="DEP_DropDownList_Box" defaultItem="0">DEP Setting:</dropdownList>
+      </presentation>
+      <presentation id="SEHOP_DropDownList">
+        <dropdownList refId="SEHOP_DropDownList_Box" defaultItem="0">SEHOP Setting:</dropdownList>
+      </presentation>
+      <presentation id="REPORTING">
+        <dropdownList refId="EventLog_DropDownList_Box" defaultItem="2">Event Log:</dropdownList>
+        <dropdownList refId="TrayIcon_DropDownList_Box" defaultItem="2">Tray Icon:</dropdownList>
+		<dropdownList refId="TELEMETRY_DropDownList_Box" defaultItem="2">Early Warning:</dropdownList>		
+      </presentation>
+      <presentation id="ADVANCED">
+        <dropdownList refId="DeepHooks_DropDownList_Box" defaultItem="2">Deep Hooks:</dropdownList>
+        <dropdownList refId="AntiDetours_DropDownList_Box" defaultItem="2">Anti Detours:</dropdownList>
+        <dropdownList refId="BannedFunctions_DropDownList_Box" defaultItem="2">Banned Functions:</dropdownList>
+        <dropdownList refId="ExploitAction_DropDownList_Box" defaultItem="2">Exploit Action:</dropdownList>
+      </presentation>
+      <presentation id="AGENT">
+        <dropdownList refId="Agent_DropDownList_Box" defaultItem="0">Start Agent Hidden:</dropdownList>
+      </presentation>
+      <presentation id="AppSettings_ListBox">
+        <text>Enter applications, one per line with settings following the executable name.</text>
+        <text>If you don't specify any parameters, all the mitigations will be enabled.</text>
+        <text>If you don't want to enable any mitigations for an application, specify them as parameters.</text>
+        <text>Available parameters are -SEHOP -DEP -MandatoryASLR -NullPage -BottomUpASLR -HeapSpray -EAF -LoadLib -MemProt -Caller -SimExecFlow -StackPivot</text>
+        <text>Example:</text>
+        <text>iexplore.exe -SEHOP</text>
+        <text>This would enable all the mitigations for iexplore.exe, with the exception of SEHOP</text>
+        <listBox refId="AppSettings_ListBox_Column">Application</listBox>
+      </presentation>
+      <presentation id="Office_Text">
+        <text>Included products and mitigations:</text>
+        <text>- WordPad - all mitigations</text>
+        <text>- Microsoft Office - all mitigations</text>
+        <text>- Adobe Acrobat - all mitigations except MemProt</text>
+        <text>- Adobe Acrobat Reader - all mitigations except MemProt</text>
+        <text>- Oracle Java - all mitigations except HeapSpray</text>
+      </presentation>
+      <presentation id="IE_Text">
+        <text>Included products and mitigations:</text>
+        <text>- Microsoft Internet Explorer - all mitigations</text>
+      </presentation>
+      <presentation id="Misc_Text">
+        <text>Included products and mitigations:</text>
+        <text>- Windows Media Player - all mitigations except MandatoryASLR, SEHOP, EAF</text>
+        <text>- Skype - all mitigations except EAF</text>
+        <text>- Microsoft Lync Communicator- all mitigations</text>
+        <text>- Windows Live Mail - all mitigations</text>
+        <text>- Microsoft Photo Gallery - all mitigations except Caller</text>
+        <text>- Microsoft Live Writer - all mitigations</text>
+        <text>- Microsoft SkyDrive - all mitigations</text>
+        <text>- Google Chrome - all mitigations except SEHOP</text>
+        <text>- Google Talk - all mitigations except DEP, SEHOP</text>
+        <text>- Mozilla Firefox - all mitigations</text>
+        <text>- Mozilla Thunderbird - all mitigations</text>
+        <text>- Adobe Photoshop - all mitigations</text>
+        <text>- Winamp - all mitigations</text>
+        <text>- Opera - all mitigations</text>
+        <text>- WinRAR - all mitigations</text>
+        <text>- Winzip - all mitigations</text>
+        <text>- VideoLAN VLC - all mitigations</text>
+        <text>- RealPlayer - all mitigations</text>
+        <text>- mIRC - all mitigations</text>
+        <text>- 7zip - all mitigations except EAF</text>
+        <text>- Safari - all mitigations</text>
+        <text>- QuickTime Player - all mitigations</text>
+        <text>- iTunes - all mitigations except Caller</text>
+        <text>- Pidgin - all mitigations</text>
+        <text>- Foxit Reader - all mitigations</text>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

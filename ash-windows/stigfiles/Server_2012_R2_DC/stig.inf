@@ -1,0 +1,48 @@
+[Unicode]
+Unicode=yes
+[Version]
+signature="$CHICAGO$"
+Revision=1
+[System Access]
+;The number of allowed bad logon attempts must meet minimum requirements
+;CCE-23909-5
+;"Account lockout threshold" to "3" or less invalid logon attempts (excluding "0" which is unacceptable)
+LockoutBadCount = 3
+
+;The period of time before the bad logon counter is reset must meet minimum requirements
+;CCE-24840-1 
+;lockout_observation_window equals '60'
+ResetLockoutCount = 60
+
+;The lockout duration must be configured to require an administrator to unlock an account
+;CCE-24768-4 
+;lockout_duration of -1 equals '0' in the UI
+LockoutDuration = -1
+
+[Privilege Rights]
+;Unauthorized accounts must not have the Bypass traverse checking user right
+;STIG Specification: Bypass traverse checking - Administrators, Authenticated Users, Local Service, Network Service, Window Manager\Window Manager Group
+;Microsoft Security Baseline Original Setting:
+;SeChangeNotifyPrivilege = *S-1-5-90-0,*S-1-5-20,*S-1-5-19,*S-1-5-32-551,*S-1-5-11,*S-1-5-32-544
+;STIG setting (removes Backup Operators):
+SeChangeNotifyPrivilege = *S-1-5-90-0,*S-1-5-20,*S-1-5-19,*S-1-5-11,*S-1-5-32-544
+
+;The Deny log on as a service user right on member servers must be configured to prevent access from highly privileged domain accounts on domain systems. No other groups or accounts must be assigned this right
+;SystemPrep DELTA - Not sure why the STIG wants to remove the Guest account from this setting. Re-applied in delta configuration.
+;Microsoft Security Baseline Original Setting:
+;SeDenyServiceLogonRight = *S-1-5-32-546
+;STIG setting (removes Guest):
+SeDenyServiceLogonRight =
+
+;Unauthorized accounts must not have the Log on as a batch job user right
+;STIG Specification: Log on as a batch job - Administrators
+;Microsoft Security Baseline Original Setting:
+;not defined
+;STIG setting (removes Backup Operators and Performance Log Users from the OS default):
+SeBatchLogonRight = *S-1-5-32-544
+
+;Unauthorized accounts must not have the Increase a process working set user right.
+;Microsoft Security Baseline Original Setting:
+;SeIncreaseWorkingSetPrivilege = *S-1-5-32-545,*S-1-5-90-0
+;STIG Setting (Removes Users):
+SeIncreaseWorkingSetPrivilege = *S-1-5-90-0

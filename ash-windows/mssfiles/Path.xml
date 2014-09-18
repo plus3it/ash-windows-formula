@@ -1,0 +1,23 @@
+<Guidance>
+  <LocalPolicy>
+    <SecurityTemplate Product="Win8" Environment="Restore" LocalCMDPath=".\Win8\Win8 Default Security.CMD"  DefaultAuditPath=".\Win8\Win8 Default Audit.csv"/>
+    <SecurityTemplate Product="Win7" Environment="Restore" LocalCMDPath=".\Win7\Win7 Default Security.CMD"  DefaultAuditPath=".\Win7\Win7 Default Audit.csv"/> 
+    <SecurityTemplate Product="VISTA" Environment="Restore" LocalCMDPath=".\VSG\Vista Default Security.CMD"  DefaultAuditPath=".\VSG\Vista Default Audit.csv"/> 
+    <SecurityTemplate Product="XP" Environment="Restore" LocalCMDPath=".\XPG\XP Default Security.CMD"/>
+    <SecurityTemplate Product="WS12" Environment="Restore" LocalCMDPath=".\WS12\WS12 Default Security.CMD"  DefaultAuditPath=".\WS12\WS12 Default Audit.csv"/> 
+    <SecurityTemplate Product="WS08R2" Environment="Restore" LocalCMDPath=".\WS08R2\WS08R2 Default Security.CMD"  DefaultAuditPath=".\WS08R2\WS08R2 Default Audit.csv"/> 
+    <SecurityTemplate Product="WS08" Environment="Restore" LocalCMDPath=".\WS08\WS08 Default Security.CMD"  DefaultAuditPath=".\WS08\WS08 Default Audit.csv"/> 
+    <SecurityTemplate Product="WS03" Environment="Restore" LocalCMDPath=".\WS03\WS03 Default Security.CMD"/> 
+	
+    <SecurityFiles>
+      <Path Product = "Win8" DefaultSdbPath=".\Win8\Win8 Default Security.sdb"  LocalSdbPath=".\Win8\Win8 Local Security.sdb" DefaultInfPath=".\Win8\Win8 Default Security.inf" />
+      <Path Product = "Win7" DefaultSdbPath=".\Win7\Win7 Default Security.sdb"  LocalSdbPath=".\Win7\Win7 Local Security.sdb" DefaultInfPath=".\Win7\Win7 Default Security.inf" />
+      <Path Product = "VISTA" DefaultSdbPath=".\VSG\Vista Default Security.sdb"  LocalSdbPath=".\VSG\VSG Local Security.sdb" DefaultInfPath=".\VSG\Vista Default Security.inf" />
+      <Path Product = "XP" DefaultSdbPath=".\XPG\XP Default Security.sdb" LocalSdbPath=".\XPG\XP Default Security.sdb" DefaultInfPath=".\XPG\Windows XP Service Pack 2 default security.inf" />
+      <Path Product = "WS12" DefaultSdbPath=".\WS12\WS12 Default Security.sdb"  LocalSdbPath=".\WS12\WS12 Local Security.sdb" DefaultInfPath=".\WS12\WS12 Default Security.inf" />
+      <Path Product = "WS08R2" DefaultSdbPath=".\WS08R2\WS08R2 Default Security.sdb"  LocalSdbPath=".\WS08R2\WS08R2 Local Security.sdb" DefaultInfPath=".\WS08R2\WS08R2 Default Security.inf" />
+      <Path Product = "WS08" DefaultSdbPath=".\WS08\WS08 Default Security.sdb"  LocalSdbPath=".\WS08\WS08 Local Security.sdb" DefaultInfPath=".\WS08\WS08 Default Security.inf" />
+      <Path Product = "WS03" DefaultSdbPath=".\WS03\WS03 Default Security.sdb"  LocalSdbPath=".\WS03\WS03 Local Security.sdb" DefaultInfPath=".\WS03\WS03 Default Security.inf" />
+    </SecurityFiles>
+  </LocalPolicy> 
+</Guidance>

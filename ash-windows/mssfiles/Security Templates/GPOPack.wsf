@@ -1,0 +1,939 @@
+<?xml version="1.0" ?>
+<package>
+  <comment>
+    '===============================================================================
+    ' *** Microsoft Solution Accelerators: Security and Compliance
+    ' *** 
+    ' *** --------------------------------------------------------------------------
+    ' *** Filename   :  GPOPack.wsf
+    ' *** --------------------------------------------------------------------------
+    ' *** Description:  Applies the contents of a backup GPO to the local policy of 
+    ' ***               a Windows computer without any user interaction.
+    ' *** --------------------------------------------------------------------------
+    ' *** Version    :  3.0
+    ' *** Notes      :	Send questions and feedback to secwish@microsoft.com	
+    ' *** --------------------------------------------------------------------------
+    ' *** Copyright (C) Microsoft Corporation 2012, All Rights Reserved
+    ' *** --------------------------------------------------------------------------
+    ' ***
+    '===============================================================================
+  </comment>
+  <job>
+
+    <script language="VBScript">
+    <![CDATA[
+    
+' ~~~ 
+' ~~~ Force variables to be declared 
+' ~~~ 
+      Option Explicit
+      
+     
+
+'=============================================================================
+' Constants and Variables Declaration Section
+'=============================================================================
+        Const ForReading = 1
+        Const ForWriting = 2
+        Const HKLM = &H80000002
+
+        Dim blnOK
+        Dim objArgs, objFSO, objGroupDict, objFile, objEnv
+        Dim objShell, objWMIReg, objWMIReg2, objWMIService 
+        Dim objXMLDoc, objXMLGetElement ,objXMLErr
+        Dim objNetwork
+        Dim strArg, strArgValue
+        Dim strWinDir, strConfigFile, strComputerRole, strCMDPath
+        Dim strAbsoluteConfigPath 
+        Dim strAbsoluteSCEUpdate
+        Dim strAbsoluteSecurityTemplates, strAbsoluteXMLPath
+        Dim strBackupGPOPath, strGPOPack	
+        Dim strMachinePOLPath, strUserPOLPath
+        Dim strInfPath, strCsvPath
+        Dim strDefaultSdbPath,strLocalSdbPath
+        Dim strDefaultInfPath, strLocalInfPath
+        Dim strDefaultAuditPath
+        Dim strEnvironment, strErrCode
+        Dim strMessage, strMessage1, strMessage2, strMessage3
+        Dim strOpSys, strOpVer, strSPMinorVer, strSPMajorVer, strOS 
+        Dim strSCEUpdate, strSecurityTemplates
+        Dim strTitle    
+        Dim strPath, strProduct, strScePath, strText 
+        Dim strRegKey, strRegValue, strValue
+        Dim strUserName, strUserDomain 
+        Dim strXMLPath
+	    Dim strGUID
+	    Dim strGPTVersion, strMachineExtensions,strUserExtensions
+
+        Dim intUserChoice
+        Dim strFileName
+
+        Dim intRegFlg,intStringFlg
+        Dim intMSSRegStartLn, intMSSRegEndLn
+        Dim objTempFolder, objF
+        Dim strMSSRegistryFile, strMSSStringFile
+        Dim strMSSRegistryPatrn, strMSSStringPatrn
+        Dim strSceOutFile
+
+        Dim objReg, subkey
+        Dim strKeyPath
+        Dim SubKeysArray(500)
+
+        Set objFSO = CreateObject("Scripting.FileSystemObject")
+        Set objShell = WScript.CreateObject("WScript.Shell")
+
+        Set objWMIService = GetObject("winmgmts:"& _
+            "{impersonationLevel=impersonate}!\\"& _
+            "." & "\root\cimv2")
+
+        Set objWMIReg = GetObject("winmgmts:"& _
+            "{impersonationLevel=impersonate}!\\"& _
+            "." & "\root\default:StdRegProv")
+
+
+        Set objNetwork = WScript.CreateObject("WScript.Network")
+
+        Set objXMLDoc = CreateObject("Microsoft.XMLDOM")
+
+        Set objArgs = WScript.Arguments
+
+        Set objEnv = objShell.Environment("Process")
+
+        strKeyPath = "Software\Microsoft\Windows NT\CurrentVersion\SeCEdit\Reg Values"
+
+        strRegKey = "HKLM\SOFTWARE\Microsoft\MMC\SnapIns\"& _
+        "{E12BBB5D-D59D-4E61-947A-301D25AE8C23}\NameString"
+
+        strUserName = objNetwork.UserName
+        strUserDomain = objNetwork.UserDomain
+
+        strWindir=objShell.ExpandEnvironmentStrings("%WinDir%")
+        strTitle="GPOPack"
+
+
+
+'=============================================================================
+'                                     Main
+'=============================================================================
+
+    Call ChkOSVersion    
+    Call ChkAdmin
+
+    If WScript.Arguments.Named.Exists("COMPARE") Then
+        Call CompareLocalPolicy
+        Call CleanupandExit
+    End If
+            
+    If Not(WScript.Arguments.Named.Exists("Silent")) Then
+        strMessage = "Are you sure you want to apply the settings in this GPOPack?"
+        intUserChoice = MsgBox(strMessage, vbYesNoCancel + vbCritical, strTitle)
+        If (intUserChoice=6) Then
+            If WScript.Arguments.Named.Exists("MLGPO") Then
+	            Call ConfigureMLGPO
+            Else
+	            Call ConfigureLocalPolicy
+            End If
+        Else
+            Call CleanupandExit    
+        End If
+    Else
+        If WScript.Arguments.Named.Exists("MLGPO") Then
+            Call ConfigureMLGPO
+        Else
+            Call ConfigureLocalPolicy
+        End If
+    End If
+
+    Call CleanupandExit
+
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   CleanupandExit
+' 
+' Description :
+'    
+'   This routine sets all objects created to "Nothing"
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************     
+    Sub CleanupandExit
+
+        Set objXMLDoc = Nothing			
+        Set objShell = Nothing
+        Set objWMIService = Nothing
+        Set objWMIReg = Nothing
+        Set objNetwork = Nothing
+        Set objFSO = Nothing
+        Set objArgs = Nothing
+        Set objEnv = Nothing
+
+        WScript.Quit(0)
+
+   End Sub
+      
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   ChkOSVersion
+' 
+' Description :
+'    
+'   This routine gets the Operating System's caption,version and Service
+'   Pack information on the host
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************     
+    Sub ChkOSVersion
+    		
+        Dim colOperatingSystems, objOperatingSystem
+        Dim colComputers, objComputer, strProductType
+
+        Set colOperatingSystems = objWMIService.ExecQuery _
+          ("Select * from Win32_OperatingSystem")
+
+        For Each objOperatingSystem in colOperatingSystems
+          strOpSys=objOperatingSystem.Caption
+          strOpVer=objOperatingSystem.Version
+          strSPMinorVer=objOperatingSystem.ServicePackMinorVersion
+          strSPMajorVer=objOperatingSystem.ServicePackMajorVersion
+          strProductType=objOperatingSystem.ProductType
+        Next
+        		
+        strComputerRole = NULL
+
+        Set colComputers = objWMIService.ExecQuery _
+          ("Select DomainRole from Win32_ComputerSystem")
+        For Each objComputer in colComputers
+          Select Case objComputer.DomainRole 
+            Case 0 
+              strComputerRole = "Standalone"
+            Case 1        
+              strComputerRole = "Member"
+            Case 2 
+              strComputerRole = "Standalone"
+            Case 3        
+              strComputerRole = "Member"
+          End Select
+        Next	
+
+        'Checks whether the operating system is Windows XP or _
+        'Windows Server 2003 or Windows Vista or Windows Server 2008 or _
+        'Windows 7 or Windows Server 2008 R2
+
+        If(Left(strOpVer,3) = "6.2") and (strProductType <> "1") then 
+	   strOS = "WS12"
+        ElseIf(Left(strOpVer,3) = "6.2") and (strProductType = "1") then 
+	   strOS = "Win8"
+        ElseIf(Left(strOpVer,3) = "6.1") and (strProductType <> "1") then 
+	   strOS = "WS08R2"
+        ElseIf(Left(strOpVer,3) = "6.1") and (strProductType = "1") then 
+	   strOS = "Win7"
+        ElseIf(Left(strOpVer,3) = "6.0") and (strProductType <> "1") then 
+	   strOS = "WS08"
+        ElseIf(Left(strOpVer,3) = "6.0") and (strProductType = "1") then 
+	   strOS = "VISTA"
+        ElseIf(Left(strOpVer,3) = "5.2") and (strProductType <> "1") then
+	   strOS = "WS03"
+        ElseIf(Left(strOpVer,3) = "5.2") and (strProductType = "1") then 
+	   strOS = "XP"
+        ElseIf(Left(strOpVer,3) = "5.1") and (strProductType = "1") then 
+	   strOS = "XP"
+        Else
+          If Not(WScript.Arguments.Named.Exists("Silent")) Then
+            strMessage = "GPOPacks only work on Windows XP Professional, Windows Server 2003, Windows Vista, Windows Server 2008, Windows 7, Windows Server 2008 R2, Windows 8, or Windows Server 2012"
+            Call MsgBox(strMessage, vbOKOnly + vbCritical, strTitle)
+	  End If
+          Call CleanupandExit  
+        End If
+
+    End Sub      
+      
+      
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   ChkAdmin
+' 
+' Description :
+'    
+'   This routine checks if the user is a local administrator         
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************      
+    Sub ChkAdmin
+
+        Dim strKeyPath, bIsAdmin
+
+        CONST KEY_SET_VALUE = &H0002
+        CONST HKEY_LOCAL_MACHINE = &H80000002
+
+        strKeyPath = "SYSTEM\CurrentControlSet"
+
+        objWMIReg.CheckAccess HKEY_LOCAL_MACHINE, strKeyPath, KEY_SET_VALUE, _
+          bIsAdmin
+
+        If Not(WScript.Arguments.Named.Exists("Silent")) Then
+          If Not(bIsAdmin) Then
+            strMessage = "Tool requires administrator privileges!"
+            Call MsgBox(strMessage, vbOKOnly + vbCritical, strTitle)
+            Call CleanupandExit
+          End If
+        End If 
+
+    End Sub
+      
+
+'===================================================================================
+'	Feature #1 - Apply of a GPO Backup to the Local Policy of a computer
+'	-------
+'	
+'===================================================================================
+  
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   ConfigureLocalPolicy
+' 
+' Description :
+'    
+'   This routine applies a GPO backup to the local policy of a computer.          
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************  
+    Sub ConfigureLocalPolicy
+
+        dim strTempdir, objFileCopy, strTemp, i
+
+        blnOK = False
+
+        If WScript.Arguments.Named.Exists("Path") and objFSO.FolderExists(WScript.Arguments.Named("Path")) Then
+		    objShell.CurrentDirectory = WScript.Arguments.Named("Path")
+	    End If
+
+        strBackupGPOPath = "."
+        
+        If objFSO.FolderExists(strBackupGPOPath) Then 
+
+            strInfPath = strBackupGPOPath & "\DomainSysvol\GPO\Machine\microsoft\windows nt\SecEdit\GptTmpl.inf"
+            strMachinePOLPath = strBackupGPOPath &  "\DomainSysvol\GPO\Machine\registry.pol"
+            strUserPOLPath = strBackupGPOPath & "\DomainSysvol\GPO\User\registry.pol"
+            strCsvPath = strBackupGPOPath & "\DomainSysvol\GPO\Machine\microsoft\windows nt\Audit\Audit.csv"
+
+            If objFSO.FileExists(strInfPath) Then
+            blnOK = True
+              If (strOS = "XP") or (strOS = "WS03") Then
+                Call objShell.Run("SECEDIT.EXE /configure /db " & chr(34) & _
+                  "LocalSecurityDB.sdb" & chr(34) & " /cfg " & chr(34) & _
+                  strInfPath & chr(34), 0, True)
+                Call objShell.Run("REG DELETE" & chr(34) & _
+                  "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"& _
+                  "\MyComputer\NameSpace\DelegateFolders\"& _
+                  "{59031a47-3f72-44a7-89c5-5595fe6b30ee}" & chr(34) & "/f ", 0, _
+                  True)      
+              Else
+                Call objShell.Run("SECEDIT.EXE /configure /db " & chr(34) & _
+                  "LocalSecurityDB.sdb" & chr(34) & " /cfg " & chr(34) & _
+                  strInfPath & chr(34) & " /Overwrite /quiet", 0, True)
+              End If
+            End If
+
+            If objFSO.FileExists(strMachinePOLPath) Then
+	          blnOK = True
+              Call objShell.Run("LocalPol.EXE -m -f " & chr(34) & _
+                strMachinePolPath & chr(34), 0, True)
+            End If
+
+            If objFSO.FileExists(strUserPOLPath) Then
+	          blnOK = True
+              Call objShell.Run("LocalPol.EXE -u -f " & chr(34) & _
+                strUserPolPath & chr(34), 0, True)
+            End If
+
+	        If objFSO.FileExists(strWindir & "\System32\GroupPolicy\gpt.ini") Then
+		        set objFile = objFSO.OpenTextFile(strWindir & "\System32\GroupPolicy\gpt.ini", ForReading)
+		        Dim arrFileLines()
+
+		        strGPTVersion = ""
+		        strMachineExtensions = ""
+		        strUserExtensions = ""
+
+        		i = 0
+        		Do Until objFile.AtEndOfStream
+		        Redim Preserve arrFileLines(i)
+		        arrFileLines(i) = objFile.ReadLine
+                
+		        strTemp = Left(arrFileLines(i),8)
+		        Select Case strTemp
+			        Case "Version="
+				        strGPTVersion = arrFileLines(i)
+			        Case "gPCMachi"
+    				    strMachineExtensions = arrFileLines(i)
+	    		    Case "gPCUserE"	
+		    		    strUserExtensions = arrFileLines(i)
+		        End Select	
+
+		        i = i + 1
+		        Loop	
+		        objFile.Close
+
+		        objFSO.DeleteFile(strWindir & "\System32\GroupPolicy\gpt.ini")
+
+		        objFSO.CreateTextFile(strWindir & "\System32\GroupPolicy\gpt.ini")			
+		        set objFile = objFSO.OpenTextFile(strWindir & "\System32\GroupPolicy\gpt.ini", ForWriting)
+		        objFile.Writeline "[General]"
+		        If Len(strMachineExtensions) > 25 Then
+			        objFile.Writeline "gPCMachineExtensionNames=[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{3610eda5-77ef-11d2-8dc5-00c04fa31a66}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{426031c0-0b47-4852-b0ca-ac3d37bfcb39}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4bcd6cde-777b-48b6-9804-43568e23545d}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4CFB60C1-FAA6-47f1-89AA-0B18730C9FD3}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7933F41E-56F8-41d6-A31C-4148A711EE93}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7b849a69-220f-451e-b3fe-2cb811af94ae}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{C631DF4C-088F-4156-B058-4375F0853CD8}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{cdeafc3d-948d-49dd-ab12-e578ba4af7aa}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{CF7639F3-ABA2-41DB-97F2-81E2C5DBFC5D}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]"
+		        Else
+			        objFile.Writeline strMachineExtensions
+		        End If
+		        objFile.Writeline strGPTVersion
+		        If Len(strUserExtensions) > 22 Then
+			        objFile.Writeline "gPCUserExtensionNames=[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4CFB60C1-FAA6-47f1-89AA-0B18730C9FD3}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7933F41E-56F8-41d6-A31C-4148A711EE93}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7b849a69-220f-451e-b3fe-2cb811af94ae}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{C631DF4C-088F-4156-B058-4375F0853CD8}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{CF7639F3-ABA2-41DB-97F2-81E2C5DBFC5D}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]"
+		        Else
+			        objFile.Writeline strUserExtensions
+		        End If	
+		            objFile.Close
+	            End If
+            		
+                If (strOS <> "XP") and (strOS <> "WS03") Then
+                  If objFSO.FileExists(strCsvPath) Then
+                    blnOK = True
+                    Set objFileCopy = objFSO.GetFile(strCsvPath)
+
+                    If (strOS = "Win7") or (strOS = "WS08R2") or (strOS = "Win8") or (strOS = "WS12") Then
+                        Dim arrDirs, strGPOAuditDir, strDirBuild
+
+                        strGPOAuditDir = objFSO.GetAbsolutePathName( strWindir & "\System32\GroupPolicy\Machine\microsoft\windows nt\Audit" )
+                        arrDirs = Split( strGPOAuditDir, "\" )
+
+                        For i = 1 to Ubound( arrDirs )
+                          strDirBuild = objFSO.BuildPath( strDirBuild, arrDirs(i) )
+                            If Not objFSO.FolderExists( left(strWinDir,3) & strDirBuild ) Then 
+                              objFSO.CreateFolder (left(strWinDir,3) & strDirBuild)
+                            End If
+                        Next
+
+		                If objFSO.FileExists (strGPOAuditDir & "\Audit.csv") Then
+        	                     Call objFSO.DeleteFile(strGPOAuditDir & "\Audit.csv",True)
+	  	                End If
+
+	                    objFileCopy.Copy(strGPOAuditDir & "\Audit.csv")
+
+		                If objFSO.FileExists (strGPOAuditDir & "\Audit.csv") Then
+                            If (objFSO.GetFile(strGPOAuditDir & "\Audit.csv").Attributes mod 2 = 1) Then  
+        	    	           objFSO.GetFile(strGPOAuditDir & "\Audit.csv").Attributes = objFSO.GetFile(strGPOAuditDir & "\Audit.csv").Attributes-1
+                            End If
+	  	                End If
+
+                    End If
+
+		            strTempdir=objShell.ExpandEnvironmentStrings("%TEMP%")
+        
+                    If objFSO.FileExists (strTempdir & "\Audit.csv") Then
+        	            Call objFSO.DeleteFile(strTempdir & "\Audit.csv",True)
+	  	            End If
+
+                    objFileCopy.Copy(strTempdir & "\Audit.csv")
+
+                    Call Replacetxt(",System,", "PC,System,",strTempdir & "\Audit.csv")
+                    Call Replacetxt(",,Option", "PC,,Option",strTempdir & "\Audit.csv")
+                    Call Replacetxt(",,FileGlobalSacl", "PC,,FileGlobalSacl",strTempdir & "\Audit.csv")
+                    Call Replacetxt(",,RegistryGlobalSacl", "PC,,RegistryGlobalSacl",strTempdir & "\Audit.csv")
+                    Call objShell.Run("AUDITPOL /RESTORE /FILE:" & chr(34) & strTempdir & "\Audit.csv" & chr(34), 0, True)
+
+		            If objFSO.FileExists (strTempdir & "\Audit.csv") Then
+        	                 Call objFSO.DeleteFile(strTempdir & "\Audit.csv",True)
+	  	            End If
+                End If   
+            End If
+        End If
+
+        If Not(WScript.Arguments.Named.Exists("Silent")) Then
+	        If (blnOk = True) Then
+                strMessage = "Applied GPOPack to Local Policy"
+          	    Call MsgBox(strMessage, vbOKOnly + vbInformation, strTitle)
+	        Else
+          	    strMessage = "Empty\invalid GPOPack, or incorrect Path specified"
+          	    Call MsgBox(strMessage, vbOKOnly + vbCritical, strTitle)
+	        End If
+	    End If			
+    End Sub
+
+'===================================================================================
+'	Feature #1b - Apply a GPO Backup to MLGPO
+'	-------
+'	
+'===================================================================================
+  
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   ConfigureMLGPO
+' 
+' Description :
+'    
+'   This routine applies a GPO backup to the MLGPO of a computer
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************  
+    Sub ConfigureMLGPO
+
+        Dim strSID, colLocalAccounts, objLocalAccount, strAccount, blnGroup
+        Dim arrDirs, i, strMLGPODir, strDirBuild, objFileCopy
+
+        If WScript.Arguments.Named.Exists("Path") and objFSO.FolderExists(WScript.Arguments.Named("Path")) Then
+            objShell.CurrentDirectory = WScript.Arguments.Named("Path")
+        End If
+
+        strBackupGPOPath = "."
+
+        strAccount = WScript.Arguments.named("MLGPO")
+        strSID = ""
+
+        Set colLocalAccounts = objWMIService.ExecQuery _
+        ("Select * from Win32_Account Where LocalAccount = True")
+        For Each objLocalAccount in colLocalAccounts
+            If UCase(objLocalAccount.Name) = Ucase(strAccount) Then
+                strSID = objLocalAccount.SID
+            End If
+        Next
+
+        Set colLocalAccounts = objWMIService.ExecQuery _
+        ("Select * from Win32_Group Where LocalAccount = True")
+        For Each objLocalAccount in colLocalAccounts
+            If UCase(objLocalAccount.Name) = Ucase(strAccount) Then
+                blnGroup = True
+            End If
+        Next
+
+        If UCase(strAccount) = UCase("Non-Administrators") Then
+            strSID = "S-1-5-32-545"
+        End If	
+
+        If strSID = "" Then
+            strMessage = "Local Account: " & strAccount & " not found!"
+            WScript.echo
+            WScript.echo strMessage
+            WScript.echo "Please specify a valid local account, or one of the"
+            WScript.echo "following local groups: Administrators or Users"
+            WScript.echo
+            Call CleanupandExit 
+        End If	
+
+
+        If (strSID <> "S-1-5-32-544") and (strSID <> "S-1-5-32-545") and (blnGroup = True) Then
+            strMessage = "Local Group: " & strAccount & " is not supported!"
+            WScript.echo
+            WScript.echo strMessage
+            WScript.echo "MLGPO only supports Administrators and Non-Administrators(Users)"
+            WScript.echo "You must specify Administrators, Non-Administrators, or Users"
+            WScript.echo 
+            Call CleanupandExit
+        End If	
+
+
+        If (strOS = "Win7") or (strOS = "Vista") or (strOS = "WS08R2") or (strOS = "WS08") or (strOS = "Win8") or (strOS = "WS12") Then
+
+            If objFSO.FileExists(strBackupGPOPath & "\DomainSysvol\GPO\User\registry.pol") Then 
+
+                Set objFileCopy = objFSO.GetFile(strBackupGPOPath & "\DomainSysvol\GPO\User\registry.pol")
+
+                strMLGPODir = objFSO.GetAbsolutePathName(strWindir & "\System32\GroupPolicyUsers\" & strSID)
+                arrDirs = Split( strMLGPODir & "\User", "\" )
+
+                For i = 1 to Ubound( arrDirs )
+                    strDirBuild = objFSO.BuildPath( strDirBuild, arrDirs(i) )
+                If Not objFSO.FolderExists( left(strWinDir,3) & strDirBuild ) Then 
+                    objFSO.CreateFolder (left(strWinDir,3) & strDirBuild)
+                End If
+                Next
+
+                If objFSO.FileExists(strMLGPODir & "\User\registry.pol") Then		
+                    Call objFSO.DeleteFile(strMLGPODir & "\User\registry.pol",True)
+                End If	
+
+                call objFileCopy.Copy(strMLGPODir & "\User\registry.pol")
+
+                If objFSO.FileExists (strMLGPODir & "\User\registry.pol") Then
+                    If (objFSO.GetFile(strMLGPODir & "\User\registry.pol").Attributes mod 2 = 1) Then  
+                        objFSO.GetFile(strMLGPODir & "\User\registry.pol").Attributes = objFSO.GetFile(strMLGPODir & "\User\registry.pol").Attributes-1
+	                End If
+                End If
+			
+                If Not objFSO.FolderExists(strMLGPODir & "\User\Scripts") Then
+                    objFSO.CreateFolder(strMLGPODir & "\User\Scripts")
+                End If
+                If Not objFSO.FolderExists(strMLGPODir & "\User\Scripts\Logoff") Then
+                    objFSO.CreateFolder(strMLGPODir & "\User\Scripts\Logoff")
+                End If
+                If Not objFSO.FolderExists(strMLGPODir & "\User\Scripts\Logon") Then
+                    objFSO.CreateFolder(strMLGPODir & "\User\Scripts\Logon")
+                End If
+                objFSO.GetFolder(strMLGPODir).attributes = 2	
+
+                If strSID = "S-1-5-32-544" then
+                    Call objShell.Run("ICACLS " & chr(34) & strMLGPODir  & _
+		                chr(34) & " /inheritance:r /GRANT:R *S-1-5-18:(OI)(CI)F /GRANT:R *S-1-5-32-544:(OI)(CI)F", 0, True)
+
+                else
+                Call objShell.Run("ICACLS " & chr(34) & strMLGPODir & _
+                        chr(34) & " /inheritance:r /GRANT:R *S-1-5-18:(OI)(CI)F /GRANT:R *S-1-5-32-544:(OI)(CI)F /GRANT:R *" & strSID & ":(OI)(CI)RX", 0, True)
+
+                End If
+
+                If Not(WScript.Arguments.Named.Exists("Silent")) Then
+                    strMessage = strAccount &" MLGPO... Modified!"
+                    WScript.echo
+                    WScript.echo strMessage
+                    WScript.echo
+                End If                     
+
+                Call objShell.Run("ICACLS " & chr(34) & strMLGPODir & "\*" & _
+                        chr(34) & " /inheritance:e", 0, True)
+			
+                If Not objFSO.FileExists(strMLGPODir & "\gpt.ini") Then
+                    objFSO.CreateTextFile(strMLGPODir & "\gpt.ini")			
+                    set objFile = objFSO.OpenTextFile(strMLGPODir & "\gpt.ini", ForWriting)
+                    objFile.Writeline "[General]"
+                    objFile.Writeline "gPCFunctionalityVersion=2"
+                    objFile.Writeline "gPCUserExtensionNames=[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4CFB60C1-FAA6-47f1-89AA-0B18730C9FD3}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7933F41E-56F8-41d6-A31C-4148A711EE93}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7b849a69-220f-451e-b3fe-2cb811af94ae}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{C631DF4C-088F-4156-B058-4375F0853CD8}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{CF7639F3-ABA2-41DB-97F2-81E2C5DBFC5D}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]"
+                    objFile.Writeline "Version=65536"
+                    objFile.Close	
+                Else
+                    set objFile = objFSO.OpenTextFile(strMLGPODir & "\gpt.ini", ForReading)
+                    Dim arrFileLines()
+                    i = 0
+                    Do Until objFile.AtEndOfStream
+                    Redim Preserve arrFileLines(i)
+                    arrFileLines(i) = objFile.ReadLine
+                    i = i + 1
+                    Loop	
+                    objFile.Close
+
+                    objFSO.DeleteFile(strMLGPODir & "\gpt.ini")
+
+                    If (inStr(arrFileLines(i-1), "Version=") = 0) Then 
+                        objFSO.CreateTextFile(strMLGPODir & "\gpt.ini")			
+                        set objFile = objFSO.OpenTextFile(strMLGPODir & "\gpt.ini", ForWriting)
+                        objFile.Writeline "[General]"
+                        objFile.Writeline "gPCFunctionalityVersion=2"
+                        objFile.Writeline "gPCUserExtensionNames=[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4CFB60C1-FAA6-47f1-89AA-0B18730C9FD3}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7933F41E-56F8-41d6-A31C-4148A711EE93}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7b849a69-220f-451e-b3fe-2cb811af94ae}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{C631DF4C-088F-4156-B058-4375F0853CD8}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{CF7639F3-ABA2-41DB-97F2-81E2C5DBFC5D}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]"
+                        objFile.Writeline "Version=65536"
+                        objFile.Close	
+                    Else
+					
+                        Dim intNewVersion
+                        If (inStr(arrFileLines(i-1), "gPCFunctionalityVersion=") = 0) Then
+	                        intNewVersion = (Replace(arrFileLines(i-1),"Version=","")) + 65536 
+                        Else
+	                        intNewVersion = 65536
+                        End If
+                    objFSO.CreateTextFile(strMLGPODir & "\gpt.ini")			
+                    set objFile = objFSO.OpenTextFile(strMLGPODir & "\gpt.ini", ForWriting)
+                    objFile.Writeline "[General]"
+                    objFile.Writeline "gPCFunctionalityVersion=2"
+                    objFile.Writeline "gPCUserExtensionNames=[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{4CFB60C1-FAA6-47f1-89AA-0B18730C9FD3}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7933F41E-56F8-41d6-A31C-4148A711EE93}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{7b849a69-220f-451e-b3fe-2cb811af94ae}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{C631DF4C-088F-4156-B058-4375F0853CD8}{D02B1F72-3407-48AE-BA88-E8213C6761F1}][{CF7639F3-ABA2-41DB-97F2-81E2C5DBFC5D}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]"
+                    objFile.Writeline "Version=" & intNewVersion 
+                    objFile.Close
+                    End  If
+                End If
+            Else
+                strMessage = "GPO Backup in " & strBackupGPOPath & " contains no User settings!"
+                WScript.echo
+                WScript.echo strMessage
+                WScript.echo
+            End If
+        Else
+
+            strMessage = "Windows XP and Windows Server 2003 do not support MLGPO!!"
+            WScript.echo
+            WScript.echo strMessage
+            WScript.echo 
+
+        End If
+
+    End Sub
+
+'===================================================================================
+'	Feature #1a - Export the Local Policy of a computer to a GPO backup
+'	-------
+'	
+'===================================================================================
+
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   ExportLocalPolicy
+' 
+' Description :
+'    
+'   This routine exports the Local Policy of computers to a GPO backup        
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************  
+    Sub ExportLocalPolicy
+
+        dim strComputer, strTempdir, objFileCopy
+        
+        dim colOperatingSystems, objOperatingSystem
+        dim strHour, strMinutes, strSeconds
+        dim strYear, strMonth, strDay
+	    dim blnKeyfound
+
+        'Call ReadPathFromXML
+
+        blnOK = False
+	    
+        'objShell.CurrentDirectory = strAbsoluteSecurityTemplates
+        strBackupGPOPath = objShell.CurrentDirectory
+
+        If objFSO.FolderExists(strBackupGPOPath) Then 
+        
+
+                'strMessage = DisplayMessage(conLABEL_CODE019)
+                WScript.echo
+                WScript.echo strMessage
+                WScript.echo     
+
+                If  ((WScript.Arguments.Named.Exists("GPOPack")) and (WScript.Arguments.Named("GPOPack") <> "")) or (strGPOPack <> "") Then
+        			if strGPOPack <> "" then
+		        		strGuid = strGPOPack
+			        else
+				        strGUID = WScript.Arguments.Named("GPOPack")
+			        end if
+		        Else
+		            strGUID = left(createobject("Scriptlet.Typelib").guid,38)
+		        End If
+        
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID)
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\User")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft\windows nt")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft\windows nt\SecEdit")
+                objFSO.CreateFolder(strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft\windows nt\Audit")
+
+                strInfPath = strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft\windows nt\SecEdit\GptTmpl.inf"
+                strMachinePOLPath = strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\registry.pol"
+                strUserPOLPath = strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\User\registry.pol"
+                strCsvPath = strBackupGPOPath & "\" & strGUID & "\DomainSysvol\GPO\Machine\microsoft\windows nt\Audit\audit.csv"
+
+                Call objFSO.CopyFile(".\Backup.XML",strBackupGPOPath & "\" & strGUID & "\Backup.XML")
+                Call objFSO.CopyFile(".\bkupInfo.XML",strBackupGPOPath & "\" & strGUID & "\bkupInfo.XML")
+                
+                Call objFSO.CopyFile(".\Registry.pol",strMachinePOLPath)
+                Call objFSO.CopyFile(".\Registry.pol",strUserPOLPath)
+                Call objFSO.CreateTextFile(strInfPath,True)
+                Call objFSO.CreateTextFile(strCsvPath,True)
+                
+                Set colOperatingSystems = objWMIService.ExecQuery _
+                 ("Select * from Win32_UTCTime")
+                For Each objOperatingSystem in colOperatingSystems
+                  strHour=objOperatingSystem.Hour
+                  strMinutes=objOperatingSystem.Minute
+                  strSeconds=objOperatingSystem.Second
+                  strYear=objOperatingSystem.Year
+                  strMonth=objOperatingSystem.Month
+                  strDay=objOperatingSystem.Day
+                Next
+
+                Call Replacetxt("[CDATA[2010-01-01T12:00:00]]","[CDATA[" & strYear & "-" & strMonth & "-" & strDay & "T" & strHour & ":" & strMinutes & ":" & strSeconds & "]]",strBackupGPOPath & "\" & strGUID & "\bkupInfo.XML")
+
+                If objFSO.FileExists(strWindir & "\System32\GroupPolicy\Machine\registry.pol") Then		
+                  Call objFSO.CopyFile(strWindir & "\System32\GroupPolicy\Machine\registry.pol",strMachinePOLPath)
+                End If	
+
+                If objFSO.FileExists(strWindir & "\System32\GroupPolicy\User\registry.pol") Then		
+                  Call objFSO.CopyFile(strWindir & "\System32\GroupPolicy\User\Registry.pol",strUserPOLPath)
+                End If	
+
+                Call objShell.Run("SECEDIT.EXE /export /cfg " & chr(34) & strInfPath & chr(34), 0, True)
+     
+                If (strOS <> "XP") and (strOS <> "WS03") Then
+                    objFSO.DeleteFile(strCsvPath)
+                    Call objShell.Run("AUDITPOL.EXE /BACKUP /FILE:" & chr(34) & strCSVPath & chr(34), 0, True)
+    		        If objFSO.FileExists(strCSVPath) = False Then
+	    	    	    Call objFSO.CreateTextFile(strCsvPath,True)
+		            End If	 	
+                    strComputer=objShell.ExpandEnvironmentStrings("%COMPUTERNAME%")
+                    Call Replacetxt(strComputer & ",System,", ",System,",strCSVPath)
+                    Call Replacetxt(strComputer & ",,", ",,",strCSVPath)
+                End If
+
+		        If WScript.Arguments.Named.Exists("GPOPack") Then
+                    Call objFSO.CopyFile(".\GPOPack.wsf",strBackupGPOPath & "\" & strGUID & "\GPOPack.wsf")
+                    Call objFSO.CopyFile(".\LocalPol.exe",strBackupGPOPath & "\" & strGUID & "\LocalPol.exe")
+		            If strOS = "XP" then	
+                    	Call objFSO.CopyFile(".\XPG\XP Default Security.sdb",strBackupGPOPath & "\" & strGUID & "\LocalSecurityDB.sdb")
+		            Else	
+		    	        Call objFSO.CopyFile(".\LocalSecurityDB.sdb",strBackupGPOPath & "\" & strGUID & "\LocalSecurityDB.sdb")
+    		        End If	
+	           End If	
+        End If
+    End Sub
+
+'*****************************************************************************
+' 
+' Routine Name:
+'
+'   CompareLocalPolicy
+' 
+' Description :
+'    
+'   This routine compares the Local Policy of a computer to a GPO backup        
+'
+' Inputs:
+'   
+'   None.
+'
+' Outputs:
+' 
+'   None.
+'*****************************************************************************  
+    Sub CompareLocalPolicy
+
+	    'Checks if Powershell 2.0 is installed
+	    strRegKey = "SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine"
+	    strRegValue = "PowerShellVersion"
+	    strValue=""
+	    objWMIReg.GetStringValue HKLM,strRegKey,strRegValue,strValue
+
+   	    If (strOS <> "Win7") and (strOS <> "WS08R2") and (strOS <> "WS12") and (strOS <> "Win8") Then
+    	        strMessage = "GPOPack.wsf /Compare is only supported on Windows 7, Windows Server 2008 R2, Windows 8, or Windows Server 2012"
+        	    WScript.echo
+	            Call MsgBox(strMessage, vbOKOnly + vbCritical, strTitle)
+        	    WScript.echo
+        ElseIF (strValue <> "2.0") Then
+	            strMessage = "GPOPack.wsf /Compare requires Powershell 2.0"
+        	    WScript.echo
+	            Call MsgBox(strMessage, vbOKOnly + vbCritical, strTitle)
+        	    WScript.echo
+	    Else
+		        strGPOPack = "LocalConfig"
+
+	            WScript.echo
+	            WScript.echo "Running Powershell compare..."
+
+	            Call ExportLocalPolicy
+
+	            call objShell.Run ("powershell.exe -noprofile -noexit -command .\CompareLocalConfig.ps1" & chr(34), 1, False)
+
+	            WScript.echo 
+	            Wscript.echo "Compare results saved to " & strBackupGPOPath
+	            WScript.echo 
+	            WScript.echo
+	    End If
+
+    End Sub
+    
+    
+'*****************************************************************************
+' 
+' Function Name:
+'
+'   ReplaceTxt
+' 
+' Description :
+'    
+'   This routine reads a text file, and replaces text with specified text.
+'
+' Inputs:
+'   
+'   Filename, string to replace, replacement text
+'
+' Outputs:
+' 
+'   Modified file with replaced text
+'*****************************************************************************        
+    Function ReplaceTxt(Find, ReplaceWith, FileName)
+
+        dim FileContents, dFileContents
+                
+        'Read source text file
+        FileContents = GetFile(FileName)
+
+        'replace all string In the source file
+        dFileContents = replace(FileContents, Find, ReplaceWith, 1, -1, 1)
+
+        'Compare source And result
+        if dFileContents <> FileContents Then
+          'write result If different
+          WriteFile FileName, dFileContents
+        End If
+
+        End Function
+
+        'Read text file
+        function GetFile(FileName)
+
+        If FileName<>"" Then
+          Dim FS, FileStream
+          Set FS = CreateObject("Scripting.FileSystemObject")
+          on error resume Next
+          Set FileStream = FS.OpenTextFile(FileName)
+          GetFile = FileStream.ReadAll
+        End If
+
+        End Function
+
+        'Write string As a text file.
+        function WriteFile(FileName, Contents)
+        Dim OutStream, FS
+
+        on error resume Next
+        Set FS = CreateObject("Scripting.FileSystemObject")
+        Set OutStream = FS.OpenTextFile(FileName, 2, True)
+        OutStream.Write Contents
+        
+    End Function
+
+
+    ]]> 
+    </script>
+  </job>
+</package>
