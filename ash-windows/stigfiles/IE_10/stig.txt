@@ -1,0 +1,223 @@
+;Internet Explorer must be configured to make Proxy settings per user
+;SV-40555r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
+ProxySettingsPerUser
+DWORD:1
+
+;Automatic configuration of Internet Explorer connections must be disallowed
+;SV-40530r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+Autoconfig
+DWORD:1
+
+;Participation in the Customer Experience Improvement Program must be disallowed
+;SV-40531r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\SQM
+DisableCustomerImprovementProgram
+DWORD:0
+
+;Active content from CDs must be disallowed to run on user machines
+;SV-40626r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings
+LOCALMACHINE_CD_UNLOCK
+DWORD:0
+
+;Third-party browser extensions must be disallowed
+;SV-40628r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+Enable Browser Extensions
+SZ:no
+
+;Java permissions must be disallowed (Locked Down Internet zone)
+;SV-40641r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\3
+1C00
+DWORD:0
+
+;MIME sniffing must be disallowed (Internet zone)
+;SV-40645r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2100
+DWORD:3
+
+;MIME sniffing must be disallowed (Restricted Sites zone)
+;SV-40647r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+2100
+DWORD:3
+
+;First-Run Opt-In ability must be disallowed (Internet zone)
+;SV-40648r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1208
+DWORD:3
+
+;First-Run Opt-In ability must be disallowed (Restricted Sites zone)
+;SV-40649r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1208
+DWORD:3
+
+;The URL to be displayed for checking updates to Internet Explorer and Internet Tools must be about:blank
+;SV-40680r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+Update_Check_Page
+SZ:
+
+;First Run Wizard settings must be established for a home page
+;SV-40701r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DisableFirstRunCustomize
+DWORD:1
+
+;Managing SmartScreen Filter use must be enforced
+;SV-40704r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\PhishingFilter
+EnabledV9
+DWORD:0
+
+;Updates to website lists from Microsoft must be disallowed
+;SV-40706r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\BrowserEmulation
+MSCompatibilityMode
+DWORD:0
+
+;Browser must retain history on exit
+;SV-40707r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+ClearBrowsingHistoryOnExit
+DWORD:0
+
+;Deleting web sites that the user has visited must be disallowed
+;SV-40708r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+CleanHistory
+DWORD:0
+
+;InPrivate Browsing must be disallowed
+;SV-40711r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+EnableInPrivateBrowsing
+DWORD:0
+
+;Security Warning for unsafe files must be set to prompt (Internet zone)
+;SV-40732r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1806
+DWORD:1
+
+;Security Warning for unsafe files must be disallowed (Restricted Sites zone)
+;SV-40732r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1806
+DWORD:3
+
+;Status bar updates via script must be disallowed (Internet zone)
+;SV-40742r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2103
+DWORD:3
+
+;Status bar updates via script must be disallowed (Restricted Site zone)
+;SV-40747r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+2103
+DWORD:3
+
+;Add-on performance notifications must be disallowed
+;SV-40754r1_rule
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\Ext
+DisableAddonLoadTimePerformanceNotifications
+DWORD:1
+
+;Suggested Sites functionality must be disallowed
+;SV-40759r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Suggested Sites
+Enabled
+DWORD:0
+
+;Automatic checking for Internet Explorer updates must be disallowed
+;SV-40762r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+NoUpdateCheck
+DWORD:1
+
+;ActiveX opt-in prompt must be disallowed
+;SV-40764r1_rule
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\Ext
+NoFirsttimeprompt
+DWORD:1
+
+;Do Not Track header must be sent
+;SV-45046r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DoNotTrack
+DWORD:1
+
+;Ability to install new versions of Internet Explorer automatically must be disallowed
+;SV-45063r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+EnableAutoUpgrade
+DWORD:0
+
+;Displaying of the reveal password button must be disallowed
+;SV-45140r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DisablePasswordReveal
+DWORD:1
+
+;Internet Explorer accelerator functionality must be disallowed
+;SV-45217r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Activities
+NoActivities
+DWORD:1
+
+;Legacy filter functionality must be disallowed (Internet zone)
+;SV-45217r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+270B
+DWORD:3
+
+;Legacy filter functionality must be disallowed (Restricted Sites zone)
+;SV-45270r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+270B
+DWORD:3
+
+;URL Suggestions must be disallowed
+;SV-45454r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\DomainSuggestion
+Enabled
+DWORD:0
