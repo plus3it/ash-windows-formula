@@ -1,5 +1,6 @@
 {% from "ash-windows/map.jinja" import ash with context %}
 
+{% if salt['cmd.run']('$($PSVersionTable.CLRVersion.Major) -ge 4', shell='powershell') == 'True' %}
 #Install and Apply EMET Settings
 Emet:
   pkg:
@@ -21,3 +22,4 @@ EMET.adml:
     - source: {{ ash.emet_adml_source }}
     - require:
       - pkg: Emet
+{% endif %}
