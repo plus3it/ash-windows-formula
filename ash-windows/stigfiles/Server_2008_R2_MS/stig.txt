@@ -260,6 +260,13 @@ SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
 LogonType
 DWORD:0
 
+;Attachments will be prevented from being downloaded from RSS feeds.
+;SV-32416r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Feeds
+DisableEnclosureDownload
+DWORD:1
+
 ;File Explorer shell protocol must run in protected mode
 ;CCE-23923-6:
 Computer
