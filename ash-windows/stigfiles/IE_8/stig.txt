@@ -1,0 +1,342 @@
+;Internet Explorer must be configured to make Proxy settings per user
+;SV-40555r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
+ProxySettingsPerUser
+DWORD:1
+
+;The Userdata persistence is not set properly for the Internet Zone
+;SV-25626r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1606
+DWORD:3
+
+;The Java Permissions is not set properly for the Local Zone
+;SV-25627r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1
+1C00
+DWORD:65536
+
+;The Java Permissions is not set properly for the Trusted Sites Zone
+;SV-25627r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2
+1C00
+DWORD:65536
+
+;The Userdata persistence is not set properly for the Restricted Sites Zone
+;SV-25626r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1606
+DWORD:3
+
+;Automatic configuration of Internet Explorer is not disabled
+;SV-40530r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+Autoconfig
+DWORD:1
+
+;Participation in the Customer Experience Improvement Program must be disallowed
+;SV-40531r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\SQM
+DisableCustomerImprovementProgram
+DWORD:0
+
+;Active content from CDs must be disallowed to run on user machines
+;SV-40626r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings
+LOCALMACHINE_CD_UNLOCK
+DWORD:0
+
+;Third-party browser extensions must be disallowed
+;SV-40628r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+Enable Browser Extensions
+SZ:no
+
+;Check for signatures on downloaded programs is not enabled
+;SV-25567r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Download
+CheckExeSignatures
+SZ:yes
+
+;Allow Scriptlets are not disabled
+;SV-25570r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1209
+DWORD:3
+
+;Java permissions for my computer are not disabled
+;SV-25578r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0
+1C00
+DWORD:0
+
+;Java permissions for my computer group policy are not disabled
+;SV-25581r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\0
+1C00
+DWORD:0
+
+;Java permissions for group policy for Local Intranet Zone are not disabled
+;SV-25580r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\1
+1C00
+DWORD:0
+
+;Java permissions for group policy for Trusted Sites Zone are not disabled
+;SV-25583r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\2
+1C00
+DWORD:0
+
+;Java permissions must be disallowed (Locked Down Internet zone)
+;SV-40641r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\3
+1C00
+DWORD:0
+
+;Java permissions for group policy for Restricted Sites Zone are not disabled
+;SV-25582r2_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\4
+1C00
+DWORD:0
+
+;Loose XAML files for Internet Zone are not disabled
+;SV-25572r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2402
+DWORD:3
+
+;Loose XAML files for Restricted Sites Zone are not disabled
+;SV-25572r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+2402
+DWORD:3
+
+;MIME sniffing must be disallowed (Internet zone)
+;SV-40645r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2100
+DWORD:3
+
+;MIME sniffing must be disallowed (Restricted Sites zone)
+;SV-40647r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+2100
+DWORD:3
+
+;First-Run Opt-In ability must be disallowed (Internet zone)
+;SV-40648r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1208
+DWORD:0
+
+;First-Run Opt-In ability must be disallowed (Restricted Sites zone)
+;SV-40649r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1208
+DWORD:0
+
+;Turn on Protected Mode Internet Zone is not enabled
+;SV-25575r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2500
+DWORD:0
+
+;Turn on Protected Mode Restricted Sites Zone is not enabled
+;SV-25575r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+2500
+DWORD:0
+
+;The URL to be displayed for checking updates to Internet Explorer and Internet Tools must be about:blank
+;SV-40680r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+Update_Check_Page
+SZ:
+
+;Turn off configuring the update check interval is not disabled
+;SV-40680r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+Update_Check_Interval
+DWORD:30
+
+;First Run Customize settings must be enabled as home page
+;SV-40701r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+DisableFirstRunCustomize
+DWORD:1
+
+;Managing SmartScreen Filter use must be enforced
+;SV-40704r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\PhishingFilter
+EnabledV8
+DWORD:0
+
+;Updates to web site lists from Microsoft must be disallowed
+;SV-40706r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\BrowserEmulation
+MSCompatibilityMode
+DWORD:0
+
+;Browser must retain history on exit
+;SV-40707r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+ClearBrowsingHistoryOnExit
+DWORD:0
+
+;Deleting web sites that the user has visited must be disallowed
+;SV-40708r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+CleanHistory
+DWORD:0
+
+;InPrivate Browsing must be disallowed
+;SV-40711r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Privacy
+EnableInPrivateBrowsing
+DWORD:0
+
+;Allow scripting of Internet Explorer web browser control property is set (Internet Zone)
+;SV-25709r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1206
+DWORD:3
+
+;Include local directory path when uploading files to a server property is properly set
+;SV-25711r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+160A
+DWORD:3
+
+;Launching programs and unsafe files property must be set to prompt (Internet zone)
+;SV-40732r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1806
+DWORD:1
+
+;Turn on Cross-Site Scripting (XSS) Filter property is properly set (Internet Zone)
+;SV-25717r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+1409
+DWORD:0
+
+;Allow scripting of Internet Explorer web browser control property is properly configured (Restricted Sites Zone)
+;SV-25719r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1206
+DWORD:3
+
+;Include local directory path when uploading files to a server is properly set (Restricted Sites Zone)
+;SV-25721r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+160A
+DWORD:3
+
+;Launching programs and unsafe files property must be set to prompt (Restricted Site zone)
+;SV-40732r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1806
+DWORD:3
+
+;Turn on Cross-Site Scripting (XSS) Filter property is properly set (Restricted Sites Zone)
+;SV-25727r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1409
+DWORD:0
+
+;Run .NET Framework-reliant components not signed with Authenticode (Internet Zone) property is properly set
+;SV-26382r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2004
+DWORD:3
+
+;Run .NET Framework-reliant components not signed with Authenticode (Internet Zone) property is properly set
+;SV-26382r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3
+2001
+DWORD:3
+
+;Allow Scriptlets (Restricted Sites Zone) property is properly set
+;SV-26389r1_rule
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4
+1209
+DWORD:3
+
+;Automatic checking for Internet Explorer updates must be disallowed
+;SV-40762r1_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main
+NoUpdateCheck
+DWORD:1
+
+;ActiveX opt-in prompt must be disallowed
+;SV-40764r1_rule
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\Ext
+NoFirsttimeprompt
+DWORD:1
+
+;Internet Explorer Processes for Information bars are enforced (Reserved)
+;SV-44854r2_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND
+(Reserved)
+SZ:1
+
+;Internet Explorer Processes for Information bars is not enforced (Explorer)
+;SV-44908r2_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND
+explorer.exe
+SZ:1
+
+;Internet Explorer Processes for Information bars is not enforced (IExplore)
+;SV-44910r2_rule
+Computer
+Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND
+iexplore.exe
+SZ:1
