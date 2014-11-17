@@ -5,7 +5,7 @@
 {% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'svcVersion') %}
 #Get the IE version from the registry for IE 8 and 9
 {% if not ie_ver %}
-	{% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version') %}
+    {% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version') %}
 {% endif %}
 
 #Define lookup dictionary of default settings for the supported Operating System versions
