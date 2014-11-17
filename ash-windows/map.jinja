@@ -1,8 +1,12 @@
 #Get the OS version from the grain 'osfullname'
 {% set os_ver = salt['grains.get']('osfullname') %}
 
-#Get the IE version from the registry
+#Get the IE version from the registry for IE 10 and 11
 {% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'svcVersion') %}
+#Get the IE version from the registry for IE 8 and 9
+{% if not ie_ver %}
+	{% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version') %}
+{% endif %}
 
 #Define lookup dictionary of default settings for the supported Operating System versions
 {% set os_lookup = { 
