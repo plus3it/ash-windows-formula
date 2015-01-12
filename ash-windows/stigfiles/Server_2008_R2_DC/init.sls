@@ -10,7 +10,7 @@ CCE-24365-9:
 CCE-10913-2:
   reg:
     - present
-    - name: 'HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\SubSystems\\Optional'
+    - name: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SubSystems\Optional'
     - value: []
     - vtype: REG_MULTI_SZ
     - reflection: False
