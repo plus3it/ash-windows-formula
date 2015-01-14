@@ -1,9 +1,6 @@
 {% from "ash-windows/map.jinja" import ash with context %}
 
 include:
-{% if ash.install_emet and ash.emet_version in salt['pkg.list_available']('Emet') %}
-  - ash-windows.emet
-{% endif %}
   - ash-windows.mss
 
 Create SCM Log Directory:

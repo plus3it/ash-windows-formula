@@ -69,8 +69,6 @@
 {% set lookup = { 'logdir'          : systemdrive + '\\Ash\\logs',
                   'salt_ash_root'   : 'salt://ash-windows',
                   'system_ash_root' : systemdrive + '\\salt\\formulas\\ash-windows-formula\\ash-windows',
-                  'install_emet'    : true,
-                  'emet_version'    : '5.0',
 } %}
 
 #Import user defined settings from pillar (if available)
@@ -79,12 +77,6 @@
 #Define the lookup table to return to the ash state files
 {% set ash = { 'common_logdir'          : lookup['logdir'],
                'delta_cwd'              : lookup['system_ash_root'] + '\\deltafiles',
-               'emet_admx_name'         : systemroot + '\\PolicyDefinitions\\EMET.admx',
-               'emet_admx_source'       : lookup['salt_ash_root'] + '/emetfiles/EMET.admx',
-               'emet_adml_name'         : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
-               'emet_adml_source'       : lookup['salt_ash_root'] + '/emetfiles/EMET.adml',
-               'emet_version'           : lookup['emet_version'],
-               'install_emet'           : lookup['install_emet'],
                'ie_path'                : ie_defaults['ie_path'],
                'os_path'                : os_defaults['os_path'],
                'mss_cwd'                : lookup['system_ash_root'] + '\\mssfiles',
