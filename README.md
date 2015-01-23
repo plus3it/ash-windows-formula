@@ -120,10 +120,10 @@ Targeting via top.sls
 
 ##References
 
-- Security Control Automated Protocol (SCAP) - [0](http://scap.nist.gov/) 
-- SCAP Content - [1](http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0) 
-- Microsoft Security Compliance Manager (SCM) - [2](http://www.microsoft.com/scm)
-- DISA STIG Benchmarks - [3](http://iase.disa.mil/stigs/os/windows)
-- Microsoft MSS Registry Settings - [4](https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx)
-- Microsoft Pass the Hash (PtH) group policy extensions - [5](http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx)
-- Microsoft LGPO Utilities - [6](http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx)
+- [0](http://scap.nist.gov/) - Security Control Automated Protocol (SCAP)
+- [1](http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0) - SCAP Content
+- [2](http://www.microsoft.com/scm) - Microsoft Security Compliance Manager (SCM)
+- [3](http://iase.disa.mil/stigs/os/windows) - DISA STIG Benchmarks 
+- [4](https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx) - Microsoft MSS Registry Settings 
+- [5](http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx) - Microsoft Pass the Hash (PtH) group policy extensions 
+- [6](http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx) - Microsoft LGPO Utilities
