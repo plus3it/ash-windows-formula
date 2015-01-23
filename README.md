@@ -27,30 +27,15 @@ from a salt master.
 ##Baselines
 
 For each OS version, *ash-windows* is capable of applying two primary security 
-baselines: the baseline provided by Microsoft through the [Microsoft Security 
-Compliance Manager (SCM)][3], and the baseline derived from a SCAP scan based 
-on the [DISA STIG][4] benchmark. For the Server OS versions above, the formula 
-supports variations for both Member Servers and Domain Controllers, as defined 
-by the Microsoft and DISA baselines. 
+baselines: 
+- **Microsoft SCM Baseline**: the baseline provided by Microsoft through the 
+[Microsoft Security Compliance Manager (SCM)][3]
+- **DISA STIG Baseline**: the baseline derived from a SCAP scan based 
+on the [DISA STIG][4] benchmark. 
 
-The **Microsoft SCM baseline** includes the following steps:
-
-- Install the [Maximum Segment Size (MSS)][5] extensions for the local group  
-policy editor
-- Install the [Pass the Hash (PtH)][6] extensions for the local group  
-policy editor
-- Apply the OS security policies from the Microsoft SCM baseline
-- Apply the IE security policies from the Microsoft SCM baseline
-- Apply the audit policies from the Microsoft SCM baseline
-
-The **DISA STIG baseline** includes the following steps:
-
-- Apply the Microsoft SCM baseline (includes everything listed above)
-- Apply the OS security policies from the DISA STIG baseline
-  - The settings configured by the baseline are available from the DISA STIG  
-website
-- Apply the IE security policies from the DISA STIG baseline
-- Apply the audit policies from the DISA STIG baseline
+For the Server OS versions above, the formula supports variations for both 
+Member Servers and Domain Controllers, as defined by the Microsoft and DISA 
+baselines.
 
 There is a further **Delta baseline** policy that is used to enforce 
 additional security settings or to loosen security settings where they 
@@ -65,13 +50,56 @@ and non-domain-joined systems, as well as infrastructures of all types, the
 delta policy loosens this security setting. In a domain, it would be 
 recommended to use group policy to re-apply this setting.
 
-The **delta** policy is also used to address inconsistencies across baseline 
+The **Delta** policy is also used to address inconsistencies across baseline 
 versions and between different OS versions. For example, the DISA STIG for 
 Windows 2008 R2 has a requirement to change the name of the local 
 administrator account. For whatever reason, this requirement is not present in 
 the STIG for Windows 2012 R2. For the sake of operational consistency, the 
-**delta** policy modifies the name of the local administrator account for all 
-OS versions. Below are all the configuration tasks of the **delta** policy:
+**Delta** policy modifies the name of the local administrator account for all 
+OS versions. 
+
+##Available States
+
+###ash-windows
+See [ash-windows.stig](#ash-windowsstig). The only content of `init.sls` is an 
+`include` statement for `ash-windows.stig`.
+
+###ash-windows.mss
+The `ash-windows.mss` salt state will install the Maximum Segment Size 
+extensions into the local group policy editor (gpedit.msc). This exposes the 
+settings in the editor so they can be managed properly as part of a security 
+policy. This state is included by the [ash-windows.scm](#ash-windowsscm) state.
+
+###ash-windows.scm
+
+The **Microsoft SCM baseline** includes the following steps:
+
+- Install the [Maximum Segment Size (MSS)][5] extensions for the local group  
+policy editor
+- Install the [Pass the Hash (PtH)][6] extensions for the local group  
+policy editor
+- Apply the OS security policies from the Microsoft SCM baseline
+- Apply the IE security policies from the Microsoft SCM baseline
+- Apply the audit policies from the Microsoft SCM baseline
+
+###ash-windows.stig
+
+The **DISA STIG baseline** includes the following steps:
+
+- Apply the Microsoft SCM baseline (includes everything listed in  
+[ash-windows.scm](#ash-windowsscm))
+- Apply the OS security policies from the DISA STIG baseline
+  - The settings configured by the baseline are available from the DISA STIG  
+website
+- Apply the IE security policies from the DISA STIG baseline
+- Apply the audit policies from the DISA STIG baseline
+
+###ash-windows.delta
+
+The **Delta baseline** is not included by any other baseline. It must be 
+applied using targeting via top.sls, orchestrate, or an external utility.
+
+Below are all the configuration tasks of the **Delta** policy:
 
 - Rename local guest account to `xGuest`
 - Rename local administrator account to `xAdministrator`
@@ -82,27 +110,6 @@ the Guest account
   - SeDenyNetworkLogonRight = *S-1-5-32-546
 - Allow users to ignore certificate errors in IE
   - HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors = 0
-
-
-##Available States
-
-###ash-windows
-See [ash-windows.stig](#ash-windows.stig). The only content of `init.sls` is 
-an `include` statement for `ash-windows.stig`.
-
-###ash-windows.mss
-The `ash-windows.mss` salt state will install the Maximum Segment Size 
-extensions into the local group policy editor (gpedit.msc). This exposes the 
-settings in the editor so they can be managed properly as part of a security 
-policy.
-
-###ash-windows.scm
-
-###ash-windows.scm
-
-###ash-windows.stig
-
-###ash-windows.delta
 
 
 ##Example Usage
@@ -119,15 +126,15 @@ Targeting via top.sls
 
 
 ##References
+- [DISA Secure Technical Implementation Guides (STIGs) for Windows][4]
+- [Microsoft SCM][3]
+- [Microsoft Maximum Segment Size (MSS) registry settings][5]
+- [Microsoft Pass the Hash (PtH) group policy extensions][6]
+- [Microsoft Local Group Policy Utilities][7]
+- [Microsoft LocalGPO][8] (Part of Microsoft SCM)
 - [National Institute of Standards and Technology (NIST)][0]
 - [Security Control Automated Protocol (SCAP)][1]
 - [SCAP Content][2]
-- [Microsoft SCM][3]
-- [DISA Secure Technical Implementation Guides (STIGs) for Windows][4]
-- [Maximum Segment Size (MSS) registry settings][5]
-- [Pass the Hash (PtH) group policy extensions][6]
-- [Microsoft Local Group Policy Utilities][7]
-- [Microsoft LocalGPO][8] (Part of Microsoft SCM)
 
 [0]: http://www.nist.gov
 [1]: http://scap.nist.gov
