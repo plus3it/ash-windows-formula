@@ -25,26 +25,26 @@ from a salt master.
 - Microsoft Internet Explorer 10
 - Microsoft Internet Explorer 11
 
-##Baselines
+##ash-windows Baselines
 
 For each OS version, *ash-windows* is capable of applying two primary security 
 baselines: 
-- **Microsoft SCM Baseline**: the baseline provided by Microsoft through the 
-[Microsoft Security Compliance Manager (SCM)][3]
-- **DISA STIG Baseline**: the baseline derived from a SCAP scan based 
-on the [DISA STIG][4] benchmark. 
+- [**Microsoft SCM Baseline**](#ash-windowsscm): the baseline provided by 
+Microsoft through the [Microsoft Security Compliance Manager (SCM)][3]
+- [**DISA STIG Baseline**](#ash-windowsstig): the baseline derived from a SCAP 
+scan based on the [DISA STIG][4] benchmark. 
 
 For the Server OS versions above, the formula supports variations for both 
 Member Servers and Domain Controllers, as defined by the Microsoft and DISA 
 baselines.
 
-There is a further **Delta baseline** policy that is used to enforce 
-additional security settings or to loosen security settings where they 
-interfere with operation of the system. For example, the Microsoft SCM policy 
-will prevent local accounts from logging on remotely, including the local 
-administrator. When a system is joined to a domain, this isn't a problem as 
-domain accounts would still be able to login. However, on a system that is not 
-(or not yet) joined to a domain, or environments where there is no local 
+There is a further [**Delta baseline**](#ash-windowsdelta) policy that is used 
+to enforce additional security settings or to loosen security settings where 
+they interfere with operation of the system. For example, the Microsoft SCM 
+policy will prevent local accounts from logging on remotely, including the 
+local administrator. When a system is joined to a domain, this isn't a problem 
+as domain accounts would still be able to login. However, on a system that is 
+not (or not yet) joined to a domain, or in environments where there is no local 
 console access (such as many cloud infrastructures), this setting effectively 
 bricks the system. As this formula is intended to support both domain-joined 
 and non-domain-joined systems, as well as infrastructures of all types, the 
@@ -62,8 +62,9 @@ OS versions.
 ##Available States
 
 ###ash-windows
-See [ash-windows.stig](#ash-windowsstig). The only content of `init.sls` is an 
-`include` statement for `ash-windows.stig`.
+See [ash-windows.stig](#ash-windowsstig). The only content of [init.sls]
+(../blob/master/ash-windows/init.sls) is an `include` statement for 
+`ash-windows.stig`.
 
 ###ash-windows.mss
 The `ash-windows.mss` salt state will install the Maximum Segment Size 
@@ -106,19 +107,48 @@ Below are all the configuration tasks of the **Delta** policy:
 - Rename local administrator account to `xAdministrator`
 - Remove `NT Authority\Local Account` from the deny network logon right and 
 the deny remote interactive logon right; the **Delta** baseline settings, 
-listed below, deny only the Guest account
+listed below, deny only the Guest account:
   - `SeDenyRemoteInteractiveLogonRight` = `*S-1-5-32-546`
   - `SeDenyNetworkLogonRight` = `*S-1-5-32-546`
-- Allow users to ignore certificate errors in IE
+- Allow users to ignore certificate errors in IE:
   - `HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors` = `0`
 
 
-##Example Usage
-Targeting via top.sls
-
-
 ##Configuration
+The *ash-windows* formula supports configuration via pillar. The `role` 
+configuration setting may alternatively be set via a grain. The available 
+settings include:
 
+- `ash-windows:lookup:common_logdir`: Path on the local filesystem where the 
+formula will store output of any command line [tools](#Tools) that apply 
+baseline settings. Defaults to: 
+  - `%SystemDrive%\Ash\logs`
+- `ash-windows:lookup:salt_ash_root`: Path in the `salt://` filesystem of the 
+*ash-windows* formula. This is used to determine the `source` for files copied 
+to the local system. The `file_roots` configuration of the salt installation 
+will affect the value. Defaults to: 
+  - `salt://ash-windows`
+- `ash-windows:lookup:system_ash_root`: Path on the local filesystem to the 
+*ash-windows* formula. This is used to set the command working directory 
+(`cwd`) when executing the command line [tools](#Tools). Defaults to:
+  - `%systemdrive%\salt\formulas\ash-windows-formula\ash-windows`
+- `ash-windows:role`: Sets the role-type of the server. This setting may be 
+configured via the pillar or grain system. Value may be one of:
+  - `MemberServer` - this is the default for a Server OS
+  - `DomainController`
+  - `Workstation` - this is the default for a Desktop OS
+
+Below is an example pillar structure:
+
+```
+ash-windows:
+  lookup:
+    common_logdir: 'C:\\Ash\\logs'
+    salt_ash_root: 'salt://ash-windows'
+    system_ash_root: 'C:\\salt\\formulas\\ash-windows-formula\\ash-windows'
+
+  role: 'MemberServer'
+```
 
 ##Tools
 - [Microsoft LocalGPO][8]
