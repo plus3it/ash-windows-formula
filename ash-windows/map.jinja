@@ -56,8 +56,8 @@
 {% endfor %}
 
 #Lookup the default settings for the role type
-{% set role = salt['pillar.get']('ash-windows:lookup:role', salt['grains.get']('ash-windows:role', os_defaults.get('default_role', 'MemberServer'))) %}
-{% set role_defaults = role_lookup.get(role, role_lookup['MemberServer']) %}
+{% set role = salt['pillar.get']('ash-windows:role', salt['grains.get']('ash-windows:role', os_defaults.get('default_role', 'MemberServer'))) %}
+{% set role_defaults = role_lookup[role] %}
 
 #Get the SYSTEMROOT value from the registry
 {% set systemroot = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot') %}
