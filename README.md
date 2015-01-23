@@ -2,9 +2,9 @@
 Automated System Hardening - Windows (*ash-windows*) is a Salt Formula that was 
 developed to apply a security baseline to a Windows system. The *ash* security 
 baselines are developed from guidance provided by the OS vendor and guidance 
-derived from Security Control Automated Protocol (SCAP) content, including 
-DISA Secure Technical Implementation Guides (STIGs). For more information on 
-[SCAP][0] and [SCAP content][1], please refer to the NIST sites. 
+derived from [Security Control Automated Protocol (SCAP) content][2], including 
+DISA Secure Technical Implementation Guides (STIGs). [SCAP][1] is a program 
+managed by the [National Institute of Standards and Technology (NIST)][0].
 
 
 ##Dependencies
@@ -28,16 +28,16 @@ from a salt master.
 
 For each OS version, *ash-windows* is capable of applying two primary security 
 baselines: the baseline provided by Microsoft through the [Microsoft Security 
-Compliance Manager (SCM)][2], and the baseline derived from a SCAP scan based 
-on the [DISA STIG][3] benchmark. For the Server OS versions above, the formula 
+Compliance Manager (SCM)][3], and the baseline derived from a SCAP scan based 
+on the [DISA STIG][4] benchmark. For the Server OS versions above, the formula 
 supports variations for both Member Servers and Domain Controllers, as defined 
 by the Microsoft and DISA baselines. 
 
 The **Microsoft SCM baseline** includes the following steps:
 
-- Install the [Maximum Segment Size (MSS)][4] extensions for the local group  
+- Install the [Maximum Segment Size (MSS)][5] extensions for the local group  
 policy editor
-- Install the [Pass the Hash (PtH)][5] extensions for the local group  
+- Install the [Pass the Hash (PtH)][6] extensions for the local group  
 policy editor
 - Apply the OS security policies from the Microsoft SCM baseline
 - Apply the IE security policies from the Microsoft SCM baseline
@@ -113,17 +113,28 @@ Targeting via top.sls
 
 
 ##Tools
-- Microsoft SCM
-- [Microsoft Apply_LGPO_Delta.exe][6]
-- [Microsoft ImportRegPol.exe][6]
+- [Microsoft LocalGPO][8]
+- [Microsoft Apply_LGPO_Delta.exe][7]
+- [Microsoft ImportRegPol.exe][7]
 
 
 ##References
+- [National Institute of Standards and Technology (NIST)][0]
+- [Security Control Automated Protocol (SCAP)][1]
+- [SCAP Content][2]
+- [Microsoft SCM][3]
+- [DISA Secure Technical Implementation Guides (STIGs) for Windows][4]
+- [Maximum Segment Size (MSS) registry settings][5]
+- [Pass the Hash (PtH) group policy extensions][6]
+- [Microsoft Local Group Policy Utilities][7]
+- [Microsoft LocalGPO][8] (Part of Microsoft SCM)
 
-[0]: http://scap.nist.gov/
-[1]: http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0
-[2]: http://www.microsoft.com/scm
-[3]: http://iase.disa.mil/stigs/os/windows
-[4]: https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx
-[5]: http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx
-[6]: http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx
+[0]: http://www.nist.gov
+[1]: http://scap.nist.gov
+[2]: http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0
+[3]: http://www.microsoft.com/scm
+[4]: http://iase.disa.mil/stigs/os/windows
+[5]: https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx
+[6]: http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx
+[7]: http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx
+[8]: https://technet.microsoft.com/en-us/magazine/hh489604.aspx
