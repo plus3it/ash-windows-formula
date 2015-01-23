@@ -34,9 +34,10 @@ Microsoft through the [Microsoft Security Compliance Manager (SCM)][3]
 - [**DISA STIG Baseline**](#ash-windowsstig): the baseline derived from a SCAP 
 scan based on the [DISA STIG][4] benchmark. 
 
-For the Server OS versions above, the formula supports variations for both 
-Member Servers and Domain Controllers, as defined by the Microsoft and DISA 
-baselines.
+For supported Windows Server Operating Systems, *ash-windows* includes 
+baseline variations for both Member Servers and Domain Controllers, as 
+defined by the Microsoft and DISA baselines. See the `role` setting, under 
+Configuration (#configuration).
 
 There is a further [**Delta baseline**](#ash-windowsdelta) policy that is used 
 to enforce additional security settings or to loosen security settings where 
