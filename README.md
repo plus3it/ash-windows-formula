@@ -3,13 +3,14 @@ Automated System Hardening - Windows (*ash-windows*) is a Salt Formula that was
 developed to apply a security baseline to a Windows system. The *ash* security 
 baselines are developed from guidance provided by the OS vendor and guidance 
 derived from [Security Control Automated Protocol (SCAP) content][2], including 
-DISA Secure Technical Implementation Guides (STIGs). [SCAP][1] is a program 
-managed by the [National Institute of Standards and Technology (NIST)][0].
+[DISA Secure Technical Implementation Guides (STIGs)][4]. [SCAP][1] is a 
+program managed by the [National Institute of Standards and Technology 
+(NIST)][0].
 
 
 ##Dependencies
 
-- A masterless salt configuration. This is due to the path references to the  
+- A masterless salt configuration. This is due to the path references to the 
 included tools/utilities/content. A later version will look into caching these 
 from a salt master.
 
@@ -74,9 +75,9 @@ policy. This state is included by the [ash-windows.scm](#ash-windowsscm) state.
 
 The **Microsoft SCM baseline** includes the following steps:
 
-- Install the [Maximum Segment Size (MSS)][5] extensions for the local group  
+- Install the [Maximum Segment Size (MSS)][5] extensions for the local group 
 policy editor
-- Install the [Pass the Hash (PtH)][6] extensions for the local group  
+- Install the [Pass the Hash (PtH)][6] extensions for the local group 
 policy editor
 - Apply the OS security policies from the Microsoft SCM baseline
 - Apply the IE security policies from the Microsoft SCM baseline
@@ -86,10 +87,10 @@ policy editor
 
 The **DISA STIG baseline** includes the following steps:
 
-- Apply the Microsoft SCM baseline (includes everything listed in  
+- Apply the Microsoft SCM baseline (includes everything listed in 
 [ash-windows.scm](#ash-windowsscm))
 - Apply the OS security policies from the DISA STIG baseline
-  - The settings configured by the baseline are available from the DISA STIG  
+  - The settings configured by the baseline are available from the DISA STIG 
 website
 - Apply the IE security policies from the DISA STIG baseline
 - Apply the audit policies from the DISA STIG baseline
@@ -103,13 +104,13 @@ Below are all the configuration tasks of the **Delta** policy:
 
 - Rename local guest account to `xGuest`
 - Rename local administrator account to `xAdministrator`
-- Remove `NT Authority\Local Account` from the deny network logon right and  
-the deny remote interactive logon right; the settings listed below deny only  
-the Guest account
-  - SeDenyRemoteInteractiveLogonRight = *S-1-5-32-546
-  - SeDenyNetworkLogonRight = *S-1-5-32-546
+- Remove `NT Authority\Local Account` from the deny network logon right and 
+the deny remote interactive logon right; the **Delta** baseline settings, 
+listed below, deny only the Guest account
+  - `SeDenyRemoteInteractiveLogonRight` = `*S-1-5-32-546`
+  - `SeDenyNetworkLogonRight` = `*S-1-5-32-546`
 - Allow users to ignore certificate errors in IE
-  - HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors = 0
+  - `HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors` = `0`
 
 
 ##Example Usage
