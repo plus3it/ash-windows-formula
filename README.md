@@ -74,7 +74,8 @@ policy. This state is included by the [ash-windows.scm](#ash-windowsscm) state.
 
 ###ash-windows.scm
 
-The **Microsoft SCM baseline** includes the following steps:
+The **Microsoft SCM baseline** (`ash-windows.scm`) includes the following 
+steps:
 
 - Install the [Maximum Segment Size (MSS)][5] extensions for the local group 
 policy editor
@@ -86,7 +87,7 @@ policy editor
 
 ###ash-windows.stig
 
-The **DISA STIG baseline** includes the following steps:
+The **DISA STIG baseline** (`ash-windows.stig`) includes the following steps:
 
 - Apply the Microsoft SCM baseline (includes everything listed in 
 [ash-windows.scm](#ash-windowsscm))
@@ -98,8 +99,9 @@ website
 
 ###ash-windows.delta
 
-The **Delta baseline** is not included by any other baseline. It must be 
-applied using targeting via top.sls, orchestrate, or an external utility.
+The **Delta baseline** (`ash-windows.delta`) is not included by any other 
+baseline. It must be applied using targeting via top.sls, orchestrate, or an 
+external utility.
 
 Below are all the configuration tasks of the **Delta** policy:
 
@@ -133,7 +135,8 @@ will affect the value. Defaults to:
 (`cwd`) when executing the command line [tools](#Tools). Defaults to:
   - `%systemdrive%\salt\formulas\ash-windows-formula\ash-windows`
 - `ash-windows:role`: Sets the role-type of the server. This setting may be 
-configured via the pillar or grain system. Value may be one of:
+configured via the pillar or grain system. The grain value will take 
+precedence over the pillar value. The `role` value may be one of:
   - `MemberServer` - this is the default for a Server OS
   - `DomainController`
   - `Workstation` - this is the default for a Desktop OS
