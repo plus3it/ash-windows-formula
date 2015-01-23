@@ -63,7 +63,7 @@ OS versions.
 
 ###ash-windows
 See [ash-windows.stig](#ash-windowsstig). The only content of [init.sls]
-(../blob/master/ash-windows/init.sls) is an `include` statement for 
+(ash-windows/init.sls) is an `include` statement for 
 `ash-windows.stig`.
 
 ###ash-windows.mss
