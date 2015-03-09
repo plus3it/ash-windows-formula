@@ -6,3 +6,24 @@ Computer
 Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
 PreventIgnoreCertErrors
 DWORD:0
+
+;The Microsoft Security baseline configures the system to refuse NTLMv1 (LmCompabilityLevel=5). 
+;This breaks client systems that are configured to send NTLMv1 authentication.
+;The ash delta policy configures this setting to 4, which accepts NTLMv1 and NTLMv2 authentication,
+;and sends only NTLMv2.
+Computer
+System\CurrentControlSet\Control\Lsa
+LmCompatibilityLevel
+DWORD:4
+
+;Enable UAC restrictions to local accounts on network logons, pass-the-hash mitigation
+Computer
+Software\Microsoft\Windows\CurrentVersion\policies\system
+LocalAccountTokenFilterPolicy
+DWORD:0
+
+;Disable WDigest authentication, pass-the-hash mitigation
+Computer
+System\CurrentControlSet\Control\SecurityProviders\WDigest
+UseLogonCredential
+DWORD:0
