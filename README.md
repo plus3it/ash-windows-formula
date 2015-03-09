@@ -8,14 +8,14 @@ program managed by the [National Institute of Standards and Technology
 (NIST)][0].
 
 
-##Dependencies
+## Dependencies
 
 - A masterless salt configuration. This is due to the path references to the 
 included tools/utilities/content. A later version will look into caching these 
 from a salt master.
 
 
-##Supported Windows and Internet Explorer Versions
+## Supported Windows and Internet Explorer Versions
 
 - Microsoft Windows Server 2008 R2
 - Microsoft Windows Server 2012 R2
@@ -25,13 +25,13 @@ from a salt master.
 - Microsoft Internet Explorer 10
 - Microsoft Internet Explorer 11
 
-##ash-windows Baselines
+## ash-windows Baselines
 
 For each OS version, *ash-windows* is capable of applying two primary security 
 baselines: 
-- [**Microsoft SCM Baseline**](#ash-windowsscm): the baseline provided by 
+- **[Microsoft SCM Baseline](#ash-windowsscm)**: the baseline provided by 
 Microsoft through the [Microsoft Security Compliance Manager (SCM)][3]
-- [**DISA STIG Baseline**](#ash-windowsstig): the baseline derived from a SCAP 
+- **[DISA STIG Baseline](#ash-windowsstig)**: the baseline derived from a SCAP 
 scan based on the [DISA STIG][4] benchmark. 
 
 For supported Windows Server Operating Systems, *ash-windows* includes 
@@ -39,7 +39,7 @@ baseline variations for both Member Servers and Domain Controllers, as
 defined by the Microsoft and DISA baselines. See the `role` setting, under 
 [Configuration](#configuration).
 
-There is a further [**Delta baseline**](#ash-windowsdelta) policy that is used 
+There is a further **[Delta baseline](#ash-windowsdelta)** policy that is used 
 to enforce additional security settings or to loosen security settings where 
 they interfere with operation of the system. For example, the Microsoft SCM 
 policy will prevent local accounts from logging on remotely, including the 
@@ -60,20 +60,20 @@ the STIG for Windows 2012 R2. For the sake of operational consistency, the
 **Delta** policy modifies the name of the local administrator account for all 
 OS versions. 
 
-##Available States
+## Available States
 
-###ash-windows
+### ash-windows
 See [ash-windows.stig](#ash-windowsstig). The only content of [init.sls]
 (ash-windows/init.sls) is an `include` statement for 
 `ash-windows.stig`.
 
-###ash-windows.mss
+### ash-windows.mss
 The `ash-windows.mss` salt state will install the Maximum Segment Size 
 extensions into the local group policy editor (gpedit.msc). This exposes the 
 settings in the editor so they can be managed properly as part of a security 
 policy. This state is included by the [ash-windows.scm](#ash-windowsscm) state.
 
-###ash-windows.scm
+### ash-windows.scm
 
 The **Microsoft SCM baseline** (`ash-windows.scm`) includes the following 
 steps:
@@ -86,19 +86,19 @@ policy editor
 - Apply the IE security policies from the Microsoft SCM baseline
 - Apply the audit policies from the Microsoft SCM baseline
 
-###ash-windows.stig
+### ash-windows.stig
 
 The **DISA STIG baseline** (`ash-windows.stig`) includes the following steps:
 
 - Apply the Microsoft SCM baseline (includes everything listed in 
 [ash-windows.scm](#ash-windowsscm))
 - Apply the OS security policies from the DISA STIG baseline
-  - The settings configured by the baseline are available from the DISA STIG 
+    - The settings configured by the baseline are available from the DISA STIG 
 website
 - Apply the IE security policies from the DISA STIG baseline
 - Apply the audit policies from the DISA STIG baseline
 
-###ash-windows.delta
+### ash-windows.delta
 
 The **Delta baseline** (`ash-windows.delta`) is not included by any other 
 baseline. It must be applied using targeting via top.sls, orchestrate, or an 
@@ -111,13 +111,13 @@ Below are all the configuration tasks of the **Delta** policy:
 - Remove `NT Authority\Local Account` from the deny network logon right and 
 the deny remote interactive logon right; the **Delta** baseline settings, 
 listed below, deny only the Guest account:
-  - `SeDenyRemoteInteractiveLogonRight` = `*S-1-5-32-546`
-  - `SeDenyNetworkLogonRight` = `*S-1-5-32-546`
+    - `SeDenyRemoteInteractiveLogonRight` = `*S-1-5-32-546`
+    - `SeDenyNetworkLogonRight` = `*S-1-5-32-546`
 - Allow users to ignore certificate errors in IE:
-  - `HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors` = `0`
+    - `HKLM\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors` = `0`
 
 
-##Configuration
+## Configuration
 The *ash-windows* formula supports configuration via pillar. The `role` 
 configuration setting may alternatively be set via a grain. The available 
 settings include:
@@ -125,22 +125,22 @@ settings include:
 - `ash-windows:lookup:common_logdir`: Path on the local filesystem where the 
 formula will store output of any command line [tools](#Tools) that apply 
 baseline settings. Defaults to: 
-  - `%SystemDrive%\Ash\logs`
+    - `%SystemDrive%\Ash\logs`
 - `ash-windows:lookup:salt_ash_root`: Path in the `salt://` filesystem of the 
 *ash-windows* formula. This is used to determine the `source` for files copied 
 to the local system. The `file_roots` configuration of the salt installation 
 will affect the value. Defaults to: 
-  - `salt://ash-windows`
+    - `salt://ash-windows`
 - `ash-windows:lookup:system_ash_root`: Path on the local filesystem to the 
 *ash-windows* formula. This is used to set the command working directory 
 (`cwd`) when executing the command line [tools](#Tools). Defaults to:
-  - `%systemdrive%\salt\formulas\ash-windows-formula\ash-windows`
+    - `%systemdrive%\salt\formulas\ash-windows-formula\ash-windows`
 - `ash-windows:role`: Sets the role-type of the server. This setting may be 
 configured via the pillar or grain system. The grain value will take 
 precedence over the pillar value. The `role` value may be one of:
-  - `MemberServer` - this is the default for a Server OS
-  - `DomainController`
-  - `Workstation` - this is the default for a Desktop OS
+    - `MemberServer` - this is the default for a Server OS
+    - `DomainController`
+    - `Workstation` - this is the default for a Desktop OS
 
 Below is an example pillar structure:
 
@@ -154,13 +154,13 @@ ash-windows:
   role: 'MemberServer'
 ```
 
-##Tools
+## Tools
 - [Microsoft LocalGPO][8]
 - [Microsoft Apply_LGPO_Delta.exe][7]
 - [Microsoft ImportRegPol.exe][7]
 
 
-##References
+## References
 - [DISA Secure Technical Implementation Guides (STIGs) for Windows][4]
 - [Microsoft SCM][3]
 - [Microsoft Maximum Segment Size (MSS) registry settings][5]
