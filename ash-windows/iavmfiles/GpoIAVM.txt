@@ -1,0 +1,30 @@
+;MS KB2269637: Insecure Library Loading Could Allow Remote Code Execution
+;Add the CWDIllegalInDllSearch registry key and set value to 2.
+;A value of '2' will block loading of DLLs from the current working directory 
+;if the directory is a remote path (such as a WebDAV or UNC location).
+Computer
+System\CurrentControlSet\Control\Session Manager
+CWDIllegalInDllSearch
+DWORD:2
+
+;Require user authentication for remote connections by using Network Level 
+;Authentication (UserAuthentication=1)
+Computer
+Software\Policies\Microsoft\Windows NT\Terminal Services
+UserAuthentication
+DWORD:1
+
+;Force the client to authenticate the remote desktop host by requiring
+;SSL (TLS 1.0) authentication (SecurityLayer=2). This mitigates man-in-the-
+;middle attacks.
+Computer
+Software\Policies\Microsoft\Windows NT\Terminal Services
+SecurityLayer
+DWORD:2
+
+;Enable only TLS 1.0, 1.1, and 1.2 encryption protocols (SecureProtocols=2688)
+;This *disables* SSL 3.0 in the IE browser
+Computer
+Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings
+SecureProtocols
+DWORD:2688
