@@ -1,5 +1,0 @@
-FILE QUARANTINED
-
-Microsoft Forefront Protection for Exchange Server removed a file since it was found to match a filter.
-File name: "winmail.dat->systemprep-updates.zip->Apply_LGPO_Delta.exe"
-Filter name: "FILE FILTER= DoDIIS Baseline Filter List: *.exe"
