@@ -147,9 +147,9 @@ Below is an example pillar structure:
 ```
 ash-windows:
   lookup:
-    common_logdir: 'C:\\Ash\\logs'
+    logdir: 'C:\Ash\logs'
     salt_ash_root: 'salt://ash-windows'
-    system_ash_root: 'C:\\salt\\formulas\\ash-windows-formula\\ash-windows'
+    system_ash_root: 'C:\salt\formulas\ash-windows-formula\ash-windows'
 
   role: 'MemberServer'
 ```
