@@ -51,18 +51,13 @@ Apply Internet Explorer User Policy:
       - cmd: 'Apply Internet Explorer Machine Policy'
 
 #Apply Audit Policy
-Create Directory for Audit.csv:
-  cmd.run:
-    - name: 'md "{{ ash.win_audit_dir }}" -Force'
-    - shell: powershell
-    - require: 
-      - cmd: 'Apply Internet Explorer User Policy'
 Manage SCM Audit.csv:
   file.managed:
     - name: {{ ash.win_audit_file_name }}
     - source: {{ ash.scm_audit_file_source }}
+    - makedirs: True
     - require: 
-      - cmd: 'Create Directory for Audit.csv'
+      - cmd: 'Apply Internet Explorer User Policy'
 Clear Audit Policy:
   cmd.run:
     - name: auditpol /clear /y
