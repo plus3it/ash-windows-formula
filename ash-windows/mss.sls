@@ -2,8 +2,7 @@
 
 #Expose MSS Settings
 Expose MSS Settings:
-  cmd:
-    - run
+  cmd.run:
     - name: 'cscript //nologo LocalGPO.wsf /ConfigSCE'
     - cwd: {{ ash.mss_cwd }}
     - shell: powershell
