@@ -12,22 +12,22 @@ Create STIG Log Directory:
 #Apply STIG Security Template
 Apply STIG Security Template:
   cmd.run:
-    - name: 'start /wait Tools\Apply_LGPO_Delta.exe {{ ash.os_path }}{{ ash.role_path }}\stig.inf /log "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
-    - cwd: {{ ash.stig_cwd }}
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.stig_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\stig.inf /log "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Create STIG Log Directory'
 
 Apply STIG Security Policy:
   cmd.run:
-    - name: 'start /wait Tools\Apply_LGPO_Delta.exe {{ ash.os_path }}{{ ash.role_path }}\stig.txt /log "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gptpol.log" /error "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gptpol.err"'
-    - cwd: {{ ash.stig_cwd }}
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.stig_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\stig.txt /log "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gptpol.log" /error "{{ ash.common_logdir }}\stig-{{ ash.os_path }}{{ ash.role_path }}-gptpol.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply STIG Security Template'
 
 Apply STIG IE Security Policy:
   cmd.run:
-    - name: 'start /wait Tools\Apply_LGPO_Delta.exe {{ ash.ie_path }}\stig.txt /log "{{ ash.common_logdir }}\stig-{{ ash.ie_path }}-iepol.log" /error "{{ ash.common_logdir }}\stig-{{ ash.ie_path }}-iepol.err"'
-    - cwd: {{ ash.stig_cwd }}
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.stig_cwd }}\{{ ash.ie_path }}\stig.txt /log "{{ ash.common_logdir }}\stig-{{ ash.ie_path }}-iepol.log" /error "{{ ash.common_logdir }}\stig-{{ ash.ie_path }}-iepol.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply STIG Security Policy'
 

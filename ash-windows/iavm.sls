@@ -9,8 +9,8 @@ Create IAVM Log Directory:
 #Apply IAVM Policy
 Apply IAVM Policy:
   cmd.run:
-    - name: 'start /wait Tools\Apply_LGPO_Delta.exe GpoIAVM.txt /log "{{ ash.common_logdir }}\ash-GpoIAVM-pol.log" /error "{{ ash.common_logdir }}\ash-GpoIAVM-pol.err"'
-    - cwd: {{ ash.iavm_cwd }}
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.iavm_cwd }}\GpoIAVM.txt /log "{{ ash.common_logdir }}\ash-GpoIAVM-pol.log" /error "{{ ash.common_logdir }}\ash-GpoIAVM-pol.err"'
+    - cwd: {{ ash.common_tools }}
     - require:
         - cmd: 'Create IAVM Log Directory'
 

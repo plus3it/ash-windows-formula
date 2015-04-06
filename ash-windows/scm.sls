@@ -13,40 +13,40 @@ Create SCM Log Directory:
 #Apply Security Template
 Apply Security Template:
   cmd.run:
-    - name: 'start /wait Tools\Apply_LGPO_Delta.exe {{ ash.os_path }}{{ ash.role_path }}\GptTmpl.inf /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
-    - cwd: {{ ash.scm_cwd }}
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\GptTmpl.inf /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Create SCM Log Directory'
 
 #Apply Computer Configuration
 Apply Computer Configuration:
   cmd.run:
-    - name: 'start /wait Tools\ImportRegPol.exe /m {{ ash.os_path }}{{ ash.role_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
-    - cwd: {{ ash.scm_cwd }}
+    - name: 'start /wait .\ImportRegPol.exe /m {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Security Template'
 
 #Apply User Configuration
 Apply User Configuration:
   cmd.run:
-    - name: 'start /wait Tools\ImportRegPol.exe /m {{ ash.os_path }}{{ ash.role_path }}\user_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
-    - cwd: {{ ash.scm_cwd }}
+    - name: 'start /wait .\ImportRegPol.exe /u {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\user_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Computer Configuration'
 
 #Apply Internet Explorer Machine Policy
 Apply Internet Explorer Machine Policy:
   cmd.run:
-    - name: 'start /wait Tools\ImportRegPol.exe /m {{ ash.ie_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
-    - cwd: {{ ash.scm_cwd }}
+    - name: 'start /wait .\ImportRegPol.exe /m {{ ash.scm_cwd }}\{{ ash.ie_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply User Configuration'
 
 #Apply Internet Explorer User Policy
 Apply Internet Explorer User Policy:
   cmd.run:
-    - name: 'start /wait Tools\ImportRegPol.exe /u {{ ash.ie_path }}\user_registry.pol /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
-    - cwd: {{ ash.scm_cwd }}
+    - name: 'start /wait .\ImportRegPol.exe /u {{ ash.scm_cwd }}\{{ ash.ie_path }}\user_registry.pol /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
+    - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Internet Explorer Machine Policy'
 

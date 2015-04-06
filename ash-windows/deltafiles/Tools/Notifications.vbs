@@ -1,1 +1,0 @@
-wscript.echo "In order to test properly, create a new (non-administrative) user account and reboot.",vbNewLine,vbNewLine,vbNewLine,"Additionally check log files located in %SYSTEMROOT%\TEMP\",vbNewLine,vbNewLine,vbNewLine,"Feedback can be directed to the following:  SecGuide@Microsoft.com"
