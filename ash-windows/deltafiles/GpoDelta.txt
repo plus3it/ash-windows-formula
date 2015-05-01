@@ -27,12 +27,3 @@ Computer
 System\CurrentControlSet\Control\SecurityProviders\WDigest
 UseLogonCredential
 DWORD:0
-
-;As of 20150320, the AWS SDK for .NET has an open issue that makes it non-compliant
-;with FIPS requirements, https://github.com/aws/aws-sdk-net/issues/48
-;The delta policy will disable the security setting enforcing use of FIPS compliant
-;algorithms until this issue is resolved
-Computer
-System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy
-Enabled
-DWORD:0
