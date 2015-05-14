@@ -3,6 +3,6 @@ ash-windows:
   lookup:
     logdir: 'C:\Ash\logs'
     salt_ash_root: 'salt://ash-windows'
-    system_ash_root: 'C:\salt\formulas\ash-windows-formula\ash-windows'
+    system_ash_root: 'C:\salt\srv\formulas\ash-windows-formula\ash-windows'
 
   role: 'MemberServer'
