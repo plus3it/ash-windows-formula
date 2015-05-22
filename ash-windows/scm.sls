@@ -21,7 +21,7 @@ Apply Security Template:
 #Apply Computer Configuration
 Apply Computer Configuration:
   cmd.run:
-    - name: 'start /wait .\ImportRegPol.exe /m {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
     - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Security Template'
@@ -29,7 +29,7 @@ Apply Computer Configuration:
 #Apply User Configuration
 Apply User Configuration:
   cmd.run:
-    - name: 'start /wait .\ImportRegPol.exe /u {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\user_registry.pol /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\user_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
     - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Computer Configuration'
@@ -37,7 +37,7 @@ Apply User Configuration:
 #Apply Internet Explorer Machine Policy
 Apply Internet Explorer Machine Policy:
   cmd.run:
-    - name: 'start /wait .\ImportRegPol.exe /m {{ ash.scm_cwd }}\{{ ash.ie_path }}\machine_registry.pol /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.ie_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
     - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply User Configuration'
@@ -45,7 +45,7 @@ Apply Internet Explorer Machine Policy:
 #Apply Internet Explorer User Policy
 Apply Internet Explorer User Policy:
   cmd.run:
-    - name: 'start /wait .\ImportRegPol.exe /u {{ ash.scm_cwd }}\{{ ash.ie_path }}\user_registry.pol /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
+    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.ie_path }}\user_registry.txt /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
     - cwd: {{ ash.common_tools }}
     - require: 
       - cmd: 'Apply Internet Explorer Machine Policy'
