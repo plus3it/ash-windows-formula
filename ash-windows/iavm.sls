@@ -1,5 +1,8 @@
 {% from "ash-windows/map.jinja" import ash with context %}
 
+include:
+  - ash-windows.tools
+
 Create IAVM Log Directory:
   cmd.run:
     - name: 'md "{{ ash.common_logdir }}" -Force'
@@ -9,8 +12,7 @@ Create IAVM Log Directory:
 #Apply IAVM Policy
 Apply IAVM Policy:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.iavm_cwd }}\GpoIAVM.txt /log "{{ ash.common_logdir }}\ash-GpoIAVM-pol.log" /error "{{ ash.common_logdir }}\ash-GpoIAVM-pol.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.iavm_cwd }}\GpoIAVM.txt /log "{{ ash.common_logdir }}\ash-GpoIAVM-pol.log" /error "{{ ash.common_logdir }}\ash-GpoIAVM-pol.err"'
     - require:
         - cmd: 'Create IAVM Log Directory'
 

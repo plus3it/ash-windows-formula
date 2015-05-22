@@ -66,9 +66,12 @@
 {% set systemdrive = systemroot|truncate(2, True, '') %}
 
 #Define lookup table with default paths
-{% set lookup = { 'logdir'          : systemdrive + '\\Ash\\logs',
-                  'salt_ash_root'   : 'salt://ash-windows',
-                  'system_ash_root' : systemdrive + '\\salt\\srv\\formulas\\ash-windows-formula\\ash-windows',
+{% set lookup = { 'logdir'                 : systemdrive + '\\Ash\\logs',
+                  'salt_ash_root'          : 'salt://ash-windows',
+                  'system_ash_root'        : systemdrive + '\\salt\\srv\\formulas\\ash-windows-formula\\ash-windows',
+                  'apply_lgpo_source'      : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe',
+                  'apply_lgpo_source_hash' : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe.SHA512',
+                  'apply_lgpo_filename'    : systemroot + '\\system32\\Apply_LGPO_Delta.exe',
 } %}
 
 #Import user defined settings from pillar (if available)
@@ -76,9 +79,11 @@
 
 #Define the lookup table to return to the ash state files
 {% set ash = { 'common_logdir'          : lookup['logdir'],
-               'common_tools'           : lookup['system_ash_root'] + '\\tools',
                'iavm_cwd'               : lookup['system_ash_root'] + '\\iavmfiles',
                'delta_cwd'              : lookup['system_ash_root'] + '\\deltafiles',
+               'apply_lgpo_source'      : lookup['apply_lgpo_source'],
+               'apply_lgpo_source_hash' : lookup['apply_lgpo_source_hash'],
+               'apply_lgpo_filename'    : lookup['apply_lgpo_filename'],
                'ie_path'                : ie_defaults['ie_path'],
                'os_path'                : os_defaults['os_path'],
                'mss_cwd'                : lookup['system_ash_root'] + '\\mssfiles',

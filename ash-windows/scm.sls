@@ -1,6 +1,7 @@
 {% from "ash-windows/map.jinja" import ash with context %}
 
 include:
+  - ash-windows.tools
   - ash-windows.mss
 
 Create SCM Log Directory:
@@ -13,40 +14,35 @@ Create SCM Log Directory:
 #Apply Security Template
 Apply Security Template:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\GptTmpl.inf /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\GptTmpl.inf /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}-gpttmpl.err"'
     - require: 
       - cmd: 'Create SCM Log Directory'
 
 #Apply Computer Configuration
 Apply Computer Configuration:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}MachineSettings.err"'
     - require: 
       - cmd: 'Apply Security Template'
 
 #Apply User Configuration
 Apply User Configuration:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\user_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.scm_cwd }}\{{ ash.os_path }}{{ ash.role_path }}\user_registry.txt /log "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.log" /error "{{ ash.common_logdir }}\{{ ash.os_path }}{{ ash.role_path }}UserSettings.err"'
     - require: 
       - cmd: 'Apply Computer Configuration'
 
 #Apply Internet Explorer Machine Policy
 Apply Internet Explorer Machine Policy:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.ie_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.scm_cwd }}\{{ ash.ie_path }}\machine_registry.txt /log "{{ ash.common_logdir }}\IEMachineSettings.log" /error "{{ ash.common_logdir }}\IEMachineSettings.err"'
     - require: 
       - cmd: 'Apply User Configuration'
 
 #Apply Internet Explorer User Policy
 Apply Internet Explorer User Policy:
   cmd.run:
-    - name: 'start /wait .\Apply_LGPO_Delta.exe {{ ash.scm_cwd }}\{{ ash.ie_path }}\user_registry.txt /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
-    - cwd: {{ ash.common_tools }}
+    - name: 'start /wait {{ ash.apply_lgpo_filename }} {{ ash.scm_cwd }}\{{ ash.ie_path }}\user_registry.txt /log "{{ ash.common_logdir }}\IEUserSettings.log" /error "{{ ash.common_logdir }}\IEUserSettings.err"'
     - require: 
       - cmd: 'Apply Internet Explorer Machine Policy'
 
