@@ -16,18 +16,6 @@ ResetLockoutCount = 60
 ;CCE-24768-4 
 ;lockout_duration of -1 equals '0' in the UI
 LockoutDuration = -1
-;The built-in guest account will be renamed
-;CCE-10747-4
-;Microsoft Security Baseline Original Setting:
-;not defined
-;STIG setting (replaces the OS default setting of Guest):
-NewGuestName = "xGuest"
-;The built-in administrator account will be renamed
-;CCE-10976-9
-;Microsoft Security Baseline Original Setting:
-;not defined
-;STIG setting (replaces the OS default setting of Administrator):
-NewAdministratorName = "xAdministrator"
 [Privilege Rights]
 ;Unauthorized accounts must not have the Bypass traverse checking user right
 ;STIG Specification: Bypass traverse checking - Administrators, Authenticated Users, Local Service, Network Service, Window Manager\Window Manager Group

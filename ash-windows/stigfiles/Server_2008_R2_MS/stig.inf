@@ -31,18 +31,6 @@ ForceLogoffWhenHourExpire = 1
 ;For systems utilizing a logon ID as the individual identifier, passwords will, at a minimum, be 14 characters.
 ;CCE-10372-1
 MinimumPasswordLength = 14
-;The built-in guest account will be renamed
-;CCE-10747-4
-;Microsoft Security Baseline Original Setting:
-;not defined
-;STIG setting (replaces the OS default setting of Guest):
-NewGuestName = "xGuest"
-;The built-in administrator account will be renamed
-;CCE-10976-9
-;Microsoft Security Baseline Original Setting:
-;not defined
-;STIG setting (replaces the OS default setting of Administrator):
-NewAdministratorName = "xAdministrator"
 [Privilege Rights]
 ;Unauthorized accounts must not have the Bypass traverse checking user right
 ;STIG Specification: Bypass traverse checking - Administrators, Authenticated Users, Local Service, Network Service
