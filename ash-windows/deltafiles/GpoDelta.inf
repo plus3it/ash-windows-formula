@@ -4,15 +4,17 @@ Unicode=yes
 signature="$CHICAGO$"
 Revision=1
 [System Access]
-;The STIGs for different OS versions are inconsistent in their requirement to rename the Guest account. For the sake of build 
-;and operations consistency, the Ash Delta policy ensures the Guest account will be renamed on all builds.
+;The built-in guest account will be renamed
+;CCE-10747-4
 ;Microsoft Security Baseline Original Setting:
 ;not defined
+;STIG setting (replaces the OS default setting of Guest):
 NewGuestName = "xGuest"
-;The STIGs for different OS versions are inconsistent in their requirement to rename the Administrator account. For the sake of build 
-;and operations consistency, the Ash Delta policy ensures the Administrator account will be renamed on all builds.
+;The built-in administrator account will be renamed
+;CCE-10976-9
 ;Microsoft Security Baseline Original Setting:
 ;not defined
+;STIG setting (replaces the OS default setting of Administrator):
 NewAdministratorName = "xAdministrator"
 [Privilege Rights]
 ; The MS Security Baseline denies "NT Authority\Local account" the right to logon remotely, as part the pass the hash protections
