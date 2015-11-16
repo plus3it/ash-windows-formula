@@ -2,10 +2,10 @@
 {% set os_ver = salt['grains.get']('osfullname') %}
 
 #Get the IE version from the registry for IE 10 and 11
-{% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'svcVersion') %}
+{% set ie_ver = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'svcVersion').vdata %}
 #Get the IE version from the registry for IE 8 and 9
 {% if not ie_ver %}
-    {% set ie_ver = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version') %}
+    {% set ie_ver = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version').vdata %}
 {% endif %}
 
 #Define lookup dictionary of default settings for the supported Operating System versions
@@ -60,7 +60,7 @@
 {% set role_defaults = role_lookup[role] %}
 
 #Get the SYSTEMROOT value from the registry
-{% set systemroot = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot') %}
+{% set systemroot = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot').vdata %}
 
 #Set the SYSTEMDRIVE value to the first two characters of SYSTEMROOT, see http://msdn.microsoft.com/en-us/library/cc231436.aspx
 {% set systemdrive = systemroot|truncate(2, True, '') %}
