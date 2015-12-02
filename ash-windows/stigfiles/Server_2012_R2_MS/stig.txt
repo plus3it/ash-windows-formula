@@ -838,3 +838,94 @@ USER
 Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing
 State
 DWORD:65536
+
+;Users must be required to enter a password to access private keys stored on the computer
+;SV-72049r2_rule
+Computer
+Software\Policies\Microsoft\Cryptography
+ForceKeyProtection
+DWORD:2
+
+;The system must be configured to generate error reports
+;SV-71721r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+Disabled
+DWORD:0
+
+;The system must be configured to collect multiple error reports of the same event type
+;SV-71847r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+BypassDataThrottling
+DWORD:1
+
+;The system must be configured to queue error reports until a local or DOD-wide collector is available
+;SV-71921r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+DisableQueue
+DWORD:0
+
+;The system must be configured to add all error reports to the queue
+;SV-71931r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+ForceQueue
+DWORD:1
+
+;The system must be configured to attempt to forward queued error reports once a day
+;SV-71951r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+QueuePesterInterval
+DWORD:1
+
+;The maximum number of error reports to queue on a system must be configured to 50 or greater
+;SV-71941r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+MaxQueueCount
+DWORD:50
+
+;The system must be configured to archive error reports
+;SV-71889r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+DisableArchive
+DWORD:0
+
+;The system must be configured to store all data in the error report archive
+;SV-71951r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+ConfigureArchive
+DWORD:2
+
+;The maximum number of error reports to archive on a system must be configured to 100 or greater
+;SV-71951r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+MaxArchiveCount
+DWORD:100
+
+;The system must be configured to prevent the display of error messages to the user
+;SV-71851r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting
+DontShowUI
+DWORD:1
+
+;The system must be configured to permit the default consent levels of Windows Error Reporting to override any other consent policy setting
+;SV-71971r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent
+DefaultOverrideBehavior
+DWORD:1
+
+;The system must be configured to automatically consent to send all data requested by a local or DOD-wide error collection site
+;SV-71961r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent
+DefaultConsent
+DWORD:4
