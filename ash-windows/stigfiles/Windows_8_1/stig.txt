@@ -373,12 +373,12 @@ Software\Policies\Microsoft\Windows\Windows Error Reporting
 LoggingDisabled
 DWORD:0
 
-;Additional data requests in response to Error Reporting must be declined
-;CCE-24213-1:
+;The system must be configured to allow a local or DOD-wide collector to request additional error reporting diagnostic data to be sent.
+;SV-53136r2_rule:
 Computer
 Software\Policies\Microsoft\Windows\Windows Error Reporting
 DontSendAdditionalData
-DWORD:1
+DWORD:0
 
 ;Turning off File Explorer heap termination on corruption must be disabled
 ;CCE-23913-7:
