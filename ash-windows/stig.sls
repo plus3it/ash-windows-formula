@@ -47,3 +47,9 @@ Apply STIG Audit Policy:
     - name: auditpol /restore /file:"{{ ash.win_audit_file_name }}"
     - require: 
       - cmd: 'Clear STIG Audit Policy'
+
+#The Windows Error Reporting Service must be running and configured to start automatically
+SV-71667r1_rule:
+  cmd.run:
+    - name: 'Get-Service -name WerSvc | Set-Service -StartupType "Automatic" -PassThru | Start-Service'
+    - shell: powershell

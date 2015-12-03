@@ -863,3 +863,17 @@ Computer
 Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent
 DefaultConsent
 DWORD:4
+
+;Autoplay must be disabled for all drives
+;SV-52879r2_rule
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+NoDriveTypeAutoRun
+DWORD:255
+
+;The Windows Installer Always install with elevated privileges option must be disabled
+;SV-52954r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Installer
+AlwaysInstallElevated
+DWORD:0

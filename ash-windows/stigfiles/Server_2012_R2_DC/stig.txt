@@ -937,3 +937,41 @@ Computer
 Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent
 DefaultConsent
 DWORD:4
+
+;Autoplay must be disabled for all drives
+;SV-52879r2_rule
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+NoDriveTypeAutoRun
+DWORD:255
+
+;The Application event log must be configured to a minimum size requirement
+;'Specify the maximum log size (KB)' is set at a minimum to 'Enabled:32768'
+;SV-52966r1_rule
+Computer
+Software\Policies\Microsoft\Windows\EventLog\Application
+MaxSize
+DWORD:32768
+
+;The Security event log must be configured to a minimum size requirement
+;'Specify the maximum log size (KB)' is set at a minimum to 'Enabled:81920'
+;SV-52965r1_rule
+Computer
+Software\Policies\Microsoft\Windows\EventLog\Security
+MaxSize
+DWORD:81920
+
+;The System event log must be configured to a minimum size requirement
+;'Specify the maximum log size (KB)' is set at a minimum to 'Enabled:32768'
+;SV-52963r1_rule
+Computer
+Software\Policies\Microsoft\Windows\EventLog\System
+MaxSize
+DWORD:32768
+
+;The Windows Installer Always install with elevated privileges option must be disabled
+;SV-52954r1_rule
+Computer
+Software\Policies\Microsoft\Windows\Installer
+AlwaysInstallElevated
+DWORD:0
