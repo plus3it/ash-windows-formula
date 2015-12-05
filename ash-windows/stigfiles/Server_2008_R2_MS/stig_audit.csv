@@ -17,7 +17,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,Logon,{0CCE9215-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Handle Manipulation,{0CCE9223-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,RPC Events,{0CCE922E-69AE-11D9-BED3-505054503030},No Auditing,,0
-,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},No Auditing,,0
+,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Other Object Access Events,{0CCE9227-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Certification Services,{0CCE9221-69AE-11D9-BED3-505054503030},No Auditing,,0
