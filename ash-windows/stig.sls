@@ -4,6 +4,7 @@ include:
   - ash-windows.tools
   - ash-windows.scm
   - ash-windows.stigfiles.{{ ash.os_path }}{{ ash.role_path }}
+  - ash-windows.dodcerts
 
 Create STIG Log Directory:
   cmd.run:
