@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/plus3it/ash-windows-formula.svg)](https://travis-ci.org/plus3it/ash-windows-formula)
+
 # ash-windows-formula
 Automated System Hardening - Windows (*ash-windows*) is a Salt Formula that was 
 developed to apply a security baseline to a Windows system. The *ash* security 
