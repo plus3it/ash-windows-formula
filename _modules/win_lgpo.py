@@ -607,6 +607,41 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
     return valid_policies
 
 
+def construct_policy(mode, name, value=None, vtype=None):
+    '''
+    Evaluates the mode and returns a list containing the policy dictionary.
+    '''
+    default = {
+        'policy_type': 'unknown'
+    }
+    policy_map = {
+        'create_reg_key': {
+            'policy_type': 'regpol',
+            'action': 'CREATEKEY'
+        },
+        'delete_reg_value': {
+            'policy_type': 'regpol',
+            'action': 'DELETE'
+        },
+        'delete_all_reg_values': {
+            'policy_type': 'regpol',
+            'action': 'DELETEALLVALUES'
+        },
+        'set_reg_value': {
+            'policy_type': 'regpol',
+        },
+        'set_secedit_value': {
+            'policy_type': 'secedit',
+        },
+    }
+    mapped = policy_map.get(mode, default)
+    mapped['key'] = name
+    mapped['name'] = name
+    mapped['value'] = value
+    mapped['vtype'] = vtype
+    return [mapped]
+
+
 def set_reg_value(key=None, value=None, vtype=None, logfile=True,
                   errorfile=True):
     r'''
@@ -622,7 +657,7 @@ def set_reg_value(key=None, value=None, vtype=None, logfile=True,
             'User'      : ['USER', 'HKCU', 'HKEY_CURRENT_USER']
         ``<hive>`` is case insensitive.
     :param value:
-        Value to apply to the name.
+        Value to apply to the ``key``.
     :param vtype:
         Type of registry entry required for this policy. Valid types include
         ``DWORD``, ``SZ``, or ``EXSZ``. These types also support the following
@@ -656,14 +691,12 @@ def set_reg_value(key=None, value=None, vtype=None, logfile=True,
             vtype='SZ'
     '''
     return (apply_policies(
-        policies=[
-            {
-                'policy_type': 'regpol',
-                'key': key,
-                'value': value,
-                'vtype': vtype,
-            }
-        ],
+        policies=construct_policy(
+            mode='set_reg_value',
+            name=key,
+            value=value,
+            vtype=vtype
+        ),
         logfile=logfile,
         errorfile=errorfile
     ))
@@ -700,13 +733,10 @@ def create_reg_key(key=None, logfile=True, errorfile=True):
         salt '*' lgpo.create_reg_key key='HKLM\Software\Salt\Policies\Bar'
     '''
     return (apply_policies(
-        policies=[
-            {
-                'policy_type': 'regpol',
-                'key': key,
-                'action': 'CREATEKEY',
-            }
-        ],
+        policies=construct_policy(
+            mode='create_reg_key',
+            name=key
+        ),
         logfile=logfile,
         errorfile=errorfile
     ))
@@ -743,13 +773,10 @@ def delete_reg_value(key=None, logfile=True, errorfile=True):
         salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Bar'
     '''
     return (apply_policies(
-        policies=[
-            {
-                'policy_type': 'regpol',
-                'key': key,
-                'action': 'DELETE',
-            }
-        ],
+        policies=construct_policy(
+            mode='delete_reg_value',
+            name=key
+        ),
         logfile=logfile,
         errorfile=errorfile
     ))
@@ -788,13 +815,10 @@ def delete_all_reg_values(key=None, logfile=True, errorfile=True):
             key='HKLM\Software\Salt\Policies\Bar'
     '''
     return (apply_policies(
-        policies=[
-            {
-                'policy_type': 'regpol',
-                'key': key,
-                'action': 'DELETEALLVALUES',
-            }
-        ],
+        policies=construct_policy(
+            mode='delete_all_reg_values',
+            name=key
+        ),
         logfile=logfile,
         errorfile=errorfile
     ))
@@ -833,13 +857,11 @@ def set_secedit_value(name=None, value=None, logfile=True, errorfile=True):
             value='*S-1-5-32-546'
     '''
     return (apply_policies(
-        policies=[
-            {
-                'policy_type': 'secedit',
-                'name': name,
-                'value': value,
-            }
-        ],
+        policies=construct_policy(
+            mode='set_secedit_value',
+            name=name,
+            value=value
+        ),
         logfile=logfile,
         errorfile=errorfile
     ))
