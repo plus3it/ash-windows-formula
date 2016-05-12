@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-r'''
-Manage Local Policy Group Policy Objects on Windows
+r"""
+Manage Local Policy Group Policy Objects on Windows.
 
 This state uses ``Apply_LGPO_Delta.exe``, the license for which restricts it
 from being distributed by a third-party application. According to Microsoft[1],
@@ -15,7 +15,7 @@ their own organization.
 :maintainer: Loren Gordon <loren.gordon@plus3it.com>
 :depends:    Apply_LGPO_Delta.exe in %SystemRoot%\System32\
 :platform:   Windows
-'''
+"""
 import logging
 import salt.utils
 
@@ -26,9 +26,7 @@ __virtualname__ = 'lgpo'
 
 
 def __virtual__():
-    '''
-    Only load if lgpo execution module is available.
-    '''
+    """Only load if lgpo execution module is available."""
     if 'lgpo.apply_policies' in __salt__:
         return __virtualname__
     else:
@@ -37,10 +35,9 @@ def __virtual__():
 
 
 def present(name, mode=None, value=None, vtype=None, logfile=True,
-    errorfile=True, policies=None, **kwargs):
-    '''
-    Define a Local Group Policy Object (LGPO) that must be present on the
-    system.
+            errorfile=True, policies=None, **kwargs):
+    r"""
+    Define a Local Group Policy Object (LGPO) that must be present.
 
     :param name:
         Name of the policy to apply. The type of value used depends on the
@@ -143,7 +140,7 @@ def present(name, mode=None, value=None, vtype=None, logfile=True,
               - policy_type: secedit
                 name: MinimumPasswordAge
                 value: 3
-    '''
+    """
     ret = {
         'name': name,
         'result': True,
@@ -152,28 +149,28 @@ def present(name, mode=None, value=None, vtype=None, logfile=True,
     }
 
     policies = policies or __salt__['lgpo.construct_policy'](
-        name = name,
-        mode = mode,
-        value = value,
-        vtype = vtype
+        name=name,
+        mode=mode,
+        value=value,
+        vtype=vtype
     )
 
     if __opts__['test']:
         valid_policies, reason, policy = __salt__['lgpo.validate_policies'](
-            policies = policies
+            policies=policies
         )
         if not valid_policies:
             ret['result'] = False
-            ret['comment'] = '{0}; policy={1}'.format(reason,policy)
+            ret['comment'] = '{0}; policy={1}'.format(reason, policy)
         else:
             ret['comment'] = 'Would have applied local group policy objects'
             ret['changes'] = valid_policies
     else:
         try:
             result = __salt__['lgpo.apply_policies'](
-                policies = policies,
-                logfile = logfile,
-                errorfile = errorfile
+                policies=policies,
+                logfile=logfile,
+                errorfile=errorfile
             )
             ret['comment'] = 'Successfully applied local group policy objects'
             ret['changes'] = result
@@ -185,10 +182,12 @@ def present(name, mode=None, value=None, vtype=None, logfile=True,
 
 
 def mod_aggregate(low, chunks, running):
-    '''
+    """
+    Aggregate data from multiple states into a single state execution.
+
     The mod_aggregate function looks up all policies in the available low
     chunks and merges them into a single policies ref in the present low data
-    '''
+    """
     policies = []
     agg_enabled = [
         'present'

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-r'''
-Manage Local Policy Group Policy Objects on Windows
+r"""
+Manage Local Policy Group Policy Objects on Windows.
 
 This module uses ``Apply_LGPO_Delta.exe``, the license for which restricts it
 from being distributed by a third-party application. According to Microsoft[1],
@@ -15,7 +15,7 @@ their own organization.
 :maintainer: Loren Gordon <loren.gordon@plus3it.com>
 :depends:    Apply_LGPO_Delta.exe in %SystemRoot%\System32\
 :platform:   Windows
-'''
+"""
 import collections
 import logging
 import os
@@ -31,7 +31,10 @@ HAS_LGPO = os.path.isfile(LGPO_EXE)
 
 
 class PolicyHelper(object):
+    """Helper class to manage Local Group Policy Objects."""
+
     def __init__(self):
+        """Initialize PolicyHelper class."""
         self.LGPO_VTYPE_KEYS = ['key', 'value', 'vtype']
         self.LGPO_ACTION_KEYS = ['key', 'action']
         self.LGPO_SECEDIT_KEYS = ['name', 'value']
@@ -307,6 +310,7 @@ class PolicyHelper(object):
         return action if action else '{0}:{1}'.format(vtype, value)
 
     def validate_regpol(self, policy):
+        """Validate regpol policy."""
         if not all(key in policy for key in self.LGPO_VTYPE_KEYS) and not \
                 all(key in policy for key in self.LGPO_ACTION_KEYS):
             return False, 'Registry policy dictionary is malformed'
@@ -346,6 +350,7 @@ class PolicyHelper(object):
         return None
 
     def validate_secedit(self, policy):
+        """Validate secedit policy."""
         if not all(key in policy for key in self.LGPO_SECEDIT_KEYS):
             return False, 'Secedit policy dictionary is malformed'
         name = self._secedit_name(policy.get('name', ''))
@@ -361,6 +366,7 @@ class PolicyHelper(object):
         )
 
     def policy_template_regpol(self, policies):
+        """Return a regpol policy template."""
         policy_template = []
         for policy in policies:
             policy_template.extend(
@@ -375,6 +381,7 @@ class PolicyHelper(object):
         return policy_template
 
     def policy_template_secedit(self, policies):
+        """Return a secedit policy template."""
         policy_template = [
             '[Unicode]',
             'Unicode=yes',
@@ -403,9 +410,7 @@ class PolicyHelper(object):
 
 
 def __virtual__():
-    '''
-    Load only on Windows and only if Apply_LGPO_Delta is present.
-    '''
+    """Load only on Windows and only if Apply_LGPO_Delta is present."""
     if not salt.utils.is_windows():
         return False
     if not HAS_LGPO:
@@ -415,9 +420,8 @@ def __virtual__():
 
 
 def validate_policies(policies):
-    r'''
-    Validate a policy to manage Local Group Policy Objects, without applying
-    the policy.
+    r"""
+    Validate a policy to manage Local Group Policy Objects.
 
     Returns a tuple of (valid_policies, reason, policy).
 
@@ -464,7 +468,7 @@ def validate_policies(policies):
             'value':'0', \
             'vtype':'DWORD'}]"
         salt '*' lgpo.validate_policies policies="${policies}"
-    '''
+    """
     ret = {}
     policy_helper = PolicyHelper()
     if not isinstance(policies, collections.Sequence):
@@ -513,7 +517,7 @@ def _write_policy_files(valid_policies):
 
 
 def apply_policies(policies=None, logfile=True, errorfile=True):
-    r'''
+    r"""
     Apply a policy that manages Local Group Policy Objects.
 
     :param policies:
@@ -559,7 +563,7 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
             'value':'0', \
             'vtype':'DWORD'}]"
         salt '*' lgpo.apply_policies policies="${policies}"
-    '''
+    """
     valid_policies, reason, policy = validate_policies(policies)
     if not valid_policies:
         raise SaltInvocationError('{0}; policy={1}'.format(reason, policy))
@@ -598,8 +602,8 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
                                     .format(valid_policies, exc))
     if ret:
         raise CommandExecutionError('Non-zero exit [{0}] from {1}. We do not '
-                                    'know what this means. Hopefully the error '
-                                    'log contains details -- {2}'
+                                    'know what this means. Hopefully the '
+                                    'error log contains details -- {2}'
                                     .format(ret, LGPO_EXE, errorfile))
     for policy_file in policy_files.values():
         if os.path.isfile(policy_file):
@@ -608,9 +612,7 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
 
 
 def construct_policy(mode, name, value=None, vtype=None):
-    '''
-    Evaluates the mode and returns a list containing the policy dictionary.
-    '''
+    """Map the mode and return a list containing the policy dictionary."""
     default = {
         'policy_type': 'unknown'
     }
@@ -644,9 +646,10 @@ def construct_policy(mode, name, value=None, vtype=None):
 
 def set_reg_value(key=None, value=None, vtype=None, logfile=True,
                   errorfile=True):
-    r'''
-    Use a Local Group Policy Object to set to a registry value. If the key
-    does not exist, it is created.
+    r"""
+    Use a Local Group Policy Object to set to a registry value.
+
+    If the key does not exist, it is created.
 
     :param key:
         Path to the registry setting managed by the policy. The path must be
@@ -689,7 +692,7 @@ def set_reg_value(key=None, value=None, vtype=None, logfile=True,
             key='HKLM\Software\Salt\Policies\Bar' \
             value='baz' \
             vtype='SZ'
-    '''
+    """
     return (apply_policies(
         policies=construct_policy(
             mode='set_reg_value',
@@ -703,7 +706,7 @@ def set_reg_value(key=None, value=None, vtype=None, logfile=True,
 
 
 def create_reg_key(key=None, logfile=True, errorfile=True):
-    r'''
+    r"""
     Use a Local Group Policy Object to create a registry key with no values.
 
     :param key:
@@ -731,7 +734,7 @@ def create_reg_key(key=None, logfile=True, errorfile=True):
 
         salt '*' lgpo.create_reg_key key='HKLM\Software\Salt\Policies\Foo'
         salt '*' lgpo.create_reg_key key='HKLM\Software\Salt\Policies\Bar'
-    '''
+    """
     return (apply_policies(
         policies=construct_policy(
             mode='create_reg_key',
@@ -743,7 +746,7 @@ def create_reg_key(key=None, logfile=True, errorfile=True):
 
 
 def delete_reg_value(key=None, logfile=True, errorfile=True):
-    r'''
+    r"""
     Use a Local Group Policy Object to delete to a registry value.
 
     :param key:
@@ -771,7 +774,7 @@ def delete_reg_value(key=None, logfile=True, errorfile=True):
 
         salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Foo'
         salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Bar'
-    '''
+    """
     return (apply_policies(
         policies=construct_policy(
             mode='delete_reg_value',
@@ -783,7 +786,7 @@ def delete_reg_value(key=None, logfile=True, errorfile=True):
 
 
 def delete_all_reg_values(key=None, logfile=True, errorfile=True):
-    r'''
+    r"""
     Use a Local Group Policy Object to delete all values within a registry key.
 
     :param key:
@@ -813,7 +816,7 @@ def delete_all_reg_values(key=None, logfile=True, errorfile=True):
             key='HKLM\Software\Salt\Policies\Foo'
         salt '*' lgpo.delete_all_reg_values \
             key='HKLM\Software\Salt\Policies\Bar'
-    '''
+    """
     return (apply_policies(
         policies=construct_policy(
             mode='delete_all_reg_values',
@@ -825,9 +828,8 @@ def delete_all_reg_values(key=None, logfile=True, errorfile=True):
 
 
 def set_secedit_value(name=None, value=None, logfile=True, errorfile=True):
-    r'''
-    Modify the value of a "System Access" or "Privilege Rights" security
-    policy.
+    r"""
+    Modify a "System Access" or "Privilege Rights" security policy.
 
     :param name:
         Name of the "System Access" or "Privilege Rights" policy to modify.
@@ -855,7 +857,7 @@ def set_secedit_value(name=None, value=None, logfile=True, errorfile=True):
             value=Guests
         salt '*' lgpo.set_secedit_value name=SeDenyNetworkLogonRight \
             value='*S-1-5-32-546'
-    '''
+    """
     return (apply_policies(
         policies=construct_policy(
             mode='set_secedit_value',
@@ -868,9 +870,7 @@ def set_secedit_value(name=None, value=None, logfile=True, errorfile=True):
 
 
 def get_secedit_names():
-    r'''
-    Returns all known "System Access" and "Privilege Rights" policy names.
-    '''
+    """Return all "System Access" and "Privilege Rights" policy names."""
     policy_helper = PolicyHelper()
     system_access_names = []
     privilege_rights_names = []
