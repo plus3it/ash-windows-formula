@@ -148,6 +148,11 @@ def present(name, mode=None, value=None, vtype=None, logfile=True,
         'changes': {}
     }
 
+    if policies == []:
+        # Passed an empty policies list, return without failing.
+        ret['comment'] = '"policies" is an empty list'
+        return ret
+
     policies = policies or __salt__['lgpo.construct_policy'](
         name=name,
         mode=mode,

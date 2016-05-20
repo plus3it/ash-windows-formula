@@ -1,46 +1,94 @@
-- Standup a Windows 8.1 VM
-- Download [SCM](http://www.microsoft.com/scm)
-- Install SCM to Windows 8.1 VM
-- Run SCM and update the database for IE, ws2008r2, ws2012r2, and win81
-- Extract the user and machine registry .pol files for each
-- Use ImportRegPol.exe from [lgpo-utilities](http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx) to convert the .pol files to .txt policies
-- Name user policies 'user_registry.txt' and machine policies 'machine_registry.txt'
-- Place the files in the appropriate directory under scmfiles
+-   Standup a Windows 8.1 VM
 
-```
-# Convert IE_10
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_10\user_registry.pol /log .\scmfiles\IE_10\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_10\machine_registry.pol /log .\scmfiles\IE_10\machine_registry.txt /parseOnly
+-   Download [SCM](http://www.microsoft.com/scm)
 
-# Convert IE_11
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_11\user_registry.pol /log .\scmfiles\IE_11\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_11\machine_registry.pol /log .\scmfiles\IE_11\machine_registry.txt /parseOnly
+-   Install SCM to Windows 8.1 VM
 
-# Convert IE_8
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_8\user_registry.pol /log .\scmfiles\IE_8\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_8\machine_registry.pol /log .\scmfiles\IE_8\machine_registry.txt /parseOnly
+-   Run SCM and update the database for IE, ws2008r2, ws2012r2, and win81
 
-# Convert IE_9
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_9\user_registry.pol /log .\scmfiles\IE_9\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\IE_9\machine_registry.pol /log .\scmfiles\IE_9\machine_registry.txt /parseOnly
+-   Extract the user and machine registry .pol files for each
 
-# Convert Server_2008_R2_DC
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2008_R2_DC\user_registry.pol /log .\scmfiles\Server_2008_R2_DC\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2008_R2_DC\machine_registry.pol /log .\scmfiles\Server_2008_R2_DC\machine_registry.txt /parseOnly
+-   Use ImportRegPol.exe from [lgpo-utilities](
+  http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx) to
+  convert the .pol files to .txt policies
 
-# Convert Server_2008_R2_MS
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2008_R2_MS\user_registry.pol /log .\scmfiles\Server_2008_R2_MS\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2008_R2_MS\machine_registry.pol /log .\scmfiles\Server_2008_R2_MS\machine_registry.txt /parseOnly
+-   Name user policies 'user_registry.txt' and machine policies
+'machine_registry.txt'
 
-# Convert Server_2012_R2_DC
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2012_R2_DC\user_registry.pol /log .\scmfiles\Server_2012_R2_DC\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2012_R2_DC\machine_registry.pol /log .\scmfiles\Server_2012_R2_DC\machine_registry.txt /parseOnly
+-   Grab any GptTmpl.inf and audit.csv files while at it
 
-# Convert Server_2012_R2_MS
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2012_R2_MS\user_registry.pol /log .\scmfiles\Server_2012_R2_MS\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\Server_2012_R2_MS\machine_registry.pol /log .\scmfiles\Server_2012_R2_MS\machine_registry.txt /parseOnly
+-   Place the files in the appropriate directory under ash-windows/scm
 
-# Convert Windows_8_1
-.\tools\ImportRegPol.exe -u .\scmfiles\Windows_8_1\user_registry.pol /log .\scmfiles\Windows_8_1\user_registry.txt /parseOnly
-.\tools\ImportRegPol.exe -u .\scmfiles\Windows_8_1\machine_registry.pol /log .\scmfiles\Windows_8_1\machine_registry.txt /parseOnly
+-   Run the PowerShell code below from the root of the ash-windows-formula repo
+
+```powershell
+$baselines = @(
+    'IE_10',
+    'IE_11',
+    'IE_8',
+    'IE_9',
+    'Windows_2008ServerR2_DC',
+    'Windows_2008ServerR2_MS',
+    'Windows_2012ServerR2_DC',
+    'Windows_2012ServerR2_MS',
+    'Windows_8.1',
+    'Windows_10'
+)
+
+foreach ($baseline in $baselines)
+{
+    $dir = Resolve-Path ".\ash-windows\scm\$baseline"
+    $gpttmpl_inf = "$dir\GptTmpl.inf"
+    $user_pol = "$dir\user_registry.pol"
+    $machine_pol = "$dir\machine_registry.pol"
+
+    $TxtFile = "$gpttmpl_inf"
+    $YmlFile = "$(Resolve-Path $dir)\gpttmpl.yml"
+    if (Test-Path "$TxtFile")
+    {
+        Write-Host "Processing $TxtFile"
+        python .\ash-windows\tools\convert-lgpo-policy.py `
+            src_file="$TxtFile" `
+            dst_file="$YmlFile"
+    }
+    else
+    {
+        # We need to ensure an empty YmlFile exists
+        $null = New-Item -Path $YmlFile -ItemType File -Force
+    }
+
+    $TxtFile = "${dir}\user_registry.txt"
+    $YmlFile = "${dir}\user_registry.yml"
+    # rm $TxtFile -ErrorAction SilentlyContinue
+    if (Test-Path "$user_pol")
+    {
+        .\ash-windows\tools\ImportRegPol.exe -u "$user_pol" /log "$TxtFile" /parseOnly
+        Write-Host "Processing $TxtFile"
+        python .\ash-windows\tools\convert-lgpo-policy.py `
+            src_file="$TxtFile" `
+            dst_file="$YmlFile"
+    }
+    else
+    {
+        # We need to ensure an empty YmlFile exists
+        $null = New-Item -Path $YmlFile -ItemType File -Force
+    }
+
+    $TxtFile = "${dir}\machine_registry.txt"
+    $YmlFile = "${dir}\machine_registry.yml"
+    # rm $TxtFile -ErrorAction SilentlyContinue
+    if (Test-Path "$machine_pol")
+    {
+        .\tools\ImportRegPol.exe -m "$machine_pol" /log "$TxtFile" /parseOnly
+        Write-Host "Processing $TxtFile"
+        python .\ash-windows\tools\convert-lgpo-policy.py `
+            src_file="$TxtFile" `
+            dst_file="$YmlFile"
+    }
+    else
+    {
+        # We need to ensure an empty YmlFile exists
+        $null = New-Item -Path $YmlFile -ItemType File -Force
+    }
+}
 ```

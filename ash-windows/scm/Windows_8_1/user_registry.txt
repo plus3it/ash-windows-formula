@@ -1,0 +1,37 @@
+; ----------------------------------------------------------------------
+; PARSING USER POLICY
+; Source file:  .\scmfiles\Windows_8_1\user_registry.pol
+
+User
+Software\Microsoft\Windows\CurrentVersion\Policies\Attachments
+SaveZoneInformation
+DWORD:2
+
+User
+Software\Microsoft\Windows\CurrentVersion\Policies\Attachments
+ScanWithAntiVirus
+DWORD:3
+
+User
+Software\Policies\Microsoft\Windows\Control Panel\Desktop
+ScreenSaveTimeOut
+SZ:900
+
+User
+Software\Policies\Microsoft\Windows\Control Panel\Desktop
+ScreenSaveActive
+SZ:1
+
+User
+Software\Policies\Microsoft\Windows\Control Panel\Desktop
+ScreenSaverIsSecure
+SZ:1
+
+User
+SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications
+NoToastApplicationNotificationOnLockScreen
+DWORD:1
+
+; PARSING COMPLETED.
+; ----------------------------------------------------------------------
+
