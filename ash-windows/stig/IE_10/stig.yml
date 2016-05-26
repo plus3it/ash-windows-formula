@@ -1,0 +1,129 @@
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\ProxySettingsPerUser
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Control Panel\Autoconfig
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\SQM\DisableCustomerImprovementProgram
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings\LOCALMACHINE_CD_UNLOCK
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\Enable Browser
+    Extensions
+  policy_type: regpol
+  value: 'no'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\3\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2100
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2100
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1208
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1208
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\Update_Check_Page
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\DisableFirstRunCustomize
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\PhishingFilter\EnabledV9
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\BrowserEmulation\MSCompatibilityMode
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Privacy\ClearBrowsingHistoryOnExit
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Privacy\CleanHistory
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Privacy\EnableInPrivateBrowsing
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1806
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1806
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2103
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2103
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Ext\DisableAddonLoadTimePerformanceNotifications
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Suggested Sites\Enabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\NoUpdateCheck
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Ext\NoFirsttimeprompt
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\DoNotTrack
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\EnableAutoUpgrade
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\DisablePasswordReveal
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Activities\NoActivities
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\270B
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\270B
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\DomainSuggestion\Enabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD

@@ -19,6 +19,7 @@ their own organization.
 import collections
 import logging
 import os
+import re
 import salt.utils
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 
@@ -310,10 +311,11 @@ class PolicyHelper(object):
 
     def _regpol_key(self, key):
         try:
-            key = key.replace('\\\\', '\\')
-            hive = self._regpol_hive(key.split('\\')[0])
-            key_path = '\\'.join(key.split('\\')[1:-1])
-            vname = key.split('\\')[-1]
+            pattern = re.compile(r'\\+(?=(?:[^"]*"[^"]*")*[^"]*$)')
+            key_ = pattern.split(key)
+            hive = self._regpol_hive(key_[0])
+            key_path = '\\'.join(key_[1:-1])
+            vname = key_[-1].replace('\\\\','\\').strip('"')
             return hive, key_path, vname
         except AttributeError:
             pass
