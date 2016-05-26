@@ -1,0 +1,32 @@
+- key: Computer\System\CurrentControlSet\Control\Session Manager\CWDIllegalInDllSearch
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\UserAuthentication
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\SecurityLayer
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\SecureProtocols
+  policy_type: regpol
+  value: '2688'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server\Enabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client\Enabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\policies\system\LocalAccountTokenFilterPolicy
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
