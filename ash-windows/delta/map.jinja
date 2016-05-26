@@ -1,0 +1,16 @@
+{% from 'ash-windows/map.jinja' import ash with context %}
+
+{# Import policies from yaml files. #}
+{% import_yaml tpldir ~ '/delta.yml' as delta_policies %}
+
+{#
+    If the yaml file is empty, `import_yaml` returns None. Change that to an
+    empty list so that `lgpo.present` interprets it properly.
+#}
+{% set delta_policies = delta_policies or [] %}
+
+{# Define the `stig` dictionary #}
+{% set delta = ash or {} %}
+{% do delta.update({
+    'delta_policies': delta_policies,
+}) %}
