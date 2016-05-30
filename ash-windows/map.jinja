@@ -20,7 +20,7 @@
 %}
 
 # Get the IE version from the registry for IE 8 and 9
-{% if not ie_ver %}
+{% if ie_ver == '(value not set)' %}
     {% set ie_ver = salt.reg.read_value(
         'HKEY_LOCAL_MACHINE',
         'SOFTWARE\Microsoft\Internet Explorer',
