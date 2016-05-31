@@ -20,7 +20,7 @@
 %}
 
 # Get the IE version from the registry for IE 8 and 9
-{% if ie_ver == '(value not set)' %}
+{% if not ie_ver or ie_ver == '(value not set)' %}
     {% set ie_ver = salt.reg.read_value(
         'HKEY_LOCAL_MACHINE',
         'SOFTWARE\Microsoft\Internet Explorer',
@@ -46,11 +46,11 @@
     'Workstation' : '',
 } %}
 
-# Lookup the default settings for the role type
+# Get the role
 {% set role = salt.pillar.get(
-    'ash-windows:role',
+    'ash-windows:lookup:role',
     salt.grains.get(
-        'ash-windows:role',
+        'ash-windows:lookup:role',
         default_role
     )
 ) %}
