@@ -2,10 +2,6 @@
   policy_type: regpol
   value: '0'
   vtype: DWORD
-- key: Computer\System\CurrentControlSet\Control\Lsa\LmCompatibilityLevel
-  policy_type: regpol
-  value: '4'
-  vtype: DWORD
 - name: NewGuestName
   policy_type: secedit
   value: '"xGuest"'
