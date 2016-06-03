@@ -19,6 +19,7 @@ their own organization.
 import collections
 import logging
 import os
+import re
 import salt.utils
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 
@@ -105,11 +106,23 @@ class PolicyHelper(object):
             },
             'LSAANONYMOUSNAMELOOKUP': {
                 'type': 'SYSTEM_ACCESS',
-                'name': 'LsaAnonymousLookup',
+                'name': 'LSAAnonymousNameLookup',
             },
             'ENABLEGUESTACCOUNT': {
                 'type': 'SYSTEM_ACCESS',
                 'name': 'EnableGuestAccount',
+            },
+            'NEWGUESTNAME': {
+                'type': 'SYSTEM_ACCESS',
+                'name': 'NewGuestName',
+            },
+            'NEWADMINISTRATORNAME': {
+                'type': 'SYSTEM_ACCESS',
+                'name': 'NewAdministratorName',
+            },
+            'ENABLEADMINACCOUNT': {
+                'type': 'SYSTEM_ACCESS',
+                'name': 'EnableAdminAccount',
             },
             'SESECURITYPRIVILEGE': {
                 'type': 'PRIVILEGE_RIGHTS',
@@ -259,6 +272,34 @@ class PolicyHelper(object):
                 'type': 'PRIVILEGE_RIGHTS',
                 'name': 'SeDenyServiceLogonRight',
             },
+            'SECHANGENOTIFYPRIVILEGE': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeChangeNotifyPrivilege',
+            },
+            'SEBATCHLOGONRIGHT': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeBatchLogonRight',
+            },
+            'SEINCREASEWORKINGSETPRIVILEGE': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeIncreaseWorkingSetPrivilege',
+            },
+            'SEUNDOCKPRIVILEGE': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeUndockPrivilege',
+            },
+            'SEMACHINEACCOUNTPRIVILEGE': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeMachineAccountPrivilege',
+            },
+            'SESYNCAGENTPRIVILEGE': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeSyncAgentPrivilege',
+            },
+            'SESERVICELOGONRIGHT': {
+                'type': 'PRIVILEGE_RIGHTS',
+                'name': 'SeServiceLogonRight',
+            },
         }
 
     def _regpol_hive(self, hive):
@@ -270,9 +311,11 @@ class PolicyHelper(object):
 
     def _regpol_key(self, key):
         try:
-            hive = self._regpol_hive(key.split('\\')[0])
-            key_path = '\\'.join(key.split('\\')[1:-1])
-            vname = key.split('\\')[-1]
+            pattern = re.compile(r'\\+(?=(?:[^"]*"[^"]*")*[^"]*$)')
+            key_ = pattern.split(key)
+            hive = self._regpol_hive(key_[0])
+            key_path = '\\'.join(key_[1:-1])
+            vname = key_[-1].replace('\\\\','\\').strip('"')
             return hive, key_path, vname
         except AttributeError:
             pass
@@ -315,7 +358,7 @@ class PolicyHelper(object):
                 all(key in policy for key in self.LGPO_ACTION_KEYS):
             return False, 'Registry policy dictionary is malformed'
         hive, key_path, vname = self._regpol_key(policy.get('key', ''))
-        value = policy.get('value', '')
+        value = str(policy.get('value', '')).replace('\\\\', '\\')
         vtype = self._regpol_vtype(policy.get('vtype', ''))
         action = self._regpol_action(policy.get('action', ''))
         if not key_path:
@@ -481,7 +524,9 @@ def validate_policies(policies):
             result, reason = getattr(policy_helper, 'validate_{0}'
                                      .format(policy_type))(policy)
         except AttributeError:
-            return (False, '`policy_type` is missing or the value is invalid ',
+            return (False,
+                    '`policy_type` is missing or the value "{0}" is invalid'
+                    .format(policy_type),
                     policy)
         if not result:
             return False, reason, policy

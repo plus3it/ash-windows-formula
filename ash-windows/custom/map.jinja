@@ -1,0 +1,72 @@
+{% from 'ash-windows/map.jinja' import ash with context %}
+
+{# Get global policies from pillar, add `type:global`, and index them #}
+{% set global_policies = salt.pillar.get(
+    'ash-windows:lookup:custom_policies',
+    []
+) %}
+{% set global_index = {} %}
+{% for policy in global_policies %}
+    {% do policy.update({ 'type': 'global' }) %}
+    {% do global_index.update({
+        policy.key if 'key' in policy else policy.name: loop.index0
+    }) %}
+{% endfor %}
+
+{# Get local policies from grains, add `type:local`, and index them #}
+{% set local_policies = salt.grains.get(
+    'ash-windows:lookup:custom_policies',
+    []
+) %}
+{% set local_index = {} %}
+{% for policy in local_policies %}
+    {% do policy.update({ 'type': 'local' }) %}
+    {% do local_index.update({
+        policy.key if 'key' in policy else policy.name: loop.index0
+    }) %}
+{% endfor %}
+
+{#
+    Add local and global policies to custom policies. If a policy is in both
+    lists, add the global policy if `no_override` is set; otherwise add the
+    local policy.
+#}
+{% set custom_policies = [] %}
+{% set custom_index = {} %}
+{% for policy in global_policies + local_policies %}
+    {% if 'key' in policy and policy.key not in custom_index %}
+        {% if policy.key in global_index and policy.key in local_index %}
+            {% do custom_policies.append(
+                global_policies[global_index[policy.key]]
+                if global_policies[global_index[policy.key]].get(
+                    'no_override',
+                    false
+                )
+                else local_policies[local_index[policy.key]]
+            ) %}
+        {% else %}
+            {% do custom_policies.append(policy) %}
+        {% endif %}
+        {% do custom_index.update({ policy.key: custom_index|length }) %}
+    {% elif 'name' in policy and policy.name not in custom_index %}
+        {% if policy.name in global_index and policy.name in local_index %}
+            {% do custom_policies.append(
+                global_policies[global_index[policy.name]]
+                if global_policies[global_index[policy.name]].get(
+                    'no_override',
+                    false
+                )
+                else local_policies[local_index[policy.name]]
+            ) %}
+        {% else %}
+            {% do custom_policies.append(policy) %}
+        {% endif %}
+        {% do custom_index.update({ policy.name: custom_index|length }) %}
+    {% endif %}
+{% endfor %}
+
+{# Define the `custom` dictionary #}
+{% set custom = ash or {} %}
+{% do custom.update({
+    'custom_policies': custom_policies,
+}) %}

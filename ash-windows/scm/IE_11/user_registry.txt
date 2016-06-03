@@ -1,0 +1,62 @@
+; ----------------------------------------------------------------------
+; PARSING USER POLICY
+; Source file:  .\scmfiles\IE_11\user_registry.pol
+
+User
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+FormSuggest Passwords
+DWORD:1
+
+User
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+FormSuggest Passwords
+DWORD:1
+
+User
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+FormSuggest
+DWORD:1
+
+User
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+FormSuggest
+DWORD:1
+
+User
+Software\Policies\Microsoft\Internet Explorer\Control Panel
+Certificates
+DWORD:1
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+Use FormSuggest
+SZ:no
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+FormSuggest PW Ask
+SZ:no
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+FormSuggest Passwords
+SZ:no
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+FormSuggest Passwords
+SZ:no
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+FormSuggest PW Ask
+SZ:no
+
+User
+Software\Policies\Microsoft\Internet Explorer\Main
+Use FormSuggest
+SZ:no
+
+; PARSING COMPLETED.
+; ----------------------------------------------------------------------
+

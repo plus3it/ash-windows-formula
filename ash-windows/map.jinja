@@ -1,101 +1,81 @@
-#Get the OS version from the grain 'osfullname'
-{% set os_ver = salt['grains.get']('osfullname') %}
+# Get the SYSTEMROOT value from the registry
+{% set systemroot = salt.reg.read_value(
+    'HKEY_LOCAL_MACHINE',
+    'SOFTWARE\Microsoft\Windows NT\CurrentVersion',
+    'SystemRoot').vdata
+%}
 
-#Get the IE version from the registry for IE 10 and 11
-{% set ie_ver = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'svcVersion').vdata %}
-#Get the IE version from the registry for IE 8 and 9
-{% if not ie_ver %}
-    {% set ie_ver = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Internet Explorer', 'Version').vdata %}
-{% endif %}
-
-#Define lookup dictionary of default settings for the supported Operating System versions
-{% set os_lookup = { 
-    'Microsoft Windows Server 2012 R2' : { 'os_path'      : 'Server_2012_R2',
-                                           'default_role' : 'MemberServer',
-                                         },
-    'Microsoft Windows Server 2008 R2' : { 'os_path'      : 'Server_2008_R2', 
-                                           'default_role' : 'MemberServer',
-                                         },
-    'Microsoft Windows 8.1'            : { 'os_path'      : 'Windows_8_1',
-                                           'default_role' : 'Workstation',
-                                         },
-} %}
-
-#Define lookup dictionary of default settings for the supported versions of Internet Explorer
-{% set ie_lookup= { 
-    '11.0' : { 'ie_path' : 'IE_11', 
-             },
-    '10.0' : { 'ie_path' : 'IE_10',
-             },
-    '9.0'  : { 'ie_path' : 'IE_9', 
-             },
-    '8.0'  : { 'ie_path' : 'IE_8', 
-             },
-} %}
-
-#Define lookup dictionary of default settings for the supported role types
-{% set role_lookup = { 
-    'MemberServer'     : { 'role_path' : '_MS', 
-                         },
-    'DomainController' : { 'role_path' : '_DC', 
-                         },
-    'Workstation'      : { 'role_path' : '', 
-                         },
-} %}
-
-#Lookup the default settings for the OS version
-{% set os_defaults = {} %}
-{% for ver in os_lookup %}
-    {% do os_defaults.update( os_lookup[ver] ) if os_ver.startswith(ver) %} 
-{% endfor %}
-
-#Lookup the default settings for the IE version
-{% set ie_defaults = {} %}
-{% for ver in ie_lookup %}
-  {% do ie_defaults.update( ie_lookup[ver] ) if ie_ver.startswith(ver) %}
-{% endfor %}
-
-#Lookup the default settings for the role type
-{% set role = salt['pillar.get']('ash-windows:role', salt['grains.get']('ash-windows:role', os_defaults.get('default_role', 'MemberServer'))) %}
-{% set role_defaults = role_lookup[role] %}
-
-#Get the SYSTEMROOT value from the registry
-{% set systemroot = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot').vdata %}
-
-#Set the SYSTEMDRIVE value to the first two characters of SYSTEMROOT, see http://msdn.microsoft.com/en-us/library/cc231436.aspx
+# Set the SYSTEMDRIVE value to the first two characters of SYSTEMROOT
+# See http://msdn.microsoft.com/en-us/library/cc231436.aspx
 {% set systemdrive = systemroot|truncate(2, True, '') %}
 
-#Define lookup table with default paths
-{% set lookup = { 'logdir'                 : systemdrive + '\\Ash\\logs',
-                  'salt_ash_root'          : 'salt://ash-windows',
-                  'system_ash_root'        : systemdrive + '\\salt\\srv\\formulas\\ash-windows-formula\\ash-windows',
-                  'apply_lgpo_source'      : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe',
-                  'apply_lgpo_source_hash' : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe.SHA512',
-                  'apply_lgpo_filename'    : systemroot + '\\system32\\Apply_LGPO_Delta.exe',
+# Get the OS version from the grain 'osfullname'
+{% set os_ver = salt.grains.get('osfullname') %}
+
+# Get the IE version from the registry for IE 10 and 11
+{% set ie_ver = salt.reg.read_value(
+    'HKEY_LOCAL_MACHINE',
+    'SOFTWARE\Microsoft\Internet Explorer',
+    'svcVersion').vdata
+%}
+
+# Get the IE version from the registry for IE 8 and 9
+{% if not ie_ver or ie_ver == '(value not set)' %}
+    {% set ie_ver = salt.reg.read_value(
+        'HKEY_LOCAL_MACHINE',
+        'SOFTWARE\Microsoft\Internet Explorer',
+        'Version').vdata
+    %}
+{% endif %}
+
+# Define default role for supported Operating System versions
+{% set default_role = salt.grains.filter_by(
+    {
+        '2012ServerR2' : 'MemberServer',
+        '2008ServerR2' : 'MemberServer',
+        '8.1' : 'Workstation',
+        '10' : 'Workstation',
+    },
+    grain='osrelease' 
+) %}
+
+# Define lookup dictionary of default settings for the supported role types
+{% set role_path_map = {
+    'MemberServer' : '_MS',
+    'DomainController' : '_DC',
+    'Workstation' : '',
 } %}
 
-#Import user defined settings from pillar (if available)
-{% do lookup.update(salt['pillar.get']('ash-windows:lookup')) %}
+# Get the role
+{% set role = salt.pillar.get(
+    'ash-windows:lookup:role',
+    salt.grains.get(
+        'ash-windows:lookup:role',
+        default_role
+    )
+) %}
 
-#Define the lookup table to return to the ash state files
-{% set ash = { 'common_logdir'          : lookup['logdir'],
-               'iavm_cwd'               : lookup['system_ash_root'] + '\\iavmfiles',
-               'delta_cwd'              : lookup['system_ash_root'] + '\\deltafiles',
-               'apply_lgpo_source'      : lookup['apply_lgpo_source'],
-               'apply_lgpo_source_hash' : lookup['apply_lgpo_source_hash'],
-               'apply_lgpo_filename'    : lookup['apply_lgpo_filename'],
-               'ie_path'                : ie_defaults['ie_path'],
-               'os_path'                : os_defaults['os_path'],
-               'mss_cwd'                : lookup['system_ash_root'] + '\\mssfiles',
-               'role_path'              : role_defaults['role_path'],
-               'scm_cwd'                : lookup['system_ash_root'] + '\\scmfiles',
-               'scm_audit_file_source'  : lookup['salt_ash_root'] + '/scmfiles/' + os_defaults['os_path'] + role_defaults['role_path'] + '/audit.csv',
-               'scm_pth_admx_name'      : systemroot + '\\PolicyDefinitions\\PtH.admx',
-               'scm_pth_admx_source'    : lookup['salt_ash_root'] + '/scmfiles/Templates/PtH.admx',
-               'scm_pth_adml_name'      : systemroot + '\\PolicyDefinitions\\en-US\\PtH.adml',
-               'scm_pth_adml_source'    : lookup['salt_ash_root'] + '/scmfiles/Templates/PtH.adml',
-               'stig_cwd'               : lookup['system_ash_root'] + '\\stigfiles',
-               'stig_audit_file_source' : lookup['salt_ash_root'] + '/stigfiles/' + os_defaults['os_path'] + role_defaults['role_path'] + '/stig_audit.csv',
-               'win_audit_dir'          : systemroot + '\\System32\GroupPolicy\\Machine\\Microsoft\\Windows NT\\Audit',
-               'win_audit_file_name'    : systemroot + '\\System32\\GroupPolicy\\Machine\\Microsoft\\Windows NT\\Audit\\Audit.csv',
+# Define lookup table with default paths
+{% set defaults = {
+    'logdir' : systemdrive ~ '\\Ash\\Logs',
+    'apply_lgpo_source' : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe',
+    'apply_lgpo_source_hash' : 'https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe.SHA512',
+    'apply_lgpo_filename' : systemroot ~ '\\system32\\Apply_LGPO_Delta.exe',
 } %}
+
+# Import user defined settings from pillar (if available)
+{% set ash = salt.pillar.get(
+    'ash-windows:lookup',
+    default=defaults,
+    merge=True
+) %}
+
+# Define the lookup table to return to the ash state files
+{% do ash.update({
+    'ie_path' : 'IE_' ~ ie_ver.split('.')[0],
+    'os_path' : 'Windows_' ~ grains.osrelease |replace('.','_') ~ role_path_map[role],
+    'pth_admx_name' : systemroot ~ '\\PolicyDefinitions\\PtH.admx',
+    'pth_adml_name' : systemroot ~ '\\PolicyDefinitions\\en-US\\PtH.adml',
+    'win_audit_dir' : systemroot ~ '\\System32\GroupPolicy\\Machine\\Microsoft\\Windows NT\\Audit',
+    'win_audit_file_name' : systemroot ~ '\\System32\\GroupPolicy\\Machine\\Microsoft\\Windows NT\\Audit\\Audit.csv',
+}) %}

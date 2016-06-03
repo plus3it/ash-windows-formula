@@ -1,0 +1,31 @@
+{% from 'ash-windows/map.jinja' import ash with context %}
+
+{# Import policies from yaml files. #}
+{% import_yaml tpldir ~ '/' ~ ash.os_path ~ '/gpttmpl.yml' as gpttmpl_policies %}
+{% import_yaml tpldir ~ '/' ~ ash.os_path ~ '/machine_registry.yml' as computer_policies %}
+{% import_yaml tpldir ~ '/' ~ ash.os_path ~ '/user_registry.yml' as user_policies %}
+{% import_yaml tpldir ~ '/' ~ ash.ie_path ~ '/machine_registry.yml' as ie_computer_policies %}
+{% import_yaml tpldir ~ '/' ~ ash.ie_path ~ '/user_registry.yml' as ie_user_policies %}
+
+{#
+    If the yaml file is empty, `import_yaml` returns None. Change that to an
+    empty list so that `lgpo.present` interprets it properly.
+#}
+{% set gpttmpl_policies = gpttmpl_policies or [] %}
+{% set computer_policies = computer_policies or [] %}
+{% set user_policies = user_policies or [] %}
+{% set ie_computer_policies = ie_computer_policies or [] %}
+{% set ie_user_policies = ie_user_policies or [] %}
+
+{# Define the `scm` dictionary #}
+{% set scm = ash or {} %}
+{% do scm.update({
+    'gpttmpl_policies': gpttmpl_policies,
+    'computer_policies': computer_policies,
+    'user_policies': user_policies,
+    'ie_computer_policies': ie_computer_policies,
+    'ie_user_policies': ie_user_policies,
+    'audit_file_source': 'salt://' ~ tpldir ~ '/' ~ ash.os_path ~ '/audit.csv',
+    'pth_admx_source': 'salt://' ~ tpldir ~ '/Templates/PtH.admx',
+    'pth_adml_source': 'salt://' ~ tpldir ~ '/Templates/PtH.adml'
+}) %}

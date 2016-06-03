@@ -1,0 +1,686 @@
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText
+  policy_type: regpol
+  value: >-
+    You are accessing a U.S. Government (USG) Information System (IS) that is
+    provided for USG-authorized use only. By using this IS (which includes any
+    device attached to this IS), you consent to the following conditions: -The
+    USG routinely intercepts and monitors communications on this IS for
+    purposes including, but not limited to, penetration testing, COMSEC
+    monitoring, network operations and defense, personnel misconduct (PM), law
+    enforcement (LE), and counterintelligence (CI) investigations. -At any
+    time, the USG may inspect and seize data stored on this IS.
+    -Communications using, or data stored on, this IS are not private, are
+    subject to routine monitoring, interception, and search, and may be
+    disclosed or used for any USG-authorized purpose. -This IS includes
+    security measures (e.g., authentication and access controls) to protect
+    USG interests--not for your personal benefit or privacy. -Notwithstanding
+    the above, using this IS does not constitute consent to PM, LE or CI
+    investigative searching or monitoring of the content of privileged
+    communications, or work product, related to personal representation or
+    services by attorneys, psychotherapists, or clergy, and their assistants.
+    Such communications and work product are private and confidential. See
+    User Agreement for details.
+  vtype: SZ
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fAllowToGetHelp
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\DisableDomainCreds
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy\Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fSingleSessionPerUser
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fPromptForPassword
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\MinEncryptionLevel
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\PerSessionTempDir
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\DeleteTempDirsOnExit
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\MaxDisconnectionTime
+  policy_type: regpol
+  value: '60000'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\MaxIdleTime
+  policy_type: regpol
+  value: '900000'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fAllowUnsolicited
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\PCHealth\ErrorReporting\DoReport
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer\DisableAutoUpdate
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\EnableICMPRedirect
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\PerformRouterDiscovery
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime
+  policy_type: regpol
+  value: '300000'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Netbt\Parameters\NoNameReleaseOnDemand
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmissions
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fEncryptRPCTraffic
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}\NoBackgroundPolicy
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}\NoGPOListChanges
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\IPSEC\NoDefaultExempt
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI\EnumerateAdministrators
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\DisablePasswordSaving
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fDisableCdm
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Rpc\RestrictRemoteClients
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Rpc\EnableAuthEpResolution
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Printers\DisableHTTPPrinting
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Printers\DisableWebPnPDownload
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\DriverSearching\DontSearchWindowsUpdate
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Peernet\Disabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Network Connections\NC_AllowNetBridge_NLA
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\SystemCertificates\AuthRoot\DisableRootAutoUpdate
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\EventViewer\MicrosoftEventVwrDisableLinks
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoInternetOpenWith
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LogonType
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\PreXPSP2ShellProtocolBehavior
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Installer\SafeForScripting
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Installer\EnableUserControl
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Installer\DisableLUAPatching
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsMediaPlayer\GroupPrivacyAcceptance
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\AllowLLTDIOOnDomain
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\AllowLLTDIOOnPublicNet
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\EnableLLTDIO
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\ProhibitLLTDIOOnPrivateNet
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\AllowRspndrOnDomain
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\AllowRspndrOnPublicNet
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\EnableRspndr
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LLTD\ProhibitRspndrOnPrivateNet
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\Registrars\DisableInBand802DOT11Registrar
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\Registrars\DisableFlashConfigRegistrar
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\Registrars\DisableUPnPRegistrar
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\Registrars\DisableWPDRegistrar
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\Registrars\EnableRegistrars
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WCN\UI\DisableWcnUi
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DeviceInstall\Settings\AllowRemoteRPC
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DeviceInstall\Settings\DisableSystemRestore
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DeviceInstall\Settings\DisableSendGenericDriverNotFoundToWER
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DriverSearching\DontPromptForWindowsUpdate
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\HandwritingErrorReports\PreventHandwritingErrorReports
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\DCSettingIndex
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\ACSettingIndex
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\LoggingEnabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\LoggingDisabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\DontSendAdditionalData
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoHeapTerminationOnCorruption
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\ReportControllerMissing
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WMDRM\DisableOnline
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fDisableCcm
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fDisableLPT
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fDisablePNPRedir
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\fEnableSmartCard
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoDisconnect
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\SQMClient\Windows\CEIPEnable
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\LanManServer\Parameters\SMBServerNameHardeningLevel
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\pku2u\AllowOnlineID
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip6\Parameters\TcpMaxDataRetransmissions
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Network Connections\NC_StdDomainUserSetLocation
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\Force_Tunneling
+  policy_type: regpol
+  value: Enabled
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows NT\Printers\DoNotInstallCompatibleDriverFromWindowsUpdate
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Device Metadata\PreventDeviceMetadataFromNetwork
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DriverSearching\SearchOrderConfig
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy\DisableQueryRemoteServer
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy\EnableQueryRemoteServer
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}\ScenarioExecutionEnabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\AppCompat\DisableInventory
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoAutoplayfornonVolume
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoDataExecutionPrevention
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoAutorun
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption
+  policy_type: regpol
+  value: DoD Notice and Consent Banner
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\6to4_State
+  policy_type: regpol
+  value: Disabled
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\IPHTTPS\IPHTTPSInterface\IPHTTPS_ClientUrl
+  policy_type: regpol
+  value: 'about:blank'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\IPHTTPS\IPHTTPSInterface\IPHTTPS_ClientState
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\ISATAP_State
+  policy_type: regpol
+  value: Disabled
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\TCPIP\v6Transition\Teredo_State
+  policy_type: regpol
+  value: Disabled
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\Setup\MaxSize
+  policy_type: regpol
+  value: '32768'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DeviceInstall\Settings\DisableSendRequestAdditionalSoftwareToWER
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\EnableIPAutoConfigurationLimits
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Servicing\UseWindowsUpdate
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DriverSearching\DriverServerSelection
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Policies\EarlyLaunch\DriverLoadPolicy
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoUseStoreOpenWith
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Control Panel\International\BlockUserInputMethodsForSignIn
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\EnumerateLocalUsers
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\DisableLockScreenAppNotifications
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\3C0BC021-C8A8-4E07-A973-6B14CBCB2B7E\DCSettingIndex
+  policy_type: regpol
+  value: '1200'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\3C0BC021-C8A8-4E07-A973-6B14CBCB2B7E\ACSettingIndex
+  policy_type: regpol
+  value: '1200'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\AppCompat\DisablePcaUI
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Appx\AllowAllTrustedApps
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Biometrics\Enabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CredUI\DisablePasswordReveal
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\EnableSmartScreen
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LocationAndSensors\DisableLocation
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Feeds\AllowBasicAuthInClear
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Feeds\DisableEnclosureDownload
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowBasic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowUnencryptedTraffic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowDigest
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\AllowBasic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\AllowUnencryptedTraffic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\DisableRunAs
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows NT\CurrentVersion\WinLogon\AllocateDASD
+  policy_type: regpol
+  value: '0'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Cryptography\ForceKeyProtection
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoWebServices
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\Disabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin
+  policy_type: regpol
+  value: '4'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip6\Parameters\DisabledComponents
+  policy_type: regpol
+  value: '4294967295'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoOnlinePrintsWizard
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\GameUX\DownloadGameInfo
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows NT\Terminal Services\RedirectOnlyDefaultClientPrinter
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Control\LSA\UseMachineId
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Control\LSA\MSV1_0\allownullsessionfallback
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters\SupportedEncryptionTypes
+  policy_type: regpol
+  value: '2147483644'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\GameUX\GameUpdateOptions
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Homegroup\DisableHomeGroup
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\WAU\Disabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: USER\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software
+    Publishing\State
+  policy_type: regpol
+  value: '146432'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\Disabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\BypassDataThrottling
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\DisableQueue
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\ForceQueue
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\QueuePesterInterval
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\MaxQueueCount
+  policy_type: regpol
+  value: '50'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\DisableArchive
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\ConfigureArchive
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\MaxArchiveCount
+  policy_type: regpol
+  value: '100'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\DontShowUI
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent\DefaultOverrideBehavior
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Windows Error Reporting\Consent\DefaultConsent
+  policy_type: regpol
+  value: '4'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoDriveTypeAutoRun
+  policy_type: regpol
+  value: '255'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\Application\MaxSize
+  policy_type: regpol
+  value: '32768'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\Security\MaxSize
+  policy_type: regpol
+  value: '196608'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\System\MaxSize
+  policy_type: regpol
+  value: '32768'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- name: LockoutBadCount
+  policy_type: secedit
+  value: '3'
+- name: ResetLockoutCount
+  policy_type: secedit
+  value: '60'
+- name: LockoutDuration
+  policy_type: secedit
+  value: '-1'
+- name: MinimumPasswordAge
+  policy_type: secedit
+  value: '1'
+- name: MaximumPasswordAge
+  policy_type: secedit
+  value: '60'
+- name: PasswordHistorySize
+  policy_type: secedit
+  value: '24'
+- name: ForceLogoffWhenHourExpire
+  policy_type: secedit
+  value: '1'
+- name: MinimumPasswordLength
+  policy_type: secedit
+  value: '14'
+- name: SeChangeNotifyPrivilege
+  policy_type: secedit
+  value: '*S-1-5-20,*S-1-5-19,*S-1-5-11,*S-1-5-32-544'
+- name: SeDenyServiceLogonRight
+  policy_type: secedit
+  value: ''
+- name: SeBatchLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-544'
+- name: SeBackupPrivilege
+  policy_type: secedit
+  value: '*S-1-5-32-544'
+- name: SeDenyRemoteInteractiveLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-546'
+- name: SeRestorePrivilege
+  policy_type: secedit
+  value: '*S-1-5-32-544'

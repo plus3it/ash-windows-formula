@@ -1,0 +1,13 @@
+# Get the SYSTEMROOT value from the registry
+{% set systemroot = salt.reg.read_value(
+    'HKEY_LOCAL_MACHINE',
+    'SOFTWARE\Microsoft\Windows NT\CurrentVersion',
+    'SystemRoot').vdata
+%}
+
+{% set mss = {
+    'admx_name' : systemroot ~ '\\PolicyDefinitions\\MSS-legacy.admx',
+    'adml_name' : systemroot ~ '\\PolicyDefinitions\\en-US\\MSS-legacy.adml',
+    'admx_source': 'salt://' ~ tpldir ~ '/Templates/MSS-legacy.admx',
+    'adml_source': 'salt://' ~ tpldir ~ '/Templates/MSS-legacy.adml'
+} %}

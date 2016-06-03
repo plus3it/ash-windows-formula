@@ -39,5 +39,6 @@ Icon
 #Personal git ignore settings
 #===============
 
-#pycharm dirs
 .idea
+*.exe
+*.pol

@@ -1,0 +1,16 @@
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- name: NewGuestName
+  policy_type: secedit
+  value: '"xGuest"'
+- name: NewAdministratorName
+  policy_type: secedit
+  value: '"xAdministrator"'
+- name: SeDenyRemoteInteractiveLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-546'
+- name: SeDenyNetworkLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-546'
