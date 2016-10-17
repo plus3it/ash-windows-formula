@@ -131,3 +131,7 @@
   policy_type: regpol
   value: '0'
   vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2301
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
