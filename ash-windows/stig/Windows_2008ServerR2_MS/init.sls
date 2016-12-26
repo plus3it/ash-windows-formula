@@ -19,4 +19,3 @@ CCE-10913-2-Disable optional subsystems:
     - vname: Optional
     - vdata: []
     - vtype: REG_MULTI_SZ
-    - reflection: False
