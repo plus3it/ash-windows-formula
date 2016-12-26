@@ -16,7 +16,6 @@ Machine AllowedPaths:
       - Software\Microsoft\Windows NT\CurrentVersion\Perflib
       - System\CurrentControlSet\Services\SysmonLog
     - vtype: REG_MULTI_SZ
-    - reflection: False
 
 Machine AllowedExactPaths:
   reg.present:
@@ -27,4 +26,3 @@ Machine AllowedExactPaths:
       - System\CurrentControlSet\Control\Server Applications
       - Software\Microsoft\Windows NT\CurrentVersion
     - vtype: REG_MULTI_SZ
-    - reflection: False
