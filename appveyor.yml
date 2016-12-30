@@ -1,0 +1,59 @@
+version: '{branch}-{build}'
+build: off
+environment:
+  global:
+    SALT_FILEROOT: '%APPVEYOR_BUILD_FOLDER%'
+    SALT_URL: https://repo.saltstack.com/windows/Salt-Minion-2016.3.4-AMD64-Setup.exe
+    SALT_PILLARROOT: '%APPVEYOR_BUILD_FOLDER%\tests\pillar\test-windows-main'
+  matrix:
+    - SALT_STATE: ash-windows
+    - SALT_STATE: ash-windows.scm
+    - SALT_STATE: ash-windows.stig
+    - SALT_STATE: ash-windows.delta
+    - SALT_STATE: ash-windows.custom
+
+init:
+  - ps: echo $env:PILLAR_HOME
+install:
+  - ps: |
+      $null = `
+        (new-object net.webclient).DownloadFile(${env:SALT_URL}, `
+        "${env:temp}\salt-minion.exe")
+  - ps: |
+      $null = `
+        Start-Process -FilePath "${env:temp}\salt-minion.exe" `
+        -ArgumentList "/S" -NoNewWindow -PassThru -Wait
+  - ps: C:\salt\salt-call.bat --versions-report
+  - ps: |
+      C:\salt\salt-call.bat --local `
+        --file-root="${env:SALT_FILEROOT}" `
+        --pillar-root="${env:SALT_PILLARROOT}" `
+        state.sls ash-windows.tools
+
+test_script:
+  - ps: |
+      C:\salt\salt-call.bat --local --retcode-passthrough `
+        --log-file-level debug `
+        --file-root="${env:SALT_FILEROOT}" `
+        --pillar-root="${env:SALT_PILLARROOT}" `
+        state.show_sls `
+        "${env:SALT_STATE}"
+  - ps: |
+      C:\salt\salt-call.bat --local --retcode-passthrough `
+        --log-file-level debug `
+        --file-root="${env:SALT_FILEROOT}" `
+        --pillar-root="${env:SALT_PILLARROOT}" `
+        --module-dirs="${env:SALT_FILEROOT}\_modules" `
+        --states-dir="${env:SALT_FILEROOT}\_states" `
+        state.sls `
+        "${env:SALT_STATE}" `
+        mock=True
+
+on_failure:
+  - ps: C:\salt\salt-call.bat --local grains.items
+  - ps: dir "env:"
+  - ps: get-content C:\salt\var\log\salt\*
+
+### To enable remote debugging uncomment this (also, see: http://www.appveyor.com/docs/how-to/rdp-to-build-worker):
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
