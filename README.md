@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/plus3it/ash-windows-formula.svg)](https://travis-ci.org/plus3it/ash-windows-formula)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/plus3it/ash-windows-formula?branch=master&svg=true)](https://ci.appveyor.com/project/plus3it/ash-windows-formula)
 
 # ash-windows-formula
 Automated System Hardening - Windows (*ash-windows*) is a Salt Formula for
