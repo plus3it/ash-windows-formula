@@ -271,13 +271,13 @@
   value: '*S-1-5-32-544'
 - name: SeDenyRemoteInteractiveLogonRight
   policy_type: secedit
-  value: '*S-1-5-32-546, NT AUTHORITY\Local Account'
+  value: '*S-1-5-32-546,*S-1-5-113'
 - name: SeCreatePermanentPrivilege
   policy_type: secedit
   value: ''
 - name: SeSystemProfilePrivilege
   policy_type: secedit
-  value: NT SERVICE\WdiServiceHost,*S-1-5-32-544
+  value: '*S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420,*S-1-5-32-544'
 - name: SeManageVolumePrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
@@ -295,7 +295,7 @@
   value: '*S-1-5-19,*S-1-5-32-544'
 - name: SeDenyNetworkLogonRight
   policy_type: secedit
-  value: '*S-1-5-32-546, NT AUTHORITY\Local Account'
+  value: '*S-1-5-32-546,*S-1-5-113'
 - name: SeAuditPrivilege
   policy_type: secedit
   value: '*S-1-5-19,*S-1-5-20'

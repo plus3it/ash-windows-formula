@@ -308,7 +308,7 @@
   value: '*S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20'
 - name: SeSystemProfilePrivilege
   policy_type: secedit
-  value: '*S-1-5-32-544,NT SERVICE\WdiServiceHost'
+  value: '*S-1-5-32-544,*S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420'
 - name: SeAuditPrivilege
   policy_type: secedit
   value: '*S-1-5-19,*S-1-5-20'

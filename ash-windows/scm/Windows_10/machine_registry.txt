@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING COMPUTER POLICY
-; Source file:  .\scmfiles\Windows_10\machine_registry.pol
+; Source file:  .\ash-windows\scm\Windows_10\machine_registry.pol
 
 Computer
 Software\Microsoft\wcmsvc\wifinetworkmanager\config
@@ -14,7 +14,7 @@ DWORD:0
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
-NoWebServices
+NoAutorun
 DWORD:1
 
 Computer
@@ -24,17 +24,17 @@ DWORD:255
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
-NoAutorun
-DWORD:1
-
-Computer
-Software\Microsoft\Windows\CurrentVersion\Policies\System
-MSAOptional
+NoWebServices
 DWORD:1
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\System
 DisableAutomaticRestartSignOn
+DWORD:1
+
+Computer
+Software\Microsoft\Windows\CurrentVersion\Policies\System
+MSAOptional
 DWORD:1
 
 Computer
@@ -53,14 +53,14 @@ EnhancedAntiSpoofing
 DWORD:1
 
 Computer
+Software\Policies\Microsoft\Internet Explorer\Feeds
+DisableEnclosureDownload
+DWORD:1
+
+Computer
 Software\Policies\Microsoft\MicrosoftEdge\Main
 FormSuggest Passwords
 SZ:no
-
-Computer
-Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter
-EnabledV9
-DWORD:1
 
 Computer
 Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter
@@ -73,6 +73,11 @@ PreventOverride
 DWORD:1
 
 Computer
+Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter
+EnabledV9
+DWORD:1
+
+Computer
 Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51
 ACSettingIndex
 DWORD:1
@@ -80,6 +85,46 @@ DWORD:1
 Computer
 Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51
 DCSettingIndex
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows Defender
+DisableAntiSpyware
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Real-Time Protection
+DisableBehaviorMonitoring
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Scan
+DisableEmailScanning
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Scan
+DisableRemovableDriveScanning
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Spynet
+LocalSettingOverrideSpynetReporting
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Spynet
+SpynetReporting
+DWORD:2
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Spynet
+SubmitSamplesConsent
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows Defender\Spynet
+SubmitSamplesConsent
 DWORD:1
 
 Computer
@@ -104,11 +149,6 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\Windows NT\Rpc
-EnableAuthEpResolution
-DWORD:0
-
-Computer
-Software\Policies\Microsoft\Windows NT\Rpc
 RestrictRemoteClients
 DWORD:1
 
@@ -116,15 +156,10 @@ Computer
 Software\Policies\Microsoft\Windows NT\Rpc
 RestrictRemoteClients
 DWORD:1
-
-Computer
-Software\Policies\Microsoft\Windows NT\Rpc
-EnableAuthEpResolution
-DWORD:0
 
 Computer
 Software\policies\Microsoft\Windows NT\Terminal Services
-MaxTicketExpiryUnits
+fUseMailto
 DELETE
 
 Computer
@@ -134,17 +169,17 @@ DWORD:0
 
 Computer
 Software\policies\Microsoft\Windows NT\Terminal Services
-MaxTicketExpiry
-DELETE
-
-Computer
-Software\policies\Microsoft\Windows NT\Terminal Services
 fAllowFullControl
 DELETE
 
 Computer
 Software\policies\Microsoft\Windows NT\Terminal Services
-fUseMailto
+MaxTicketExpiryUnits
+DELETE
+
+Computer
+Software\policies\Microsoft\Windows NT\Terminal Services
+MaxTicketExpiry
 DELETE
 
 Computer
@@ -154,17 +189,12 @@ DWORD:1
 
 Computer
 SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
-fEncryptRPCTraffic
+DisablePasswordSaving
 DWORD:1
 
 Computer
 SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
-MinEncryptionLevel
-DWORD:3
-
-Computer
-SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
-DisablePasswordSaving
+fPromptForPassword
 DWORD:1
 
 Computer
@@ -179,8 +209,13 @@ DWORD:3
 
 Computer
 SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
-fPromptForPassword
+fEncryptRPCTraffic
 DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
+MinEncryptionLevel
+DWORD:3
 
 Computer
 Software\Policies\Microsoft\Windows\CloudContent
@@ -196,6 +231,21 @@ Computer
 Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions
 DenyDeviceIDs
 DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions
+DenyDeviceClasses
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions
+DenyDeviceClassesRetroactive
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceClasses
+1
+SZ:{d48179be-ec20-11d1-b6b8-00c04fa372a7}
 
 Computer
 Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions\DenyDeviceIDs
@@ -244,12 +294,12 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\Installer
-EnableUserControl
+AlwaysInstallElevated
 DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\Installer
-AlwaysInstallElevated
+EnableUserControl
 DWORD:0
 
 Computer
@@ -260,6 +310,11 @@ DWORD:0
 Computer
 Software\Policies\Microsoft\Windows\LanmanWorkstation
 AllowInsecureGuestAuth
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows\Network Connections
+NC_ShowSharedAccessUI
 DWORD:0
 
 Computer
@@ -283,19 +338,24 @@ NoLockScreenCamera
 DWORD:1
 
 Computer
-Software\Policies\Microsoft\Windows\System
-AllowDomainPINLogon
+Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging
+EnableScriptBlockInvocationLogging
 DWORD:0
 
 Computer
-Software\Policies\Microsoft\Windows\System
-AllowDomainPINLogon
-DWORD:0
-
-Computer
-Software\Policies\Microsoft\Windows\System
-DontEnumerateConnectedUsers
+Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging
+EnableScriptBlockLogging
 DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows\System
+EnableSmartScreen
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\Windows\System
+AllowDomainPINLogon
+DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\System
@@ -309,13 +369,8 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\System
-DontEnumerateConnectedUsers
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\Windows\System
-EnableSmartScreen
-DWORD:2
+AllowDomainPINLogon
+DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\WcmSvc\GroupPolicy
@@ -334,7 +389,7 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\WinRM\Client
-AllowUnencryptedTraffic
+AllowDigest
 DWORD:0
 
 Computer
@@ -344,11 +399,6 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\WinRM\Client
-AllowDigest
-DWORD:0
-
-Computer
-Software\Policies\Microsoft\Windows\WinRM\Client
 AllowUnencryptedTraffic
 DWORD:0
 
@@ -359,7 +409,17 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\Windows\WinRM\Client
+AllowUnencryptedTraffic
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows\WinRM\Client
 AllowDigest
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\Windows\WinRM\Service
+AllowBasic
 DWORD:0
 
 Computer
@@ -379,11 +439,6 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\Windows\WinRM\Service
-AllowBasic
-DWORD:0
-
-Computer
-Software\Policies\Microsoft\Windows\WinRM\Service
 DisableRunAs
 DWORD:1
 
@@ -394,7 +449,7 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\DomainProfile
-DefaultInboundAction
+DisableNotifications
 DWORD:1
 
 Computer
@@ -404,18 +459,18 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\DomainProfile
+DefaultInboundAction
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\DomainProfile
 DefaultOutboundAction
 DWORD:0
 
 Computer
-Software\Policies\Microsoft\WindowsFirewall\DomainProfile
-DisableNotifications
-DWORD:1
-
-Computer
 Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log
+LogFileSize
+DWORD:16384
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
@@ -429,21 +484,6 @@ DWORD:16384
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
-LogFileSize
-DWORD:16384
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
-LogDroppedPackets
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
 LogDroppedPackets
 DWORD:1
 
@@ -453,13 +493,8 @@ LogSuccessfulConnections
 DWORD:1
 
 Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile
-DisableNotifications
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile
-DefaultInboundAction
+Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
+LogDroppedPackets
 DWORD:1
 
 Computer
@@ -469,37 +504,17 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PrivateProfile
+DisableNotifications
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile
 DefaultOutboundAction
 DWORD:0
 
 Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\privatefw.log
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogSuccessfulConnections
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogDroppedPackets
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\privatefw.log
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogFileSize
-DWORD:16384
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
-LogDroppedPackets
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile
+DefaultInboundAction
 DWORD:1
 
 Computer
@@ -513,9 +528,24 @@ LogSuccessfulConnections
 DWORD:1
 
 Computer
-Software\Policies\Microsoft\WindowsFirewall\PublicProfile
-DefaultOutboundAction
-DWORD:0
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
+LogFileSize
+DWORD:16384
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
+LogSuccessfulConnections
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
+LogDroppedPackets
+DWORD:1
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
+LogDroppedPackets
+DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile
@@ -529,7 +559,12 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile
-DisableNotifications
+DefaultOutboundAction
+DWORD:0
+
+Computer
+Software\Policies\Microsoft\WindowsFirewall\PublicProfile
+DefaultInboundAction
 DWORD:1
 
 Computer
@@ -539,7 +574,7 @@ DWORD:0
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile
-DefaultInboundAction
+DisableNotifications
 DWORD:1
 
 Computer
@@ -549,8 +584,8 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\publicfw.log
+LogDroppedPackets
+DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
@@ -564,23 +599,13 @@ DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
-LogFilePath
-SZ:%SYSTEMROOT%\System32\logfiles\firewall\publicfw.log
+LogSuccessfulConnections
+DWORD:1
 
 Computer
 Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
 LogFileSize
 DWORD:16384
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
-LogDroppedPackets
-DWORD:1
-
-Computer
-Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
-LogSuccessfulConnections
-DWORD:1
 
 Computer
 SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest
@@ -604,13 +629,13 @@ DWORD:1
 
 Computer
 System\CurrentControlSet\Services\Tcpip\Parameters
-DisableIPSourceRouting
-DWORD:2
+EnableICMPRedirect
+DWORD:0
 
 Computer
 System\CurrentControlSet\Services\Tcpip\Parameters
-EnableICMPRedirect
-DWORD:0
+DisableIPSourceRouting
+DWORD:2
 
 Computer
 System\CurrentControlSet\Services\Tcpip\Parameters

@@ -1,0 +1,350 @@
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoDriveTypeAutoRun
+  policy_type: regpol
+  value: '255'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoAutorun
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableAutomaticRestartSignOn
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableAutomaticRestartSignOn
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Biometrics\FacialFeatures\EnhancedAntiSpoofing
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Real-Time Protection\DisableBehaviorMonitoring
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Scan\DisableEmailScanning
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Scan\DisableRemovableDriveScanning
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Spynet\SpynetReporting
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Spynet\LocalSettingOverrideSpynetReporting
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Spynet\SubmitSamplesConsent
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows Defender\Spynet\SubmitSamplesConsent
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\MitigationOptions_FontBocking
+  policy_type: regpol
+  value: '1000000000000'
+  vtype: SZ
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fPromptForPassword
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\MinEncryptionLevel
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fDisableCdm
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\MinEncryptionLevel
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fEncryptRPCTraffic
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\DisablePasswordSaving
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\EnableVirtualizationBasedSecurity
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\HypervisorEnforcedCodeIntegrity
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\RequirePlatformSecurityFeatures
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\LsaCfgFlags
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\Application\MaxSize
+  policy_type: regpol
+  value: '32768'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\Security\MaxSize
+  policy_type: regpol
+  value: '196608'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\EventLog\System\MaxSize
+  policy_type: regpol
+  value: '32768'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoHeapTerminationOnCorruption
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoDataExecutionPrevention
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Explorer\NoAutoplayfornonVolume
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}\NoBackgroundPolicy
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}\NoGPOListChanges
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Installer\EnableUserControl
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\LanmanWorkstation\AllowInsecureGuestAuth
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\NETLOGON
+  policy_type: regpol
+  value: RequireMutualAuthentication=1, RequireIntegrity=1
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\SYSVOL
+  policy_type: regpol
+  value: RequireMutualAuthentication=1, RequireIntegrity=1
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\Personalization\NoLockScreenCamera
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Personalization\NoLockScreenSlideshow
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Personalization\NoLockScreenCamera
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Personalization\NoLockScreenSlideshow
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockInvocationLogging
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Appx\EnforcementMode
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Appx\a9e18c21-ff8f-43cf-b9fc-db40eed693ba\Value
+  policy_type: regpol
+  value: <FilePublisherRule Id="a9e18c21-ff8f-43cf-b9fc-db40eed693ba" Name="(Default
+    Rule) All signed packaged apps" Description="Allows members of the Everyone group
+    to run packaged apps that are signed." UserOrGroupSid="S-1-1-0" Action="Allow"><Conditions><FilePublisherCondition
+    PublisherName="*" ProductName="*" BinaryName="*"><BinaryVersionRange LowSection="0.0.0.0"
+    HighSection="*"/></FilePublisherCondition></Conditions></FilePublisherRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\EnforcementMode
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\5e3ec135-b5af-4961-ae4d-cde98710afc9\Value
+  policy_type: regpol
+  value: <FilePublisherRule Id="5e3ec135-b5af-4961-ae4d-cde98710afc9" Name="Block
+    Google Chrome" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"><Conditions><FilePublisherCondition
+    PublisherName="O=GOOGLE INC, L=MOUNTAIN VIEW, S=CALIFORNIA, C=US" ProductName="GOOGLE
+    CHROME" BinaryName="CHROME.EXE"><BinaryVersionRange LowSection="*" HighSection="*"/></FilePublisherCondition></Conditions></FilePublisherRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\6db6c8f3-cf7c-4754-a438-94c95345bb53\Value
+  policy_type: regpol
+  value: <FilePublisherRule Id="6db6c8f3-cf7c-4754-a438-94c95345bb53" Name="Block
+    Mozilla Firefox" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"><Conditions><FilePublisherCondition
+    PublisherName="O=MOZILLA CORPORATION, L=MOUNTAIN VIEW, S=CA, C=US" ProductName="FIREFOX"
+    BinaryName="FIREFOX.EXE"><BinaryVersionRange LowSection="*" HighSection="*"/></FilePublisherCondition></Conditions></FilePublisherRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\881d54fe-3848-4d6a-95fd-42d48ebe60b8\Value
+  policy_type: regpol
+  value: <FilePublisherRule Id="881d54fe-3848-4d6a-95fd-42d48ebe60b8" Name="Block
+    Internet Explorer" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"><Conditions><FilePublisherCondition
+    PublisherName="O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US" ProductName="INTERNET
+    EXPLORER" BinaryName="IEXPLORE.EXE"><BinaryVersionRange LowSection="*" HighSection="*"/></FilePublisherCondition></Conditions></FilePublisherRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\921cc481-6e17-4653-8f75-050b80acca20\Value
+  policy_type: regpol
+  value: <FilePathRule Id="921cc481-6e17-4653-8f75-050b80acca20" Name="(Default Rule)
+    All files located in the Program Files folder" Description="Allows members of
+    the Everyone group to run applications that are located in the Program Files folder."
+    UserOrGroupSid="S-1-1-0" Action="Allow"><Conditions><FilePathCondition Path="%PROGRAMFILES%\*"/></Conditions></FilePathRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\a61c8b2c-a319-4cd0-9690-d2177cad7b51\Value
+  policy_type: regpol
+  value: <FilePathRule Id="a61c8b2c-a319-4cd0-9690-d2177cad7b51" Name="(Default Rule)
+    All files located in the Windows folder" Description="Allows members of the Everyone
+    group to run applications that are located in the Windows folder." UserOrGroupSid="S-1-1-0"
+    Action="Allow"><Conditions><FilePathCondition Path="%WINDIR%\*"/></Conditions></FilePathRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\SrpV2\Exe\fd686d83-a829-4351-8ff4-27c7de5755d2\Value
+  policy_type: regpol
+  value: <FilePathRule Id="fd686d83-a829-4351-8ff4-27c7de5755d2" Name="(Default Rule)
+    All files" Description="Allows members of the local Administrators group to run
+    all applications." UserOrGroupSid="S-1-5-32-544" Action="Allow"><Conditions><FilePathCondition
+    Path="*"/></Conditions></FilePathRule>
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Windows\System\DontDisplayNetworkSelectionUI
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\EnableSmartScreen
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\DontDisplayNetworkSelectionUI
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows\Windows Search\AllowIndexingEncryptedStoresOrItems
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowBasic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowUnencryptedTraffic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Client\AllowDigest
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\AllowUnencryptedTraffic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\AllowBasic
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\WinRM\Service\DisableRunAs
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\EnableFirewall
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\DefaultInboundAction
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\DefaultOutboundAction
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\EnableFirewall
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\DefaultInboundAction
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\DefaultOutboundAction
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\DefaultOutboundAction
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\EnableFirewall
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\DefaultInboundAction
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Policies\EarlyLaunch\DriverLoadPolicy
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Netbt\Parameters\NoNameReleaseOnDemand
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Netbt\Parameters\NoNameReleaseOnDemand
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\DisableIPSourceRouting
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\EnableICMPRedirect
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\DisableIPSourceRouting
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip\Parameters\EnableICMPRedirect
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip6\Parameters\DisableIPSourceRouting
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\Tcpip6\Parameters\DisableIPSourceRouting
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# flake8: noqa
 import sys
 import yaml
 
@@ -13,6 +14,7 @@ REG_CODE_MAP = {
 REG_MODES = ('DELETE', 'DELETEALLVALUES', 'CREATEKEY')
 REG_HIVES = ('USER', 'COMPUTER')
 REG_TYPES = ('DWORD', 'SZ', 'EXSZ')
+
 
 def _convert_regpol(src):
     policies = []
@@ -34,7 +36,9 @@ def _convert_regpol(src):
             # `index+3` is the action, or vtype:data
             try:
                 policy['policy_type'] = policy_type
-                policy['key'] = '\\'.join([src[index], src[index+1],
+                policy['key'] = '\\'.join([
+                    src[index],
+                    src[index+1],
                     src[index+2]])
                 if src[index+3] in REG_MODES:
                     policy['action'] = src[index+3]
@@ -89,7 +93,7 @@ def _convert_secedit(src):
 def main(src_file, dst_file, **kwargs):
     policies = []
 
-    with open(src_file, mode='rb') as f:
+    with open(src_file, mode='r') as f:
         src = f.read().splitlines()
 
     if '[Unicode]' in src:
@@ -97,8 +101,8 @@ def main(src_file, dst_file, **kwargs):
     else:
         policies = _convert_regpol(src)
 
-    with open(dst_file, mode='wb') as dh_:
-        yaml.dump(policies, dh_, default_flow_style=False)
+    with open(dst_file, mode='w') as dh_:
+        yaml.safe_dump(policies, dh_, default_flow_style=False)
 
 
 if __name__ == "__main__":

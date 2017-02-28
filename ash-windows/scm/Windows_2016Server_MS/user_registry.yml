@@ -6,7 +6,3 @@
   policy_type: regpol
   value: '1'
   vtype: SZ
-- key: User\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications\NoToastApplicationNotificationOnLockScreen
-  policy_type: regpol
-  value: '1'
-  vtype: DWORD

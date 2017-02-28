@@ -24,23 +24,23 @@
 
 ```powershell
 $baselines = @(
-    'IE_10',
-    'IE_11',
-    'IE_8',
-    'IE_9',
-    'Windows_2008ServerR2_DC',
-    'Windows_2008ServerR2_MS',
-    'Windows_2012ServerR2_DC',
-    'Windows_2012ServerR2_MS',
-    'Windows_2016Server_DC',
-    'Windows_2016Server_MS',
-    'Windows_8.1',
+    'IE_10'
+    'IE_11'
+    'IE_8'
+    'IE_9'
+    'Windows_2008ServerR2_DC'
+    'Windows_2008ServerR2_MS'
+    'Windows_2012ServerR2_DC'
+    'Windows_2012ServerR2_MS'
+    'Windows_2016Server_DC'
+    'Windows_2016Server_MS'
+    'Windows_8_1'
     'Windows_10'
 )
 
 foreach ($baseline in $baselines)
 {
-    $dir = Resolve-Path ".\ash-windows\scm\$baseline"
+    $dir = ".\ash-windows\scm\$baseline"
     $gpttmpl_inf = "$dir\GptTmpl.inf"
     $user_pol = "$dir\user_registry.pol"
     $machine_pol = "$dir\machine_registry.pol"
@@ -62,7 +62,7 @@ foreach ($baseline in $baselines)
 
     $TxtFile = "${dir}\user_registry.txt"
     $YmlFile = "${dir}\user_registry.yml"
-    # rm $TxtFile -ErrorAction SilentlyContinue
+    rm $TxtFile -ErrorAction SilentlyContinue
     if (Test-Path "$user_pol")
     {
         .\ash-windows\tools\ImportRegPol.exe -u "$user_pol" /log "$TxtFile" /parseOnly
@@ -79,10 +79,10 @@ foreach ($baseline in $baselines)
 
     $TxtFile = "${dir}\machine_registry.txt"
     $YmlFile = "${dir}\machine_registry.yml"
-    # rm $TxtFile -ErrorAction SilentlyContinue
+    rm $TxtFile -ErrorAction SilentlyContinue
     if (Test-Path "$machine_pol")
     {
-        .\tools\ImportRegPol.exe -m "$machine_pol" /log "$TxtFile" /parseOnly
+        .\ash-windows\tools\ImportRegPol.exe -m "$machine_pol" /log "$TxtFile" /parseOnly
         Write-Host "Processing $TxtFile"
         python .\ash-windows\tools\convert-lgpo-policy.py `
             src_file="$TxtFile" `
