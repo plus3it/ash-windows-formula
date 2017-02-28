@@ -4,7 +4,8 @@
 
 -   Install SCM to Windows 8.1 VM
 
--   Run SCM and update the database for IE, ws2008r2, ws2012r2, and win81
+-   Run SCM and update the database for IE8-11, ws2008r2, ws2012r2, ws2016,
+    win81, and win10
 
 -   Extract the user and machine registry .pol files for each
 
@@ -12,8 +13,8 @@
   http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx) to
   convert the .pol files to .txt policies
 
--   Name user policies 'user_registry.txt' and machine policies
-'machine_registry.txt'
+-   Name user policies 'user_registry.pol' and machine policies
+'machine_registry.pol'
 
 -   Grab any GptTmpl.inf and audit.csv files while at it
 
@@ -31,6 +32,8 @@ $baselines = @(
     'Windows_2008ServerR2_MS',
     'Windows_2012ServerR2_DC',
     'Windows_2012ServerR2_MS',
+    'Windows_2016Server_DC',
+    'Windows_2016Server_MS',
     'Windows_8.1',
     'Windows_10'
 )

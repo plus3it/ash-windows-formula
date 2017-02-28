@@ -22,4 +22,3 @@
 *.RTF	 diff=astextplain
 
 *.py text eol=lf
-*.inf diff=astextplain

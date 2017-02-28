@@ -4,7 +4,7 @@
 
 ;Copyright (c) 2008 Microsoft Corporation. All rights reserved. Complying with the applicable copyright laws is your responsibility.  By using or providing feedback on this documentation, you agree to the license agreement below.
 ;If you are using this documentation solely for non-commercial purposes internally within YOUR company or organization, then this documentation is licensed to you under the Creative Commons Attribution-NonCommercial License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/2.5/ or send a letter to Creative Commons, 543 Howard Street, 5th Floor, San Francisco, California, 94105, USA.
-;This documentation is provided to you for informational purposes only, and is provided to you entirely "AS IS".  Your use of the documentation cannot be understood as substituting for customized service and information that might be developed by Microsoft Corporation for a particular user based upon that user��s particular environment. To the extent permitted by law, MICROSOFT MAKES NO WARRANTY OF ANY KIND, DISCLAIMS ALL EXPRESS, IMPLIED AND STATUTORY WARRANTIES, AND ASSUMES NO LIABILITY TO YOU FOR ANY DAMAGES OF ANY TYPE IN CONNECTION WITH THESE MATERIALS OR ANY INTELLECTUAL PROPERTY IN THEM.  
+;This documentation is provided to you for informational purposes only, and is provided to you entirely "AS IS".  Your use of the documentation cannot be understood as substituting for customized service and information that might be developed by Microsoft Corporation for a particular user based upon that userï¿½ï¿½s particular environment. To the extent permitted by law, MICROSOFT MAKES NO WARRANTY OF ANY KIND, DISCLAIMS ALL EXPRESS, IMPLIED AND STATUTORY WARRANTIES, AND ASSUMES NO LIABILITY TO YOU FOR ANY DAMAGES OF ANY TYPE IN CONNECTION WITH THESE MATERIALS OR ANY INTELLECTUAL PROPERTY IN THEM.  
 ;Microsoft may have patents, patent applications, trademarks, or other intellectual property rights covering subject matter within this documentation.  Except as provided in a separate agreement from Microsoft, your use of this document does not give you any license to these patents, trademarks or other intellectual property.
 ;Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places and events depicted herein are fictitious.   
 ;Microsoft and the Microsoft product names listed in this data file are trademarks of the Microsoft group of companies; the list of Microsoft trademarks can be found at http://www.microsoft.com/library/toolbar/3.0/trademarks/en-us.mspx
@@ -132,7 +132,7 @@ SeSystemTimePrivilege=*S-1-5-19,*S-1-5-32-544
 SeRemoteInteractiveLogonRight=*S-1-5-32-544
 SeSystemEnvironmentPrivilege=*S-1-5-32-544
 SeCreateGlobalPrivilege=*S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20
-SeSystemProfilePrivilege=*S-1-5-32-544,NT SERVICE\WdiServiceHost
+SeSystemProfilePrivilege=*S-1-5-32-544,*S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420
 SeAuditPrivilege=*S-1-5-19,*S-1-5-20
 SeTrustedCredManAccessPrivilege=
 SeTimeZonePrivilege=*S-1-5-19,*S-1-5-32-544
