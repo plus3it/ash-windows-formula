@@ -135,3 +135,15 @@
   policy_type: regpol
   value: '0'
   vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Ext\RunThisTimeEnabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\120c
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\120c
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
