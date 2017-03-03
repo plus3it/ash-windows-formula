@@ -789,3 +789,7 @@
 - name: SeNetworkLogonRight
   policy_type: secedit
   value: '*S-1-5-32-544'
+- key: 'Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ProcessCreationIncludeCmdLine_Enabled'
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
