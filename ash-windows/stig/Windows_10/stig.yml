@@ -1,0 +1,347 @@
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText
+  policy_type: regpol
+  value: >-
+    You are accessing a U.S. Government (USG) Information System (IS) that is
+    provided for USG-authorized use only. By using this IS (which includes any
+    device attached to this IS), you consent to the following conditions: -The
+    USG routinely intercepts and monitors communications on this IS for
+    purposes including, but not limited to, penetration testing, COMSEC
+    monitoring, network operations and defense, personnel misconduct (PM), law
+    enforcement (LE), and counterintelligence (CI) investigations. -At any
+    time, the USG may inspect and seize data stored on this IS.
+    -Communications using, or data stored on, this IS are not private, are
+    subject to routine monitoring, interception, and search, and may be
+    disclosed or used for any USG-authorized purpose. -This IS includes
+    security measures (e.g., authentication and access controls) to protect
+    USG interests--not for your personal benefit or privacy. -Notwithstanding
+    the above, using this IS does not constitute consent to PM, LE or CI
+    investigative searching or monitoring of the content of privileged
+    communications, or work product, related to personal representation or
+    services by attorneys, psychotherapists, or clergy, and their assistants.
+    Such communications and work product are private and confidential. See
+    User Agreement for details.
+  vtype: SZ
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption
+  policy_type: regpol
+  value: DoD Notice and Consent Banner
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Internet Explorer\iexplore.exe"'
+  policy_type: regpol
+  value: '+EAF+ eaf_modules:mshtml.dll;flash*.ocx;jscript*.dll;vbscript.dll;vgx.dll +ASR asr_modules:npjpi*.dll;jp2iexp.dll;vgx.dll;msxml4*.dll;wshom.ocx;scrrun.dll;vbscript.dll asr_zones:1;2'
+  vtype: SZ
+- key: Computer\System\CurrentControlSet\Control\Session Manager\kernel\DisableExceptionChainValidation
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\7-Zip\7z.exe"'
+  policy_type: regpol
+  value: '-EAF'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\7-Zip\7zFM.exe"'
+  policy_type: regpol
+  value: '-EAF'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\7-Zip\7zG.exe"'
+  policy_type: regpol
+  value: '-EAF'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Adobe\Adobe Photoshop CS*\Photoshop.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Foxit Reader\Foxit Reader.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Google\Chrome\Application\chrome.exe"'
+  policy_type: regpol
+  value: '+EAF+ eaf_modules:chrome_child.dll'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Google\Google Talk\googletalk.exe"'
+  policy_type: regpol
+  value: '-DEP'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\iTunes\iTunes.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Microsoft Lync\communicator.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\mIRC\mirc.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Mozilla Firefox\firefox.exe"'
+  policy_type: regpol
+  value: '+EAF+ eaf_modules:mozjs.dll;xul.dll'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Mozilla Firefox\plugin-container.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Mozilla Thunderbird\plugin-container.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Mozilla Thunderbird\thunderbird.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Opera\*\opera.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Opera\opera.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Pidgin\pidgin.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\QuickTime\QuickTimePlayer.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Real\RealPlayer\realconverter.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Real\RealPlayer\realplay.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Safari\Safari.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\SkyDrive\SkyDrive.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Skype\Phone\Skype.exe"'
+  policy_type: regpol
+  value: '-EAF'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\VideoLAN\VLC\vlc.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Winamp\winamp.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Windows Live\Mail\wlmail.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Windows Live\Photo Gallery\WLXPhotoGallery.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Windows Live\Writer\WindowsLiveWriter.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Windows Media Player\wmplayer.exe"'
+  policy_type: regpol
+  value: '-EAF -MandatoryASLR'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\WinRAR\rar.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\WinRAR\unrar.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\WinRAR\winrar.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\WinZip\winzip32.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\WinZip\winzip64.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Adobe\*\Reader\AcroRd32.exe"'
+  policy_type: regpol
+  value: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Adobe\Acrobat*\Acrobat\Acrobat.exe"'
+  policy_type: regpol
+  value: '+EAF+ eaf_modules:AcroRd32.dll;Acrofx32.dll;AcroForm.api'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Java\jre*\bin\java.exe"'
+  policy_type: regpol
+  value: '-HeapSpray'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Java\jre*\bin\javaw.exe"'
+  policy_type: regpol
+  value: '-HeapSpray'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Java\jre*\bin\javaws.exe"'
+  policy_type: regpol
+  value: '-HeapSpray'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\EXCEL.EXE"'
+  policy_type: regpol
+  value: '+ASR asr_modules:flash*.ocx'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\INFOPATH.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\LYNC.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\MSACCESS.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\MSPUB.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\OIS.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\OUTLOOK.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\POWERPNT.EXE"'
+  policy_type: regpol
+  value: '+ASR asr_modules:flash*.ocx'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\PPTVIEW.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\VISIO.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\VPREVIEW.EXE"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\OFFICE1*\WINWORD.EXE"'
+  policy_type: regpol
+  value: '+ASR asr_modules:flash*.ocx'
+  vtype: SZ
+- key: 'Computer\Software\Policies\Microsoft\EMET\Defaults\"*\Windows NT\Accessories\wordpad.exe"'
+  policy_type: regpol
+  value: ''
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\ASLR
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\DEP
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\SEHOP
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\DeepHooks
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\AntiDetours
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\EMET\SysSettings\BannedFunctions
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\AppCompat\DisableInventory
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DataCollection\AllowTelemetry
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\System\EnableSmartScreen
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\MicrosoftEdge\Main\AllowInPrivate
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows NT\CurrentVersion\EditionId
+  policy_type: regpol
+  value: 'EnterpriseS'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\PassportForWork\PINComplexity\MinimumPINLength
+  policy_type: regpol
+  value: '6'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\OneDrive\DisableFileSyncNGSC
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters\SupportedEncryptionTypes
+  policy_type: regpol
+  value: '2147483640'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy\Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\DeliveryOptimization\DODownloadMode
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ProcessCreationIncludeCmdLine_Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\Network Connections\NC_ShowSharedAccessUI
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\RestrictRemoteSAM
+  policy_type: regpol
+  value: 'O:BAG:BAD:(A;;RC;;;BA)'
+  vtype: SZ
+- name: LockoutDuration
+  policy_type: secedit
+  value: '-1'
+- name: LockoutBadCount
+  policy_type: secedit
+  value: '3'
+- name: PasswordHistorySize
+  policy_type: secedit
+  value: '24'
+- name: MaximumPasswordAge
+  policy_type: secedit
+  value: '60'
+- name: MinimumPasswordAge
+  policy_type: secedit
+  value: '1'
+- name: MinimumPasswordLength
+  policy_type: secedit
+  value: '14'
+- name: PasswordComplexity
+  policy_type: secedit
+  value: '1'
+- name: SeNetworkLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-544'
