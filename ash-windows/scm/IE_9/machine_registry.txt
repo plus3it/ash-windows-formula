@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING COMPUTER POLICY
-; Source file:  .\scmfiles\IE_9\machine_registry.pol
+; Source file:  .\ash-windows\scm\IE_9\machine_registry.pol
 
 Computer
 Software\Policies\Microsoft\Internet Explorer\Control Panel

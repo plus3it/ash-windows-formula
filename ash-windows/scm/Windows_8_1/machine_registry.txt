@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING COMPUTER POLICY
-; Source file:  .\scmfiles\Windows_8_1\machine_registry.pol
+; Source file:  .\ash-windows\scm\Windows_8_1\machine_registry.pol
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\CredUI

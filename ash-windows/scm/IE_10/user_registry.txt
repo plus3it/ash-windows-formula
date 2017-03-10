@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING USER POLICY
-; Source file:  .\scmfiles\IE_10\user_registry.pol
+; Source file:  .\ash-windows\scm\IE_10\user_registry.pol
 
 User
 Software\Policies\Microsoft\Internet Explorer\Control Panel

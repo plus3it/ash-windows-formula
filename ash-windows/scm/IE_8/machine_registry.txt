@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING COMPUTER POLICY
-; Source file:  .\scmfiles\IE_8\machine_registry.pol
+; Source file:  .\ash-windows\scm\IE_8\machine_registry.pol
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Polices\Ext

@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING USER POLICY
-; Source file:  .\scmfiles\Windows_8_1\user_registry.pol
+; Source file:  .\ash-windows\scm\Windows_8_1\user_registry.pol
 
 User
 Software\Microsoft\Windows\CurrentVersion\Policies\Attachments

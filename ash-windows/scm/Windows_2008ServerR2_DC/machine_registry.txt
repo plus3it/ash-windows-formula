@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------
 ; PARSING COMPUTER POLICY
-; Source file:  .\scmfiles\Server_2008_R2_DC\machine_registry.pol
+; Source file:  .\ash-windows\scm\Windows_2008ServerR2_DC\machine_registry.pol
 
 Computer
 Software\Microsoft\Windows\CurrentVersion\Policies\Explorer

@@ -1,0 +1,17 @@
+; ----------------------------------------------------------------------
+; PARSING USER POLICY
+; Source file:  .\ash-windows\scm\Windows_2016Server_MS\user_registry.pol
+
+User
+Software\Policies\Microsoft\Windows\Control Panel\Desktop
+ScreenSaveActive
+SZ:1
+
+User
+Software\Policies\Microsoft\Windows\Control Panel\Desktop
+ScreenSaverIsSecure
+SZ:1
+
+; PARSING COMPLETED.
+; ----------------------------------------------------------------------
+
