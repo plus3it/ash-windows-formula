@@ -1,0 +1,100 @@
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI\EnumerateAdministrators
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Printers\DisableWebPnPDownload
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Printers\DisableHTTPPrinting
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\DCSettingIndex
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\ACSettingIndex
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\AppCompat\DisableInventory
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fDisableCdm
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText
+  policy_type: regpol
+  value: >-
+    You are accessing a U.S. Government (USG) Information System (IS) that is
+    provided for USG-authorized use only. By using this IS (which includes any
+    device attached to this IS), you consent to the following conditions: -The
+    USG routinely intercepts and monitors communications on this IS for
+    purposes including, but not limited to, penetration testing, COMSEC
+    monitoring, network operations and defense, personnel misconduct (PM), law
+    enforcement (LE), and counterintelligence (CI) investigations. -At any
+    time, the USG may inspect and seize data stored on this IS.
+    -Communications using, or data stored on, this IS are not private, are
+    subject to routine monitoring, interception, and search, and may be
+    disclosed or used for any USG-authorized purpose. -This IS includes
+    security measures (e.g., authentication and access controls) to protect
+    USG interests--not for your personal benefit or privacy. -Notwithstanding
+    the above, using this IS does not constitute consent to PM, LE or CI
+    investigative searching or monitoring of the content of privileged
+    communications, or work product, related to personal representation or
+    services by attorneys, psychotherapists, or clergy, and their assistants.
+    Such communications and work product are private and confidential. See
+    User Agreement for details.
+  vtype: SZ
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption
+  policy_type: regpol
+  value: DoD Notice and Consent Banner
+  vtype: SZ
+- key: Computer\System\CurrentControlSet\Control\Lsa\DisableDomainCreds
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Control\Lsa\RestrictRemoteSAM
+  policy_type: regpol
+  value: 'O:BAG:BAD:(A;;RC;;;BA)'
+  vtype: SZ
+- key: Computer\System\CurrentControlSet\Control\Lsa\pku2u\AllowOnlineID
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters\SupportedEncryptionTypes
+  policy_type: regpol
+  value: '2147483640'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Cryptography\ForceKeyProtection
+  policy_type: regpol
+  value: '2'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy\Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- name: LockoutBadCount
+  policy_type: secedit
+  value: '3'
+- name: ResetLockoutCount
+  policy_type: secedit
+  value: '15'
+- name: LockoutDuration
+  policy_type: secedit
+  value: '-1'
+- name: PasswordHistorySize
+  policy_type: secedit
+  value: '24'
+- name: MinimumPasswordAge
+  policy_type: secedit
+  value: '1'
+- name: MinimumPasswordLength
+  policy_type: secedit
+  value: '14'
+- name: SeDenyBatchLogonRight
+  policy_type: secedit
+  value: '*S-1-5-32-546'
