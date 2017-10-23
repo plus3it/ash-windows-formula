@@ -578,6 +578,14 @@
   policy_type: regpol
   value: '0'
   vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters\SMB1
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SYSTEM\CurrentControlSet\Services\mrxsmb10\Start
+  policy_type: regpol
+  value: '4'
+  vtype: DWORD
 - name: LockoutBadCount
   policy_type: secedit
   value: '3'
