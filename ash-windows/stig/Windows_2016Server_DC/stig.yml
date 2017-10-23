@@ -85,6 +85,12 @@
 - name: MinimumPasswordLength
   policy_type: secedit
   value: '14'
+- name: PasswordHistorySize
+  policy_type: secedit
+  value: '24'
+- name: MinimumPasswordAge
+  policy_type: secedit
+  value: '1'
 - name: SeMachineAccountPrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
