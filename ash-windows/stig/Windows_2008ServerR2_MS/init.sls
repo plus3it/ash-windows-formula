@@ -19,3 +19,13 @@ CCE-10913-2-Disable optional subsystems:
     - vname: Optional
     - vdata: []
     - vtype: REG_MULTI_SZ
+
+WIN00-000180 SV-88199r1_rule The Server Message Block (SMB) v1 protocol must be disabled on the SMB client:
+  reg.present:
+    - name: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation
+    - vname: DependOnService
+    - vdata:
+      - Bowser
+      - MRxSmb20
+      - NSI
+    - vtype: REG_MULTI_SZ
