@@ -98,3 +98,15 @@
 - name: SeDenyBatchLogonRight
   policy_type: secedit
   value: '*S-1-5-32-546'
+- key: Computer\System\CurrentControlSet\Services\mrxsmb10\Start
+  policy_type: regpol
+  value: '4'
+  vtype: DWORD
+- key: Computer\System\CurrentControlSet\Services\LanmanServer\Parameters\SMB1
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ProcessCreationIncludeCmdLine_Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
