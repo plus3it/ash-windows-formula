@@ -19,7 +19,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,RPC Events,{0CCE922E-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Other Object Access Events,{0CCE9227-69AE-11D9-BED3-505054503030},No Auditing,,0
-,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},No Auditing,,0
+,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Certification Services,{0CCE9221-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Network Policy Server,{0CCE9243-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,DPAPI Activity,{0CCE922D-69AE-11D9-BED3-505054503030},No Auditing,,0
@@ -42,7 +42,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,Computer Account Management,{0CCE9236-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Logoff,{0CCE9216-69AE-11D9-BED3-505054503030},Success,,1
 ,System,Security Group Management,{0CCE9237-69AE-11D9-BED3-505054503030},Success and Failure,,3
-,System,Other System Events,{0CCE9214-69AE-11D9-BED3-505054503030},No Auditing,,0
+,System,Other System Events,{0CCE9214-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Process Termination,{0CCE922C-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Other Account Logon Events,{0CCE9241-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Non Sensitive Privilege Use,{0CCE9229-69AE-11D9-BED3-505054503030},No Auditing,,0

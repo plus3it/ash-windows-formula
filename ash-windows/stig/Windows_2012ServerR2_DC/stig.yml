@@ -471,7 +471,7 @@
   vtype: DWORD
 - key: Computer\Software\Policies\Microsoft\Windows\System\EnableSmartScreen
   policy_type: regpol
-  value: '0'
+  value: '2'
   vtype: DWORD
 - key: Computer\Software\Policies\Microsoft\Windows\LocationAndSensors\DisableLocation
   policy_type: regpol
@@ -566,13 +566,17 @@
   policy_type: regpol
   value: '255'
   vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit\ProcessCreationIncludeCmdLine_Enabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
 - key: Computer\Software\Policies\Microsoft\Windows\EventLog\Application\MaxSize
   policy_type: regpol
   value: '32768'
   vtype: DWORD
 - key: Computer\Software\Policies\Microsoft\Windows\EventLog\Security\MaxSize
   policy_type: regpol
-  value: '81920'
+  value: '196608'
   vtype: DWORD
 - key: Computer\Software\Policies\Microsoft\Windows\EventLog\System\MaxSize
   policy_type: regpol
