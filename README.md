@@ -127,12 +127,12 @@ include:
 - `apply_lgpo_source`: URL to the [Apply_LGPO_Delta][7] utility. This utility
 is used to apply policies as Local Group Policy Objects. Defaults to:
 
-    - `https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe`
+    - `https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe`
 
 - `apply_lgpo_source_hash`: URL to a file containing the hash of the
 Apply_LGPO_Delta utility. Defaults to:
 
-    - `https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe.SHA512`
+    - `https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512`
 
 - `apply_lgpo_filename`: Full path on the local file system (including the
 filename) where the Apply_LGPO_Delta utility will be saved. Defaults to:
@@ -164,8 +164,8 @@ Below is an example pillar structure:
 ```
 ash-windows:
   lookup:
-    apply_lgpo_source: https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe
-    apply_lgpo_source_hash: https://s3.amazonaws.com/systemprep-repo/windows/lgpo-utilities/Apply_LGPO_Delta.exe.SHA512
+    apply_lgpo_source: https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe
+    apply_lgpo_source_hash: https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512
     apply_lgpo_filename: C:\Windows\System32\Apply_LGPO_Delta.exe
     logdir: C:\Ash\logs
     role: MemberServer
