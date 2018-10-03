@@ -13,7 +13,7 @@ Create STIG Log Directory:
 
 Apply STIG Local Group Policy Objects:
   lgpo.present:
-    - policies: {{ stig.stig_policies }}
+    - policies: {{ stig.stig_policies | yaml }}
     - logfile: {{ stig.logdir }}\stig-{{ stig.os_path }}-MachineSettings.log
     - errorfile: {{ stig.logdir }}\stig-{{ stig.os_path }}-MachineSettings.err
     - require:
@@ -21,7 +21,7 @@ Apply STIG Local Group Policy Objects:
 
 Apply IE STIG Local Group Policy Objects:
   lgpo.present:
-    - policies: {{ stig.ie_stig_policies }}
+    - policies: {{ stig.ie_stig_policies | yaml }}
     - logfile: {{ stig.logdir }}\stig-{{ stig.ie_path }}-MachineSettings.log
     - errorfile: {{ stig.logdir }}\stig-{{ stig.ie_path }}-MachineSettings.err
     - require:

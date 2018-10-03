@@ -10,7 +10,7 @@ Create IAVM Log Directory:
 
 Apply IAVM Local Group Policy Objects:
   lgpo.present:
-    - policies: {{ iavm.iavm_policies }}
+    - policies: {{ iavm.iavm_policies | yaml }}
     - logfile: {{ iavm.logdir }}\iavm-policies.log
     - errorfile: {{ iavm.logdir }}\iavm-policies.err
     - require:
