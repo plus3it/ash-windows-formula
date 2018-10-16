@@ -1,9 +1,6 @@
 - name: NewGuestName
   policy_type: secedit
   value: '"xGuest"'
-- name: NewAdministratorName
-  policy_type: secedit
-  value: '"xAdministrator"'
 - name: SeDenyRemoteInteractiveLogonRight
   policy_type: secedit
   value: '*S-1-5-32-546'
