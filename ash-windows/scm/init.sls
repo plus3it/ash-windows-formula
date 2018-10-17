@@ -12,7 +12,7 @@ Create SCM Log Directory:
 
 Apply Security Template:
   lgpo.present:
-    - policies: {{ scm.gpttmpl_policies }}
+    - policies: {{ scm.gpttmpl_policies | yaml }}
     - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-GptTmpl.log
     - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-GptTmpl.err
     - require:
@@ -20,7 +20,7 @@ Apply Security Template:
 
 Apply Computer Configuration:
   lgpo.present:
-    - policies: {{ scm.computer_policies }}
+    - policies: {{ scm.computer_policies | yaml }}
     - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-MachineSettings.log
     - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-MachineSettings.err
     - require:
@@ -28,7 +28,7 @@ Apply Computer Configuration:
 
 Apply User Configuration:
   lgpo.present:
-    - policies: {{ scm.user_policies }}
+    - policies: {{ scm.user_policies | yaml}}
     - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-UserSettings.log
     - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-UserSettings.err
     - require:
@@ -36,7 +36,7 @@ Apply User Configuration:
 
 Apply Internet Explorer Machine Policy:
   lgpo.present:
-    - policies: {{ scm.ie_computer_policies }}
+    - policies: {{ scm.ie_computer_policies | yaml}}
     - logfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-MachineSettings.log
     - errorfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-MachineSettings.err
     - require:
@@ -44,7 +44,7 @@ Apply Internet Explorer Machine Policy:
 
 Apply Internet Explorer User Policy:
   lgpo.present:
-    - policies: {{ scm.ie_user_policies }}
+    - policies: {{ scm.ie_user_policies | yaml }}
     - logfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-UserSettings.log
     - errorfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-UserSettings.err
     - require:

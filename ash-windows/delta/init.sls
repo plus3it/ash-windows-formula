@@ -10,7 +10,7 @@ Create Delta Log Directory:
 
 Apply Delta Local Group Policy Objects:
   lgpo.present:
-    - policies: {{ delta.delta_policies }}
+    - policies: {{ delta.delta_policies | yaml }}
     - logfile: {{ delta.logdir }}\delta-policies.log
     - errorfile: {{ delta.logdir }}\delta-policies.err
     - require:

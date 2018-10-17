@@ -10,7 +10,7 @@ Create Custom Log Directory:
 
 Apply Custom Local Group Policy Objects:
   lgpo.present:
-    - policies: {{ custom.custom_policies }}
+    - policies: {{ custom.custom_policies | yaml }}
     - logfile: {{ custom.logdir }}\custom-policies.log
     - errorfile: {{ custom.logdir }}\custom-policies.err
     - require:

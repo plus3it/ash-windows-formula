@@ -16,12 +16,26 @@ their own organization.
 :depends:    Apply_LGPO_Delta.exe in %SystemRoot%\System32\
 :platform:   Windows
 """
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals, with_statement)
+
 import collections
 import logging
+import io
 import os
 import re
-import salt.utils
+
 from salt.exceptions import CommandExecutionError, SaltInvocationError
+
+try:
+    from salt.utils.files import mkstemp
+except ImportError:
+    from salt.utils import mkstemp
+
+try:
+    from salt.utils.platform import is_windows
+except ImportError:
+    from salt.utils import is_windows
 
 log = logging.getLogger(__name__)
 __virtualname__ = 'lgpo'
@@ -454,7 +468,7 @@ class PolicyHelper(object):
 
 def __virtual__():
     """Load only on Windows and only if Apply_LGPO_Delta is present."""
-    if not salt.utils.is_windows():
+    if not is_windows():
         return False
     if not HAS_LGPO:
         return (False, 'Module "{0}" not loaded because "{1}" could not be '
@@ -538,17 +552,14 @@ def validate_policies(policies):
 
 
 def _write_policy_file(policy_template):
-    tmp_ = None
-    policy_file = ''
+    policy_file = mkstemp()
     try:
-        tmp_, policy_file = salt.utils.mkstemp(close_fd=False)
-        os.write(tmp_, os.linesep.join(policy_template))
-        return policy_file
+        with io.open(policy_file, mode='wb') as fh_:
+            fh_.write(os.linesep.join(policy_template).encode('utf-8'))
     except Exception as exc:
         raise CommandExecutionError('Error saving LGPO policy file "{0}". '
                                     'Exception: {1}'.format(policy_file, exc))
-    finally:
-        os.close(tmp_)
+    return policy_file
 
 
 def _write_policy_files(valid_policies):
@@ -616,7 +627,7 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
     command = ' '.join([LGPO_EXE, policy_files.get('regpol', ''),
                         policy_files.get('secedit', '')])
     if logfile is True:
-        logfile = salt.utils.mkstemp(prefix='lgpo_', suffix='.log')
+        logfile = mkstemp(prefix='lgpo_', suffix='.log')
     if logfile:
         try:
             __salt__['file.makedirs'](path=logfile)
@@ -627,7 +638,7 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
         log.info('LGPO log file is "{0}"'.format(logfile))
         command = ' '.join([command, '/log', logfile])
     if errorfile is True:
-        errorfile = salt.utils.mkstemp(prefix='lgpo_', suffix='.err')
+        errorfile = mkstemp(prefix='lgpo_', suffix='.err')
     if errorfile:
         try:
             __salt__['file.makedirs'](path=errorfile)
@@ -645,6 +656,12 @@ def apply_policies(policies=None, logfile=True, errorfile=True):
         raise CommandExecutionError('Error applying LGPO policy template '
                                     '"{0}". Exception: {1}'
                                     .format(valid_policies, exc))
+
+    if errorfile and os.path.getsize(errorfile) > 0:
+        raise CommandExecutionError(
+            'Encountered errors processing the LGPO policy template. See the '
+            'error file for details -- {0}'.format(errorfile))
+
     if ret:
         raise CommandExecutionError('Non-zero exit [{0}] from {1}. We do not '
                                     'know what this means. Hopefully the '
