@@ -11,10 +11,14 @@ environment:
     - SALT_STATE: ash-windows.stig
     - SALT_STATE: ash-windows.delta
     - SALT_STATE: ash-windows.custom
+matrix:
+  fast_finish: true
 
 init:
   - ps: echo $env:PILLAR_HOME
 install:
+  - ps: python -m pip install --upgrade pip
+  - ps: pip install yamllint
   - ps: |
       $null = `
         (new-object net.webclient).DownloadFile(${env:SALT_URL}, `
@@ -31,6 +35,10 @@ install:
         state.sls ash-windows.tools
 
 test_script:
+  - ps: >
+      yamllint -d
+      "{extends: default, rules: {line-length: false, document-start: false, truthy: false}}"
+      .
   - ps: |
       C:\salt\salt-call.bat --local --retcode-passthrough `
         --log-file-level debug `
