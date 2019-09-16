@@ -1,0 +1,8 @@
+- key: Computer\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319\SchUseStrongCrypto
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\SchUseStrongCrypto
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD

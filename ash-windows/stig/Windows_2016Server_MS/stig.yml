@@ -98,6 +98,9 @@
 - name: SeDenyBatchLogonRight
   policy_type: secedit
   value: '*S-1-5-32-546'
+- name: SeDenyServiceLogonRight
+  policy_type: secedit
+  value: ''
 - key: Computer\System\CurrentControlSet\Services\mrxsmb10\Start
   policy_type: regpol
   value: '4'

@@ -590,6 +590,10 @@
   policy_type: regpol
   value: '4'
   vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters\SupportedEncryptionTypes
+  policy_type: regpol
+  value: '2147483640'
+  vtype: DWORD
 - name: LockoutBadCount
   policy_type: secedit
   value: '3'
