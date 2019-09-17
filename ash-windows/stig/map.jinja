@@ -3,6 +3,7 @@
 {# Import policies from yaml files. #}
 {% import_yaml tpldir ~ '/' ~ ash.os_path ~ '/stig.yml' as stig_policies %}
 {% import_yaml tpldir ~ '/' ~ ash.ie_path ~ '/stig.yml' as ie_stig_policies %}
+{% import_yaml tpldir ~ '/DotNET/stig.yml' as dotnet_stig_policies %}
 
 {#
     If the yaml file is empty, `import_yaml` returns None. Change that to an
@@ -10,11 +11,13 @@
 #}
 {% set stig_policies = stig_policies or [] %}
 {% set ie_stig_policies = ie_stig_policies or [] %}
+{% set dotnet_stig_policies = dotnet_stig_policies or [] %}
 
 {# Define the `stig` dictionary #}
 {% set stig = ash or {} %}
 {% do stig.update({
     'stig_policies': stig_policies,
     'ie_stig_policies': ie_stig_policies,
+    'dotnet_stig_policies': dotnet_stig_policies,
     'audit_file_source': 'salt://' ~ tpldir ~ '/' ~ ash.os_path ~ '/stig_audit.csv'
 }) %}

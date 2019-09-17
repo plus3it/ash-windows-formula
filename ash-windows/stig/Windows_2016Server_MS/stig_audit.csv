@@ -20,3 +20,4 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,Special Logon,{0CCE921B-69AE-11D9-BED3-505054503030},Success,,1
 ,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},Success,,1
 ,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},Success and Failure,,3
+,System,Audit Other Object Access Events,{0cce9227-69ae-11d9-bed3-505054503030},Success and Failure,,3

@@ -27,6 +27,14 @@ Apply IE STIG Local Group Policy Objects:
     - require:
       - lgpo: Apply STIG Local Group Policy Objects
 
+Apply .NET STIG Local Group Policy Objects:
+  lgpo.present:
+    - policies: {{ stig.dotnet_stig_policies | yaml }}
+    - logfile: {{ stig.logdir }}\stig-DotNET-MachineSettings.log
+    - errorfile: {{ stig.logdir }}\stig-DotNET-MachineSettings.err
+    - require:
+      - lgpo: Apply STIG Local Group Policy Objects
+
 Apply STIG Audit Policy:
   file.managed:
     - name: {{ stig.win_audit_file_name }}
