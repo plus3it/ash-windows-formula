@@ -14,6 +14,7 @@ program managed by the [National Institute of Standards and Technology
 
 - Microsoft Windows Server 2008 R2
 - Microsoft Windows Server 2012 R2
+- Microsoft Windows Server 2016
 - Microsoft Windows 8.1
 - Microsoft Windows 10 (SCM Baseline only for now, until DISA STIG is release)
 - Microsoft Internet Explorer 8
