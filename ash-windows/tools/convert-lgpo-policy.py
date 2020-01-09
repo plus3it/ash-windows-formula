@@ -76,7 +76,7 @@ def _convert_secedit(src):
             policy['vtype'] = REG_CODE_MAP[line.split('=')[1].split(',')[0].strip()]
             policy['value'] = ''.join(line.split('=')[1].split(',')[1:]).strip().strip('"')
             if not policy['vtype'].upper() in REG_TYPES:
-                print('Line #{0}, registry type not supported by lgpo: {1}'
+                print('Line #{0}, registry type not supported by apply_lgpo_delta: {1}'
                       .format(index+1, line))
                 continue
             policies.append(policy)

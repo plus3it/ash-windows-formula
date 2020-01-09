@@ -1,0 +1,8 @@
+- key: User\Software\Policies\Microsoft\Windows\Control Panel\Desktop\ScreenSaveActive
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: User\Software\Policies\Microsoft\Windows\Control Panel\Desktop\ScreenSaverIsSecure
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
