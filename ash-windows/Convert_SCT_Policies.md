@@ -25,6 +25,7 @@
 ```powershell
 $baselines = @(
     'IE_11'
+    'Windows_10'
     'Windows_2012ServerR2_DC'
     'Windows_2012ServerR2_MS'
     'Windows_2016Server_DC'

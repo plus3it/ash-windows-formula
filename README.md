@@ -51,9 +51,8 @@ The SCM baseline supports the following components:
 - IE 9
 - IE 10
 - IE 11
+- Windows 8.1
 - Windows Server 2008 R2
-- Windows Server 2012 R2
-- Windows Server 2016
 
 
 ### ash-windows.sct
@@ -73,6 +72,7 @@ policy editor
 The SCT baseline supports the following components:
 
 - IE 11
+- Windows 10
 - Windows Server 2012 R2
 - Windows Server 2016
 - Windows Server 2019
