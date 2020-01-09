@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # flake8: noqa
+import chardet
 import sys
 import yaml
 
@@ -93,8 +94,11 @@ def _convert_secedit(src):
 def main(src_file, dst_file, **kwargs):
     policies = []
 
-    with open(src_file, mode='r') as f:
-        src = f.read().splitlines()
+    with open(src_file, mode='rb') as f:
+        raw = f.read()
+    
+    encoding = chardet.detect(raw)['encoding']
+    src = raw.decode(encoding).splitlines()
 
     if '[Unicode]' in src:
         policies = _convert_secedit(src)
