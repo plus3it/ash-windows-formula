@@ -8,6 +8,7 @@ environment:
   matrix:
     - SALT_STATE: ash-windows
     - SALT_STATE: ash-windows.scm
+    - SALT_STATE: ash-windows.sct
     - SALT_STATE: ash-windows.stig
     - SALT_STATE: ash-windows.delta
     - SALT_STATE: ash-windows.custom
