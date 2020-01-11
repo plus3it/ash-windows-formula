@@ -159,3 +159,11 @@
   policy_type: regpol
   value: '1'
   vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Control Panel\History
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Url History\DaysToKeep
+  policy_type: regpol
+  value: '40'
+  vtype: DWORD

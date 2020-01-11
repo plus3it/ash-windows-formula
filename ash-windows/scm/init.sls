@@ -1,5 +1,12 @@
 {%- from tpldir ~ '/map.jinja' import scm with context %}
 
+{%- if grains.osrelease not in ['2008ServerR2', '8.1'] %}
+
+include:
+  - ash-windows.sct
+
+{%- else %}
+
 include:
   - ash-windows.tools
   - ash-windows.mss
@@ -75,3 +82,5 @@ Manage Pass the Hash ADML:
     - source: {{ scm.pth_adml_source }}
     - require:
       - cmd: 'Apply SCM Audit Policy'
+
+{%- endif %}

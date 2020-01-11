@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -39,7 +40,9 @@ Icon
 #Personal git ignore settings
 #===============
 
+.vscode/
 .idea
 *.exe
 *.pol
 *.bundle
+*.inf

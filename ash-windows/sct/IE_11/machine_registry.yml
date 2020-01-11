@@ -1,0 +1,528 @@
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Ext\RunThisTimeEnabled
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Microsoft\Windows\CurrentVersion\Policies\Ext\VersionCheckEnabled
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Download\RunInvalidSignatures
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Download\CheckExeSignatures
+  policy_type: regpol
+  value: 'yes'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\Isolation64Bit
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\DisableEPMCompat
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\Isolation
+  policy_type: regpol
+  value: PMEM
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_DISABLE_MK_PROTOCOL\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_DISABLE_MK_PROTOCOL\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_DISABLE_MK_PROTOCOL\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_HANDLING\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_HANDLING\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_HANDLING\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_SNIFFING\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_SNIFFING\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MIME_SNIFFING\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_ACTIVEXINSTALL\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_ACTIVEXINSTALL\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_ACTIVEXINSTALL\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_FILEDOWNLOAD\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_FILEDOWNLOAD\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_FILEDOWNLOAD\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_SECURITYBAND\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_WINDOW_RESTRICTIONS\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_WINDOW_RESTRICTIONS\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_WINDOW_RESTRICTIONS\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_ZONE_ELEVATION\(Reserved)
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_ZONE_ELEVATION\explorer.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_ZONE_ELEVATION\iexplore.exe
+  policy_type: regpol
+  value: '1'
+  vtype: SZ
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\PhishingFilter\PreventOverrideAppRepUnknown
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\PhishingFilter\PreventOverride
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\PhishingFilter\EnabledV9
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Restrictions\NoCrashDetection
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Security\DisableSecuritySettingsCheck
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Security\ActiveX\BlockNonAdminActiveXInstall
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\AxInstaller\OnlyUseAXISForActiveXInstall
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Security_zones_map_edit
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Security_options_edit
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Security_HKLM_only
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\CertificateRevocation
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\PreventIgnoreCertErrors
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\WarnOnBadCertRecving
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\EnableSSL3Fallback
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\SecureProtocols
+  policy_type: regpol
+  value: '2560'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\0\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\1\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\2\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\3\2301
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\4\2301
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Lockdown_Zones\4\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\UNCAsIntranet
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0\270C
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1\270C
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1\1201
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1\1C00
+  policy_type: regpol
+  value: '65536'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2\1C00
+  policy_type: regpol
+  value: '65536'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2\270C
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2\1201
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2001
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2102
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1802
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\160A
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1201
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1406
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1804
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2200
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1209
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1206
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1809
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2500
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2103
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1606
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2402
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2004
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1001
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1A00
+  policy_type: regpol
+  value: '65536'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2708
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1004
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\120b
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1407
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1409
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\270C
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1607
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2709
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2101
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2301
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\1806
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\120c
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\140C
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1608
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1201
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1001
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1607
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\120b
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1809
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1004
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1606
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1407
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\160A
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1406
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2102
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2004
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2200
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2000
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1402
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1803
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2402
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1400
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1A00
+  policy_type: regpol
+  value: '196608'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2001
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2500
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1409
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1C00
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1209
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\270C
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1206
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2708
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1802
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2103
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2709
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1405
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2101
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\2301
+  policy_type: regpol
+  value: '0'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1200
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1804
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\1806
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\120c
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4\140C
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD

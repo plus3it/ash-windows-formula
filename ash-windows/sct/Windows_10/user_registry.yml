@@ -1,0 +1,8 @@
+- key: User\Software\Policies\Microsoft\Windows\CloudContent\DisableThirdPartySuggestions
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: User\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications\NoToastApplicationNotificationOnLockScreen
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD

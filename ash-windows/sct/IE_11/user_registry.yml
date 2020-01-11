@@ -1,0 +1,13 @@
+- key: User\Software\Policies\Microsoft\Internet Explorer\Control Panel\FormSuggest
+    Passwords
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+- key: User\Software\Policies\Microsoft\Internet Explorer\Main\FormSuggest PW Ask
+  policy_type: regpol
+  value: 'no'
+  vtype: SZ
+- key: User\Software\Policies\Microsoft\Internet Explorer\Main\FormSuggest Passwords
+  policy_type: regpol
+  value: 'no'
+  vtype: SZ

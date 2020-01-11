@@ -15,8 +15,9 @@ program managed by the [National Institute of Standards and Technology
 - Microsoft Windows Server 2008 R2
 - Microsoft Windows Server 2012 R2
 - Microsoft Windows Server 2016
+- Microsoft Windows Server 2019
 - Microsoft Windows 8.1
-- Microsoft Windows 10 (SCM Baseline only for now, until DISA STIG is release)
+- Microsoft Windows 10 (SCM Baseline only for now, until DISA STIG is released)
 - Microsoft Internet Explorer 8
 - Microsoft Internet Explorer 9
 - Microsoft Internet Explorer 10
@@ -27,6 +28,10 @@ program managed by the [National Institute of Standards and Technology
 
 
 ### ash-windows.scm
+
+**NOTE**: Microsoft has deprecated the SCM tool, and this baseline is no
+longer recommended. Please see the [ash-windows.sct](ash-windows.sct) baseline,
+instead. The SCM baseline will be removed in a future release.
 
 The **Microsoft SCM Baseline** (`ash-windows.scm`) is based on guidance
 provided by Microsoft through the [Microsoft Security Compliance Manager
@@ -40,6 +45,37 @@ policy editor
 - Apply the IE security policies from the Microsoft SCM baseline
 - Apply the audit policies from the Microsoft SCM baseline
 
+The SCM baseline supports the following components:
+
+- IE 8
+- IE 9
+- IE 10
+- IE 11
+- Windows 8.1
+- Windows Server 2008 R2
+
+
+### ash-windows.sct
+
+The **Microsoft SCT Baseline** (`ash-windows.sct`) is based on guidance
+provided by Microsoft through the [Microsoft Security Compliance Toolkit
+(SCT)][11]. This baseline includes the following steps:
+
+- Install the [Maximum Segment Size (MSS)][5] extensions for the local group
+policy editor
+- Install the [Pass the Hash (PtH)][6] extensions for the local group
+policy editor
+- Apply the OS security policies from the Microsoft SCT baseline
+- Apply the IE security policies from the Microsoft SCT baseline
+- Apply the audit policies from the Microsoft SCT baseline
+
+The SCT baseline supports the following components:
+
+- IE 11
+- Windows 10
+- Windows Server 2012 R2
+- Windows Server 2016
+- Windows Server 2019
 
 ### ash-windows.stig
 
@@ -128,12 +164,12 @@ include:
 - `apply_lgpo_source`: URL to the [Apply_LGPO_Delta][7] utility. This utility
 is used to apply policies as Local Group Policy Objects. Defaults to:
 
-    - `https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe`
+    - `https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe`
 
 - `apply_lgpo_source_hash`: URL to a file containing the hash of the
 Apply_LGPO_Delta utility. Defaults to:
 
-    - `https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512`
+    - `https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512`
 
 - `apply_lgpo_filename`: Full path on the local file system (including the
 filename) where the Apply_LGPO_Delta utility will be saved. Defaults to:
@@ -165,8 +201,8 @@ Below is an example pillar structure:
 ```
 ash-windows:
   lookup:
-    apply_lgpo_source: https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe
-    apply_lgpo_source_hash: https://s3.amazonaws.com/watchmaker/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512
+    apply_lgpo_source: https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe
+    apply_lgpo_source_hash: https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512
     apply_lgpo_filename: C:\Windows\System32\Apply_LGPO_Delta.exe
     logdir: C:\Ash\logs
     role: MemberServer
@@ -282,3 +318,4 @@ C:\salt\salt-call.bat --local lgpo.set_secedit_value `
 [8]: https://technet.microsoft.com/en-us/magazine/hh489604.aspx
 [9]: https://technet.microsoft.com/en-us/library/dd349804(v=ws.10).aspx
 [10]: https://technet.microsoft.com/en-us/library/jj852214(v=ws.11).aspx
+[11]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10

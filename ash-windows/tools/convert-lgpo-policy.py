@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # flake8: noqa
+import chardet
 import sys
 import yaml
 
@@ -76,7 +77,7 @@ def _convert_secedit(src):
             policy['vtype'] = REG_CODE_MAP[line.split('=')[1].split(',')[0].strip()]
             policy['value'] = ''.join(line.split('=')[1].split(',')[1:]).strip().strip('"')
             if not policy['vtype'].upper() in REG_TYPES:
-                print('Line #{0}, registry type not supported by lgpo: {1}'
+                print('Line #{0}, registry type not supported by apply_lgpo_delta: {1}'
                       .format(index+1, line))
                 continue
             policies.append(policy)
@@ -93,8 +94,11 @@ def _convert_secedit(src):
 def main(src_file, dst_file, **kwargs):
     policies = []
 
-    with open(src_file, mode='r') as f:
-        src = f.read().splitlines()
+    with open(src_file, mode='rb') as f:
+        raw = f.read()
+    
+    encoding = chardet.detect(raw)['encoding']
+    src = raw.decode(encoding).splitlines()
 
     if '[Unicode]' in src:
         policies = _convert_secedit(src)

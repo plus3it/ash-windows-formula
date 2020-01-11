@@ -2,7 +2,11 @@
 
 include:
   - ash-windows.tools
+{%- if grains.osrelease in ['2008ServerR2', '8.1'] %}
   - ash-windows.scm
+{%- else %}
+  - ash-windows.sct
+{%- endif %}
   - .{{ stig.os_path }}
   - .dodcerts
 
