@@ -113,3 +113,7 @@
   policy_type: regpol
   value: '1'
   vtype: DWORD
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\Feeds\DisableEnclosureDownload
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
