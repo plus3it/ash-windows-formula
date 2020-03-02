@@ -1,54 +1,36 @@
 {%- from tpldir ~ '/map.jinja' import sct with context %}
 
 include:
-  - ash-windows.tools
   - ash-windows.mss
   - .{{ sct.os_path }}
 
-Create SCT Log Directory:
-  file.directory:
-    - name: {{ sct.logdir }}
-    - makedirs: True
-
 Apply Security Template:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ sct.gpttmpl_policies | yaml }}
-    - logfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-GptTmpl.log
-    - errorfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-GptTmpl.err
-    - require:
-      - file: 'Create sct Log Directory'
 
 Apply Computer Configuration:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ sct.computer_policies | yaml }}
-    - logfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-MachineSettings.log
-    - errorfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-MachineSettings.err
     - require:
-      - lgpo: 'Apply Security Template'
+      - ash_lgpo: 'Apply Security Template'
 
 Apply User Configuration:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ sct.user_policies | yaml}}
-    - logfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-UserSettings.log
-    - errorfile: {{ sct.logdir }}\sct-{{ sct.os_path }}-UserSettings.err
     - require:
-      - lgpo: 'Apply Computer Configuration'
+      - ash_lgpo: 'Apply Computer Configuration'
 
 Apply Internet Explorer Machine Policy:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ sct.ie_computer_policies | yaml}}
-    - logfile: {{ sct.logdir }}\sct-{{ sct.ie_path }}-MachineSettings.log
-    - errorfile: {{ sct.logdir }}\sct-{{ sct.ie_path }}-MachineSettings.err
     - require:
-      - lgpo: 'Apply User Configuration'
+      - ash_lgpo: 'Apply User Configuration'
 
 Apply Internet Explorer User Policy:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ sct.ie_user_policies | yaml }}
-    - logfile: {{ sct.logdir }}\sct-{{ sct.ie_path }}-UserSettings.log
-    - errorfile: {{ sct.logdir }}\sct-{{ sct.ie_path }}-UserSettings.err
     - require:
-      - lgpo: 'Apply Internet Explorer Machine Policy'
+      - ash_lgpo: 'Apply Internet Explorer Machine Policy'
 
 Apply SCT Audit Policy:
   file.managed:
@@ -56,7 +38,7 @@ Apply SCT Audit Policy:
     - source: {{ sct.audit_file_source }}
     - makedirs: True
     - require:
-      - lgpo: 'Apply Internet Explorer User Policy'
+      - ash_lgpo: 'Apply Internet Explorer User Policy'
   cmd.run:
     - name: auditpol /clear /y && auditpol /restore /file:"{{ sct.win_audit_file_name }}"
     - require:

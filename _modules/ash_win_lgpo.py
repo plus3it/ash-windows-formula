@@ -489,8 +489,8 @@ def set_secedit_value(name, value):
     ))
 
 
-def get_secedit_policies():
-    """Return all valid secedit policies."""
+def get_secedit_names():
+    """Return all valid secedit policy names."""
     secedit_policies = PolicyHelper().SECEDIT_POLICIES
     system_access = []
     privilege_rights = []

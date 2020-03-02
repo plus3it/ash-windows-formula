@@ -5,11 +5,11 @@
 
 {#
     If the yaml file is empty, `import_yaml` returns None. Change that to an
-    empty list so that `lgpo.present` interprets it properly.
+    empty list so that `ash_lgpo.present` interprets it properly.
 #}
 {% set delta_policies = delta_policies or [] %}
 
-{# Define the `stig` dictionary #}
+{# Define the `delta` dictionary #}
 {% set delta = ash or {} %}
 {% do delta.update({
     'delta_policies': delta_policies,

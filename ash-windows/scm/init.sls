@@ -8,54 +8,36 @@ include:
 {%- else %}
 
 include:
-  - ash-windows.tools
   - ash-windows.mss
   - .{{ scm.os_path }}
 
-Create SCM Log Directory:
-  file.directory:
-    - name: {{ scm.logdir }}
-    - makedirs: True
-
 Apply Security Template:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ scm.gpttmpl_policies | yaml }}
-    - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-GptTmpl.log
-    - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-GptTmpl.err
-    - require:
-      - file: 'Create SCM Log Directory'
 
 Apply Computer Configuration:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ scm.computer_policies | yaml }}
-    - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-MachineSettings.log
-    - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-MachineSettings.err
     - require:
-      - lgpo: 'Apply Security Template'
+      - ash_lgpo: 'Apply Security Template'
 
 Apply User Configuration:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ scm.user_policies | yaml}}
-    - logfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-UserSettings.log
-    - errorfile: {{ scm.logdir }}\scm-{{ scm.os_path }}-UserSettings.err
     - require:
-      - lgpo: 'Apply Computer Configuration'
+      - ash_lgpo: 'Apply Computer Configuration'
 
 Apply Internet Explorer Machine Policy:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ scm.ie_computer_policies | yaml}}
-    - logfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-MachineSettings.log
-    - errorfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-MachineSettings.err
     - require:
-      - lgpo: 'Apply User Configuration'
+      - ash_lgpo: 'Apply User Configuration'
 
 Apply Internet Explorer User Policy:
-  lgpo.present:
+  ash_lgpo.present:
     - policies: {{ scm.ie_user_policies | yaml }}
-    - logfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-UserSettings.log
-    - errorfile: {{ scm.logdir }}\scm-{{ scm.ie_path }}-UserSettings.err
     - require:
-      - lgpo: 'Apply Internet Explorer Machine Policy'
+      - ash_lgpo: 'Apply Internet Explorer Machine Policy'
 
 Apply SCM Audit Policy:
   file.managed:
@@ -63,7 +45,7 @@ Apply SCM Audit Policy:
     - source: {{ scm.audit_file_source }}
     - makedirs: True
     - require:
-      - lgpo: 'Apply Internet Explorer User Policy'
+      - ash_lgpo: 'Apply Internet Explorer User Policy'
   cmd.run:
     - name: auditpol /clear /y && auditpol /restore /file:"{{ scm.win_audit_file_name }}"
     - require:

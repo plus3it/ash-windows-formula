@@ -161,26 +161,6 @@ The *ash-windows* formula supports configuration via pillar. The `role` and
 must be namespaced under the `ash-windows:lookup` key. The available settings
 include:
 
-- `apply_lgpo_source`: URL to the [Apply_LGPO_Delta][7] utility. This utility
-is used to apply policies as Local Group Policy Objects. Defaults to:
-
-    - `https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe`
-
-- `apply_lgpo_source_hash`: URL to a file containing the hash of the
-Apply_LGPO_Delta utility. Defaults to:
-
-    - `https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512`
-
-- `apply_lgpo_filename`: Full path on the local file system (including the
-filename) where the Apply_LGPO_Delta utility will be saved. Defaults to:
-
-    - `C:\Windows\System32\Apply_LGPO_Delta.exe`
-
-- `logdir`: Path on the local filesystem where the formula will store output
-of any command line [tools](#Tools) that apply baseline settings. Defaults to:
-
-    - `C:\Ash\logs`
-
 - `role`: Sets the role-type of the server. This setting may be configured via
 the pillar or grain system. The grain value will take precedence over the
 pillar value. The `role` value may be one of:
@@ -201,10 +181,6 @@ Below is an example pillar structure:
 ```
 ash-windows:
   lookup:
-    apply_lgpo_source: https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe
-    apply_lgpo_source_hash: https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512
-    apply_lgpo_filename: C:\Windows\System32\Apply_LGPO_Delta.exe
-    logdir: C:\Ash\logs
     role: MemberServer
     custom_policies:
       - policy_type: regpol
@@ -224,9 +200,9 @@ ash-windows:
 ## Applying Policies from the Command Line
 
 The `ash-windows` formula includes a [custom salt execution module]
-(_modules/win_lgpo.py) as a wrapper around the Apply_LGPO_Delta utility. The
-execution module is used internally by `ash-windows` baselines and states, and
-can also be called from the command line. This feature can be useful for
+(_modules/ash_win_lgpo.py) as a wrapper around salt's builtin `lgpo` module.
+The execution module is used internally by `ash-windows` baselines and states,
+and can also be called from the command line. This feature can be useful for
 testing policies or executing a one-time override of a specific baseline
 policy setting.
 
@@ -234,7 +210,7 @@ Below are some examples, executed from a PowerShell window using salt
 masterless mode.
 
 ```powershell
-# Apply several policies at once, using `lgpo.apply_policies` to apply it.
+# Apply several policies at once, using `ash_lgpo.apply_policies` to apply it.
 # This method accepts a list policy dictionaries, so this method can be used
 # to apply many policies at one time.
 $policies=`
@@ -247,51 +223,26 @@ $policies=`
     'key':'HKLM\Software\Salt\Policies\Bar', `
     'value':'Baz', `
     'vtype':'SZ'}, `
-    {'policy_type':'regpol', `
-    'key':'HKLM\Software\Salt\Policies\Abc', `
-    'action':'CREATEKEY'}, `
-    {'policy_type':'regpol', `
-    'key':'HKLM\Software\Salt\Policies\Def', `
-    'action':'DELETE'}, `
-    {'policy_type':'regpol', `
-    'key':'HKLM\Software\Salt\Policies\Ghi', `
-    'action':'DELETEALLVALUES'}, `
     {'policy_type':'secedit', `
-    'name':'MaximumPasswordAge', `
+    'name':'MaxPasswordAge', `
     'value':'60'} `
 ]"
-C:\salt\salt-call.bat --local lgpo.apply_policies policies="$($policies -replace `"`r|`n`")"
+C:\salt\salt-call.bat --local ash_lgpo.apply_policies policies="$($policies -replace `"`r|`n`")"
 
 # Manage a registry entry via `lgpo.set_reg_value`
-C:\salt\salt-call.bat --local lgpo.set_reg_value `
+C:\salt\salt-call.bat --local ash_lgpo.set_reg_value `
     key='HKLM\Software\Salt\Policies\Foo' `
     value='Bar' `
     vtype='SZ'
 
-# Create an empty registry key, using `lgpo.create_reg_key`
-C:\salt\salt-call.bat --local lgpo.create_reg_key `
-    key='HKLM\Software\Salt\Policies'
-
-# Delete a registry value, using `lgpo.delete_reg_value`
-C:\salt\salt-call.bat --local lgpo.delete_reg_value `
-    key='HKLM\Software\Salt\Policies\Foo'
-
-# Delete all registry values within a registry key, using
-# `lgpo.delete_all_values`
-C:\salt\salt-call.bat --local lgpo.delete_all_reg_values `
-    key='HKLM\Software\Salt\Policies'
-
 # Manage a Privilige Right or Systems Access setting, using
 # `lgpo.set_secedit_value`
-C:\salt\salt-call.bat --local lgpo.set_secedit_value `
-    name=MaximumPasswordAge value=60
+C:\salt\salt-call.bat --local ash_lgpo.set_secedit_value `
+    name=MaxPasswordAge value=60
+
+# Get a list of valid secedit policy names
+C:\salt\salt-call.bat --local ash_lgpo.get_secedit_names
 ```
-
-
-## Tools
-- [Microsoft LocalGPO][8]
-- [Microsoft Apply_LGPO_Delta.exe][7]
-- [Microsoft ImportRegPol.exe][7]
 
 
 ## References
