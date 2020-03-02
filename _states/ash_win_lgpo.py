@@ -22,7 +22,7 @@ import salt.utils
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 
 log = logging.getLogger(__name__)
-__virtualname__ = 'lgpo'
+__virtualname__ = 'ash.lgpo'
 
 
 def __virtual__():
@@ -34,8 +34,7 @@ def __virtual__():
                        'module was not present'.format(__virtualname__))
 
 
-def present(name, mode=None, value=None, vtype=None, logfile=True,
-            errorfile=True, policies=None, **kwargs):
+def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
     r"""
     Define a Local Group Policy Object (LGPO) that must be present.
 
@@ -99,35 +98,35 @@ def present(name, mode=None, value=None, vtype=None, logfile=True,
     .. code-block:: yaml
 
         Create Registry Key:
-          lgpo.present:
+          ash.lgpo.present:
             - name: HKLM\Software\Salt\Bar
             - mode: create_reg_key
 
         Delete Registry Value:
-          lgpo.present:
+          ash.lgpo.present:
             - name: HKLM\Software\Salt\Foo
             - mode: delete_reg_value
 
         Delete All Registry Values:
-          lgpo.present:
+          ash.lgpo.present:
             - name: HKLM\Software\Salt\Foo
             - mode: delete_all_reg_values
 
         Set Registry Value:
-          lgpo.present:
+          ash.lgpo.present:
             - name: HKLM\Software\Salt\Foo
             - mode: set_reg_value
             - value: 0
             - vtype: REG_DWORD
 
         Set Secedit Value:
-          lgpo.present:
+          ash.lgpo.present:
             - name: MinimumPasswordAge
             - mode: set_secedit_value
             - value: 3
 
         Set Multiple Policies In One State:
-          lgpo.present:
+          ash.lgpo.present:
             - policies:
               - policy_type: regpol
                 key: HKLM\Software\Salt\Foo
