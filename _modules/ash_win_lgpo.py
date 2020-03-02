@@ -39,7 +39,7 @@ except ImportError:
     from salt.utils import is_windows
 
 log = logging.getLogger(__name__)
-__virtualname__ = 'ash.lgpo'
+__virtualname__ = 'ash_lgpo'
 
 if HAS_WINDOWS_MODULES:
     from salt.modules.win_lgpo import (
@@ -278,7 +278,7 @@ def validate_policies(policies):
                 'value'  : 'value to apply to the setting'
             }
         Policy dictionaries support the same aliases as the individual policy
-        parameters. See ``lgpo.set_registry_value`` for the aliases.
+        parameters. See ``ash_lgpo.set_registry_value`` for the aliases.
 
     CLI Examples:
 
@@ -288,7 +288,7 @@ def validate_policies(policies):
             'key':'HKLM\Software\Salt\Policies\Foo', \
             'value':'0', \
             'vtype':'DWORD'}]"
-        salt '*' lgpo.validate_policies policies="${policies}"
+        salt '*' ash_lgpo.validate_policies policies="${policies}"
     """
     ret = {}
     policy_helper = PolicyHelper()
@@ -345,7 +345,7 @@ def apply_policies(policies, overwrite_regpol=True):
                 'value'  : 'value to apply to the setting'
             }
         Policy dictionaries support the same aliases as the individual policy
-        parameters. See ``lgpo.set_registry_value`` for the aliases.
+        parameters. See ``ash_lgpo.set_registry_value`` for the aliases.
 
     :param overwrite_regpol:
         When ``True``, specified policies will wholly overwrite an existing
@@ -360,7 +360,7 @@ def apply_policies(policies, overwrite_regpol=True):
             'key':'HKLM\Software\Salt\Policies\Foo', \
             'value':'0', \
             'vtype':'DWORD'}]"
-        salt '*' lgpo.apply_policies policies="${policies}"
+        salt '*' ash_lgpo.apply_policies policies="${policies}"
     """
     valid_policies, reason, policy = validate_policies(policies)
     if not valid_policies:
@@ -439,11 +439,11 @@ def set_reg_value(key, value, vtype):
 
     .. code-block:: bash
 
-        salt '*' lgpo.set_reg_value \
+        salt '*' ash_lgpo.set_reg_value \
             key='HKLM\Software\Salt\Policies\Foo' \
             value='0' \
             vtype='DWORD'
-        salt '*' lgpo.set_reg_value \
+        salt '*' ash_lgpo.set_reg_value \
             key='HKLM\Software\Salt\Policies\Bar' \
             value='baz' \
             vtype='SZ'
@@ -466,7 +466,7 @@ def set_secedit_value(name, value):
     :param name:
         Name of the "System Access" or "Privilege Rights" policy to modify.
         Parameter is case-insensitive. To get a list of known policy names,
-        use ``lgpo.get_secedit_names``.
+        use ``ash_lgpo.get_secedit_names``.
     :param value:
         Value to apply to the policy.
 
@@ -474,10 +474,10 @@ def set_secedit_value(name, value):
 
     .. code-block:: bash
 
-        salt '*' lgpo.set_secedit_value name=MaximumPasswordAge value=60
-        salt '*' lgpo.set_secedit_value name=SeDenyServiceLogonRight \
+        salt '*' ash_lgpo.set_secedit_value name=MaxPasswordAge value=60
+        salt '*' ash_lgpo.set_secedit_value name=SeDenyServiceLogonRight \
             value=Guests
-        salt '*' lgpo.set_secedit_value name=SeDenyNetworkLogonRight \
+        salt '*' ash_lgpo.set_secedit_value name=SeDenyNetworkLogonRight \
             value='*S-1-5-32-546'
     """
     return (apply_policies(

@@ -11,12 +11,12 @@ import salt.utils
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 
 log = logging.getLogger(__name__)
-__virtualname__ = 'ash.lgpo'
+__virtualname__ = 'ash_lgpo'
 
 
 def __virtual__():
-    """Only load if ash.lgpo execution module is available."""
-    if 'ash.lgpo.apply_policies' in __salt__:
+    """Only load if ash_lgpo execution module is available."""
+    if 'ash_lgpo.apply_policies' in __salt__:
         return __virtualname__
     else:
         return (False, 'State "{0}" not loaded because the "{0}" execution '
@@ -67,7 +67,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
         specifying individual states for each policy, ``policies`` enables
         multiple policies to be specified in a single state definition. The
         format for policy dictionaries is the same as for the
-        ``ash.lgpo.apply_policies`` execution module. An example is below, but
+        ``ash_lgpo.apply_policies`` execution module. An example is below, but
         please see the execution module for details on the policy dictionary
         structure.
 
@@ -76,20 +76,20 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
     .. code-block:: yaml
 
         Set Registry Value:
-          ash.lgpo.present:
+          ash_lgpo.present:
             - name: HKLM\Software\Salt\Foo
             - mode: set_reg_value
             - value: 0
             - vtype: REG_DWORD
 
         Set Secedit Value:
-          ash.lgpo.present:
-            - name: MinimumPasswordAge
+          ash_lgpo.present:
+            - name: MinPasswordAge
             - mode: set_secedit_value
             - value: 3
 
         Set Multiple Policies In One State:
-          ash.lgpo.present:
+          ash_lgpo.present:
             - policies:
               - policy_type: regpol
                 key: HKLM\Software\Salt\Foo
@@ -100,7 +100,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
                 value: 0
                 vtype: REG_DWORD
               - policy_type: secedit
-                name: MinimumPasswordAge
+                name: MinPasswordAge
                 value: 3
     """
     ret = {
@@ -115,7 +115,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
         ret['comment'] = '"policies" is an empty list'
         return ret
 
-    policies = policies or __salt__['ash.lgpo.construct_policy'](
+    policies = policies or __salt__['ash_lgpo.construct_policy'](
         name=name,
         mode=mode,
         value=value,
@@ -123,7 +123,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
     )
 
     if __opts__['test']:
-        valid_policies, reason, policy = __salt__['ash.lgpo.validate_policies'](
+        valid_policies, reason, policy = __salt__['ash_lgpo.validate_policies'](
             policies=policies
         )
         if not valid_policies:
@@ -134,7 +134,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
             ret['changes'] = valid_policies
     else:
         try:
-            result = __salt__['ash.lgpo.apply_policies'](policies=policies)
+            result = __salt__['ash_lgpo.apply_policies'](policies=policies)
             ret['comment'] = 'Successfully applied local group policy objects'
             ret['changes'] = result
         except (CommandExecutionError, SaltInvocationError) as exc:
@@ -176,7 +176,7 @@ def mod_aggregate(low, chunks, running):
                 policies.extend(chunk['policies'])
                 chunk['__agg__'] = True
             elif 'name' in chunk:
-                policies.extend(__salt__['ash.lgpo.construct_policy'](
+                policies.extend(__salt__['ash_lgpo.construct_policy'](
                     name=chunk['name'],
                     mode=chunk.get('mode', None),
                     value=chunk.get('value', None),
