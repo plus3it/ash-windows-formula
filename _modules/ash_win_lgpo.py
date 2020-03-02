@@ -340,12 +340,6 @@ def apply_policies(policies, overwrite_regpol=True):
             }
         -OR-
             {
-                'policy_type' : 'regpol',
-                'key'    : '<hive>\path\to\registry\key\name',
-                'action' : 'DELETE' | 'DELETEALLVALUES' | 'CREATEKEY'
-            }
-        -OR-
-            {
                 'policy_type' : 'secedit',
                 'name'   : 'name of the secedit inf setting',
                 'value'  : 'value to apply to the setting'
@@ -402,18 +396,6 @@ def construct_policy(mode, name, value=None, vtype=None):
         'policy_type': 'unknown'
     }
     policy_map = {
-        'create_reg_key': {
-            'policy_type': 'regpol',
-            'action': 'CREATEKEY'
-        },
-        'delete_reg_value': {
-            'policy_type': 'regpol',
-            'action': 'DELETE'
-        },
-        'delete_all_reg_values': {
-            'policy_type': 'regpol',
-            'action': 'DELETEALLVALUES'
-        },
         'set_reg_value': {
             'policy_type': 'regpol',
         },
@@ -474,92 +456,6 @@ def set_reg_value(key, value, vtype):
             vtype=vtype
         ),
         overwrite_regpol=False,
-    ))
-
-
-def create_reg_key(key):
-    r"""
-    Use a Local Group Policy Object to create a registry key with no values.
-
-    :param key:
-        Path to the registry key managed by the policy. The path must be
-        in the form: ``<hive>\path\to\registry\key``. ``<hive>`` may be one of
-        ``Computer`` or ``User``. ``<hive>`` also supports aliases the
-        following aliases:
-            'Computer'  : ['COMPUTER', 'HKLM', 'MACHINE', 'HKEY_LOCAL_MACHINE']
-            'User'      : ['USER', 'HKCU', 'HKEY_CURRENT_USER']
-        ``<hive>`` is case insensitive.
-
-    CLI Examples:
-
-    .. code-block:: bash
-
-        salt '*' lgpo.create_reg_key key='HKLM\Software\Salt\Policies\Foo'
-        salt '*' lgpo.create_reg_key key='HKLM\Software\Salt\Policies\Bar'
-    """
-    return (apply_policies(
-        policies=construct_policy(
-            mode='create_reg_key',
-            name=key,
-        ),
-    ))
-
-
-def delete_reg_value(key):
-    r"""
-    Use a Local Group Policy Object to delete to a registry value.
-
-    :param key:
-        Path to the registry value to be removed by the policy. The path must
-        be in the form: ``<hive>\path\to\registry\key\value_name``. ``<hive>``
-        may be one of ``Computer`` or ``User``. ``<hive>`` also supports
-        aliases the following aliases:
-            'Computer'  : ['COMPUTER', 'HKLM', 'MACHINE', 'HKEY_LOCAL_MACHINE']
-            'User'      : ['USER', 'HKCU', 'HKEY_CURRENT_USER']
-        ``<hive>`` is case insensitive.
-
-    CLI Examples:
-
-    .. code-block:: bash
-
-        salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Foo'
-        salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Bar'
-    """
-    return (apply_policies(
-        policies=construct_policy(
-            mode='delete_reg_value',
-            name=key,
-        ),
-    ))
-
-
-def delete_all_reg_values(key):
-    r"""
-    Use a Local Group Policy Object to delete all values within a registry key.
-
-    :param key:
-        Path to the registry key containing the values to be removed. The path
-        must be in the form: ``<hive>\path\to\registry\key``. ``<hive>`` may be
-        one of ``Computer`` or ``User``. ``<hive>`` also supports aliases the
-        following aliases:
-            'Computer'  : ['COMPUTER', 'HKLM', 'MACHINE', 'HKEY_LOCAL_MACHINE']
-            'User'      : ['USER', 'HKCU', 'HKEY_CURRENT_USER']
-        ``<hive>`` is case insensitive.
-
-    CLI Examples:
-
-    .. code-block:: bash
-
-        salt '*' lgpo.delete_all_reg_values \
-            key='HKLM\Software\Salt\Policies\Foo'
-        salt '*' lgpo.delete_all_reg_values \
-            key='HKLM\Software\Salt\Policies\Bar'
-    """
-    return (apply_policies(
-        policies=construct_policy(
-            mode='delete_all_reg_values',
-            name=key,
-        ),
     ))
 
 
