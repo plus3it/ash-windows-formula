@@ -180,7 +180,12 @@ class PolicyHelper(object):
         )
 
     def _secedit_name(self, name):
-        return name if name in self.SECEDIT_POLICIES.keys() else None
+        if name in self.SECEDIT_POLICIES.keys():
+            return name
+        for key, policy in self.SECEDIT_POLICIES.items():
+            if name == policy.get('Secedit', {}).get('Option'):
+                return key
+        return None
 
     def validate_secedit(self, policy):
         """Validate secedit policy."""
