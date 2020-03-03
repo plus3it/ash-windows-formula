@@ -44,8 +44,11 @@ __virtualname__ = 'ash_lgpo'
 if HAS_WINDOWS_MODULES:
     from salt.modules.win_lgpo import (
         _policy_info, _buildKnownDataSearchString, _policyFileReplaceOrAppend,
-        _read_regpol_file, _write_regpol_data,
+        UUID, _get_secedit_data, _load_secedit_data, _read_regpol_file,
+        _write_regpol_data,
     )
+
+    from salt.utils.functools import namespaced_function as _namespaced_function
 
     POLICY_INFO = _policy_info()
     REGPOL_MACHINE = _read_regpol_file(
@@ -237,6 +240,11 @@ def __virtual__():
             '{0}: Required modules failed to load'
             .format(__virtualname__)
         )
+
+    global _get_secedit_data, _load_secedit_data
+    _get_secedit_data = _namespaced_function(_get_secedit_data, globals())
+    _load_secedit_data = _namespaced_function(_load_secedit_data, globals())
+
     return __virtualname__
 
 
@@ -382,10 +390,13 @@ def apply_policies(policies, overwrite_regpol=True):
         )
 
     # Apply secedit policies
-    __salt__['lgpo.set'](
-        computer_policy=policy_objects.get('secedit', {}),
-        cumulative_rights_assignments=False,
-    )
+    secedit = policy_objects.get('secedit', {})
+    if secedit:
+        _ = _get_secedit_data()
+        __salt__['lgpo.set'](
+            computer_policy=secedit,
+            cumulative_rights_assignments=False,
+        )
 
     return valid_policies
 
