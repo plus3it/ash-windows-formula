@@ -240,8 +240,8 @@ C:\salt\salt-call.bat --local ash_lgpo.set_reg_value `
 C:\salt\salt-call.bat --local ash_lgpo.set_secedit_value `
     name=MaxPasswordAge value=60
 
-# Get a list of valid secedit policy names
-C:\salt\salt-call.bat --local ash_lgpo.get_secedit_names
+# Get a list of valid secedit policies
+C:\salt\salt-call.bat --local ash_lgpo.list_secedit_policies
 ```
 
 

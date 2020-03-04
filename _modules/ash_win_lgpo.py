@@ -48,6 +48,7 @@ if HAS_WINDOWS_MODULES:
         _read_regpol_file, _write_regpol_data,
     )
 
+    from salt.ext import six
     from salt.utils.functools import namespaced_function as _namespaced_function
 
     POLICY_INFO = _policy_info()
@@ -525,34 +526,105 @@ def set_secedit_value(name, value):
     ))
 
 
-def get_secedit_names():
-    """Return all valid secedit policy names."""
-    secedit_policies = PolicyHelper().SECEDIT_POLICIES
-    system_access = []
-    privilege_rights = []
-    advanced_audit = []
-    netsh = []
-    scripts = []
-    other = []
-    for name, policy in secedit_policies.items():
-        if 'Secedit' in policy or 'NetUserModal' in policy:
-            system_access.append(name)
-        elif 'AdvAudit' in policy:
-            advanced_audit.append(name)
-        elif 'LsaRights' in policy:
-            privilege_rights.append(name)
-        elif 'NetSH' in policy:
-            netsh.append(name)
-        elif 'ScriptIni' in policy:
-            scripts.append(name)
-        else:
-            other.append({name: policy})
-    ret = {
-        'Advanced Audit': sorted(advanced_audit),
-        'NetSH': sorted(netsh),
-        'Privilege Rights': sorted(privilege_rights),
-        'Startup/Shutdown Scripts': sorted(scripts),
-        'System Access': sorted(system_access),
-        'Other': other,
+def list_secedit_policies(names=None, types=None, show_details=False):
+    """
+    Return all valid secedit policies by type and name.
+
+    :param names:
+        Names of the policies to output. If not provided, all valid policies
+        will be listed.
+    :param types:
+        Types of policies to output. If not provided, all valid types will be
+        listed.
+    :param show_details:
+        When ``False`` (the default), only policy names will be output. When
+        ``True``, all policy details will be output. This can be helpful in
+        determining what values a policy accepts.
+
+    CLI Examples:
+
+    .. code-block:: bash
+
+        salt '*' ash_lgpo.list_secedit_policies
+        salt '*' ash_lgpo.list_secedit_policies \
+            names=AdminAccountStatus,SeDenyNetworkLogonRight
+        salt '*' ash_lgpo.list_secedit_policies \
+            types=Secedit,LsaRights
+    """
+    policies = {
+        'Secedit': {
+            'policy_keys': [
+                'Secedit',
+                'NetUserModal',
+            ],
+            'policies': [],
+            'display_name': 'System Access',
+        },
+        'AdvAudit': {
+            'policy_keys': [
+                'AdvAudit',
+            ],
+            'policies': [],
+            'display_name': 'Advanced Audit',
+        },
+        'LsaRights': {
+            'policy_keys': [
+                'LsaRights',
+            ],
+            'policies': [],
+            'display_name': 'Privilege Rights',
+        },
+        'NetSH': {
+            'policy_keys': [
+                'NetSH',
+            ],
+            'policies': [],
+            'display_name': 'NetSH',
+        },
+        'ScriptIni': {
+            'policy_keys': [
+                'ScriptIni',
+            ],
+            'policies': [],
+            'display_name': 'Startup/Shutdown Scripts',
+        },
+        'Other': {
+            'policy_keys': [],
+            'policies': [],
+            'display_name': 'Other',
+        },
     }
-    return { section: names for section, names in ret.items() if names }
+
+    secedit_policies = PolicyHelper().SECEDIT_POLICIES
+    names = names or []
+    types = types or policies.keys()
+
+    # Coerce names and types to lists
+    if isinstance(names, six.text_type):
+        names = names.split(',')
+    if isinstance(types, six.text_type):
+        types = types.split(',')
+
+    for name, policy in secedit_policies.items():
+        # Skip any names not requested
+        if names and name not in names:
+            continue
+
+        for type_ in policies.keys():
+            # Map known lgpo policy types to their respective policies key
+            keys = policies[type_]['policy_keys']
+            if keys and any([key in policy for key in keys]):
+                policies[type_]['policies'].append(
+                    name if not show_details else {name: policy}
+                )
+                break
+        else:
+            # Map unknown lgpo policy types to the 'Other' key
+            policies['Other']['policies'].append({name: policy})
+
+    # Create map of requested types and policy names
+    return {
+        section['display_name']: sorted(section['policies'])
+        for type_, section in policies.items()
+        if type_ in types and section['policies']
+    }
