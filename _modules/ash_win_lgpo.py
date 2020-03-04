@@ -44,8 +44,8 @@ __virtualname__ = 'ash_lgpo'
 if HAS_WINDOWS_MODULES:
     from salt.modules.win_lgpo import (
         _policy_info, _buildKnownDataSearchString, _policyFileReplaceOrAppend,
-        UUID, _get_secedit_data, _load_secedit_data, _read_regpol_file,
-        _write_regpol_data,
+        UUID, _get_secedit_data, _load_secedit_data, _transform_value,
+        _read_regpol_file, _write_regpol_data,
     )
 
     from salt.utils.functools import namespaced_function as _namespaced_function
@@ -179,22 +179,42 @@ class PolicyHelper(object):
             ''
         )
 
-    def _secedit_name(self, name):
-        if name in self.SECEDIT_POLICIES.keys():
-            return name
-        for key, policy in self.SECEDIT_POLICIES.items():
-            if name == policy.get('Secedit', {}).get('Option'):
-                return key
-        return None
+    def _secedit_transform(self, name, value):
+        BAD_TRANSFORM_VALUES = ['Invalid Value']
+
+        # Check if name does not match the lgpo policy name, and if not look it
+        # up from policy details. If not in policy details, return None
+        if name not in self.SECEDIT_POLICIES:
+            for key, policy in self.SECEDIT_POLICIES.items():
+                if name == policy.get('Secedit', {}).get('Option'):
+                    name = key
+                    break
+            else:
+                return None, None
+
+        # Get the value transform
+        value_ = _transform_value(
+            value,
+            self.SECEDIT_POLICIES[name],
+            transform_type='Get',
+        )
+
+        return name, value_ if value_ not in BAD_TRANSFORM_VALUES else value
 
     def validate_secedit(self, policy):
         """Validate secedit policy."""
         if not all(key in policy for key in self.LGPO_SECEDIT_KEYS):
             return False, 'Secedit policy dictionary is malformed'
-        name = self._secedit_name(policy.get('name', ''))
-        value = policy.get('value', '')
+        name, value = self._secedit_transform(
+            name=policy.get('name', ''),
+            value=policy.get('value', ''),
+        )
         if not name:
-            return False, 'Secedit policy name "{0}" is unknown'.format(name)
+            return (
+                False,
+                'Secedit policy name "{0}" is unknown'
+                .format(policy.get('name'))
+            )
         return (
             {
                 'name': name,
