@@ -52,12 +52,13 @@ if HAS_WINDOWS_MODULES:
     from salt.utils.functools import namespaced_function as _namespaced_function
 
     POLICY_INFO = _policy_info()
+    REGPOL_EMPTY = b''
     REGPOL_MACHINE = _read_regpol_file(
         POLICY_INFO.admx_registry_classes['Machine']['policy_path']
-    ) or b''
+    ) or REGPOL_EMPTY
     REGPOL_USER = _read_regpol_file(
         POLICY_INFO.admx_registry_classes['User']['policy_path']
-    ) or b''
+    ) or REGPOL_EMPTY
 
 
 class PolicyHelper(object):
@@ -240,8 +241,8 @@ class PolicyHelper(object):
         """Return a regpol policy object."""
         overwrite_regpol = kwargs.pop('overwrite_regpol', True)
         policy_objects = {
-            'Machine': b'' if overwrite_regpol else REGPOL_MACHINE,
-            'User': b'' if overwrite_regpol else REGPOL_USER,
+            'Machine': REGPOL_EMPTY if overwrite_regpol else REGPOL_MACHINE,
+            'User': REGPOL_EMPTY if overwrite_regpol else REGPOL_USER,
         }
 
         for policy in policies:
@@ -359,7 +360,7 @@ def _get_policy_objects(policies, **kwargs):
     return policy_objects
 
 
-def apply_policies(policies, overwrite_regpol=True):
+def apply_policies(policies, overwrite_regpol=False):
     r"""
     Apply a policy that manages Local Group Policy Objects.
 
@@ -382,9 +383,9 @@ def apply_policies(policies, overwrite_regpol=True):
         parameters. See ``ash_lgpo.set_registry_value`` for the aliases.
 
     :param overwrite_regpol:
-        When ``True``, specified policies will wholly overwrite an existing
-        registry.pol file. When ``False``, read the registry.pol if it exists
-        and update it with the specified policies.
+        When ``False`` (the default), read the registry.pol if it exists
+        and update it with the specified policies. When ``True``, specified
+        policies will wholly overwrite an existing registry.pol file.
 
     CLI Examples:
 
