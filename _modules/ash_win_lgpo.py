@@ -52,6 +52,7 @@ if HAS_WINDOWS_MODULES:
 
     from salt.ext import six
     from salt.utils.functools import namespaced_function as _namespaced_function
+    from salt.utils.stringutils import to_num
 
     POLICY_INFO = _policy_info()
     REGPOL_EMPTY = b''
@@ -186,8 +187,8 @@ class PolicyHelper(object):
     def _secedit_transform(self, name, value):
         BAD_TRANSFORM_VALUES = ['Invalid Value']
 
-        log.debug('secedit name = "%s"', name)
-        log.debug('secedit value = "%s"; type = "%s"', value, type(value))
+        log.debug('secedit name [initial] = "%s"', name)
+        log.debug('secedit value [initial] = "%s"; type = "%s"', value, type(value))
 
         # Check if name does not match the lgpo policy name, and if not look it
         # up from policy details. If not in policy details, return None
@@ -195,6 +196,7 @@ class PolicyHelper(object):
             for key, policy in self.SECEDIT_POLICIES.items():
                 if name == policy.get('Secedit', {}).get('Option'):
                     name = key
+                    log.debug('secedit name [transformed] = "%s"', name)
                     break
             else:
                 return None, None
@@ -215,6 +217,18 @@ class PolicyHelper(object):
                     win32security.LookupAccountName('', account)[0]
                     for account in value.split(',')
                 ]
+            log.debug(
+                'secedit value [coerced] = "%s"; type = "%s"',
+                value,
+                type(value)
+            )
+        elif 'NetUserModal' in policy:
+            value = to_num(value)
+            log.debug(
+                'secedit value [coerced] = "%s"; type = "%s"',
+                value,
+                type(value)
+            )
 
         value_ = _transform_value(
             value,
@@ -222,7 +236,15 @@ class PolicyHelper(object):
             transform_type='Get',
         )
 
-        return name, value_ if value_ not in BAD_TRANSFORM_VALUES else value
+        value = value_ if value_ not in BAD_TRANSFORM_VALUES else value
+
+        log.debug(
+            'secedit value [transformed] = "%s"; type = "%s"',
+            value,
+            type(value_)
+        )
+
+        return name, value
 
     def validate_secedit(self, policy):
         """Validate secedit policy."""
