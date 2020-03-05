@@ -42,12 +42,15 @@ log = logging.getLogger(__name__)
 __virtualname__ = 'ash_lgpo'
 
 if HAS_WINDOWS_MODULES:
+    import struct
     import win32security
+
+    import salt.utils.files
 
     from salt.modules.win_lgpo import (
         _policy_info, _buildKnownDataSearchString, _policyFileReplaceOrAppend,
         UUID, _get_secedit_data, _load_secedit_data, _transform_value,
-        _read_regpol_file, _write_regpol_data,
+        _read_regpol_file, _write_regpol_data, _regexSearchRegPolData
     )
 
     from salt.ext import six
@@ -346,9 +349,10 @@ def __virtual__():
             .format(__virtualname__)
         )
 
-    global _get_secedit_data, _load_secedit_data
+    global _get_secedit_data, _load_secedit_data, _write_regpol_data
     _get_secedit_data = _namespaced_function(_get_secedit_data, globals())
     _load_secedit_data = _namespaced_function(_load_secedit_data, globals())
+    _write_regpol_data = _namespaced_function(_write_regpol_data, globals())
 
     return __virtualname__
 
