@@ -303,7 +303,8 @@ class PolicyHelper(object):
         )
 
     def _reg_to_pol(self, policy, regpol):
-        vtype, vdata = policy['action'].split(':')
+        action = policy['action'].split(':')
+        vtype, vdata = action[0], ':'.join(action[1:])
 
         setting = _buildKnownDataSearchString(
             reg_key=policy['key_path'],
