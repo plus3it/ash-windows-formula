@@ -48,14 +48,15 @@ if HAS_WINDOWS_MODULES:
     import salt.utils.files
 
     from salt.modules.win_lgpo import (
-        _policy_info, _buildKnownDataSearchString, _policyFileReplaceOrAppend,
-        UUID, _get_secedit_data, _load_secedit_data, _transform_value,
-        _read_regpol_file, _write_regpol_data, _regexSearchRegPolData
+        _policy_info, _policyFileReplaceOrAppend, UUID, _get_secedit_data,
+        _load_secedit_data, _transform_value, _read_regpol_file,
+        _write_regpol_data, _regexSearchRegPolData
     )
 
     from salt.ext import six
     from salt.utils.functools import namespaced_function as _namespaced_function
     from salt.utils.stringutils import to_num
+    from salt.utils.win_reg import Registry
 
     POLICY_INFO = _policy_info()
     REGPOL_EMPTY = b''
@@ -310,12 +311,16 @@ class PolicyHelper(object):
         action = policy['action'].split(':')
         vtype, vdata = action[0], ':'.join(action[1:])
 
-        setting = _buildKnownDataSearchString(
-            reg_key=policy['key_path'],
-            reg_valueName=policy['vname'],
-            reg_vtype=vtype,
-            reg_data=str(vdata),
-        )
+        kwargs = {
+            'reg_key': policy['key_path'],
+            'reg_valueName': policy['vname'],
+            'reg_vtype': vtype,
+            'reg_data': None if vdata == '' else vdata,
+            'check_deleted': vtype == 'DELETE'
+        }
+
+        log.debug('converting policy to regpol search string = %s', kwargs)
+        setting = _buildKnownDataSearchString(**kwargs)
 
         return _policyFileReplaceOrAppend(setting, regpol)
 
@@ -356,6 +361,78 @@ def __virtual__():
     _write_regpol_data = _namespaced_function(_write_regpol_data, globals())
 
     return __virtualname__
+
+
+def _encode_string(value):
+    '''Cut from win_lgpo.py due to bugs in _buildKnownDataSearchString.'''
+    encoded_null = chr(0).encode('utf-16-le')
+    if value is None:
+        return encoded_null
+    elif not isinstance(value, six.string_types):
+        # Should we raise an error here, or attempt to cast to a string
+        raise TypeError('Value {0} is not a string type\n'
+                        'Type: {1}'.format(repr(value), type(value)))
+    return b''.join([value.encode('utf-16-le'), encoded_null])
+
+
+def _buildKnownDataSearchString(
+    reg_key,
+    reg_valueName,
+    reg_vtype,
+    reg_data,
+    check_deleted=False
+):
+    '''
+    Helper function to build a search string for a known key/value/type/data.
+
+    Cut from win_lgpo.py due to bugs in empty reg_data values.
+    '''
+    registry = Registry()
+    encoded_semicolon = ';'.encode('utf-16-le')
+    encoded_null = chr(0).encode('utf-16-le')
+    this_element_value = encoded_null
+    if reg_key:
+        reg_key = reg_key.encode('utf-16-le')
+    if reg_valueName:
+        reg_valueName = reg_valueName.encode('utf-16-le')
+    if reg_data and not check_deleted:
+        if reg_vtype == 'REG_DWORD':
+            this_element_value = struct.pack(b'I', int(reg_data))
+        elif reg_vtype == "REG_QWORD":
+            this_element_value = struct.pack(b'Q', int(reg_data))
+        elif reg_vtype == 'REG_SZ':
+            this_element_value = _encode_string(reg_data)
+    if check_deleted:
+        reg_vtype = 'REG_SZ'
+        return b''.join(['['.encode('utf-16-le'),
+                                    reg_key,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    '**del.'.encode('utf-16-le'),
+                                    reg_valueName,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    six.unichr(len(' {0}'.format(chr(0)).encode('utf-16-le'))).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    ' '.encode('utf-16-le'),
+                                    encoded_null,
+                                    ']'.encode('utf-16-le')])
+    else:
+        return b''.join(['['.encode('utf-16-le'),
+                                    reg_key,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    reg_valueName,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    six.unichr(len(this_element_value)).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    this_element_value,
+                                    ']'.encode('utf-16-le')])
 
 
 def validate_policies(policies):
