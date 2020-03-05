@@ -261,6 +261,7 @@ class PolicyHelper(object):
             )
         elif 'NetUserModal' in policy:
             value = to_num(value)
+            value = 0 if value == -1 else value
             log.debug(
                 'secedit value [coerced] = "%s"; type = "%s"',
                 value,
