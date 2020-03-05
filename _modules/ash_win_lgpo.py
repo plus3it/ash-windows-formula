@@ -246,13 +246,13 @@ class PolicyHelper(object):
                 # Convert String SID to SID object
                 value = [
                     win32security.ConvertStringSidToSid(sid.lstrip('*'))
-                    for sid in value.split(',')
+                    for sid in value.split(',') if sid
                 ]
             except win32security.error:
                 # Convert account name to SID object
                 value = [
                     win32security.LookupAccountName('', account)[0]
-                    for account in value.split(',')
+                    for account in value.split(',') if account
                 ]
             log.debug(
                 'secedit value [coerced] = "%s"; type = "%s"',
