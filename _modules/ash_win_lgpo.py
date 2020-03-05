@@ -94,6 +94,36 @@ class PolicyHelper(object):
                 'HKEY_CURRENT_USER': 'User',
             },
         }
+        self.SECEDIT_MAP = {
+            'MINIMUMPASSWORDAGE': {
+                'type': 'NetUserModal',
+                'name': 'MinPasswordAge',
+            },
+            'MAXIMUMPASSWORDAGE': {
+                'type': 'NetUserModal',
+                'name': 'MaxPasswordAge',
+            },
+            'MINIMUMPASSWORDLENGTH': {
+                'type': 'NetUserModal',
+                'name': 'MinPasswordLen',
+            },
+            'PASSWORDHISTORYSIZE': {
+                'type': 'NetUserModal',
+                'name': 'PasswordHistory',
+            },
+            'LOCKOUTBADCOUNT': {
+                'type': 'NetUserModal',
+                'name': 'LockoutThreshold',
+            },
+            'RESETLOCKOUTCOUNT': {
+                'type': 'NetUserModal',
+                'name': 'LockoutWindow',
+            },
+            'LOCKOUTDURATION': {
+                'type': 'NetUserModal',
+                'name': 'LockoutDuration',
+            },
+        }
         self.SECEDIT_POLICIES = {
             policy: details for policy, details
             in POLICY_INFO.policies['Machine']['policies'].items()
@@ -189,6 +219,10 @@ class PolicyHelper(object):
 
         log.debug('secedit name [initial] = "%s"', name)
         log.debug('secedit value [initial] = "%s"; type = "%s"', value, type(value))
+
+        if name.upper() in self.SECEDIT_MAP:
+            name = self.SECEDIT_MAP[name.upper()]['name']
+            log.debug('secedit name [transformed] = "%s"', name)
 
         # Check if name does not match the lgpo policy name, and if not look it
         # up from policy details. If not in policy details, return None
