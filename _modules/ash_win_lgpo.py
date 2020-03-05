@@ -42,6 +42,8 @@ log = logging.getLogger(__name__)
 __virtualname__ = 'ash_lgpo'
 
 if HAS_WINDOWS_MODULES:
+    import win32security
+
     from salt.modules.win_lgpo import (
         _policy_info, _buildKnownDataSearchString, _policyFileReplaceOrAppend,
         UUID, _get_secedit_data, _load_secedit_data, _transform_value,
@@ -184,6 +186,9 @@ class PolicyHelper(object):
     def _secedit_transform(self, name, value):
         BAD_TRANSFORM_VALUES = ['Invalid Value']
 
+        log.debug('secedit name = "%s"', name)
+        log.debug('secedit value = "%s"; type = "%s"', value, type(value))
+
         # Check if name does not match the lgpo policy name, and if not look it
         # up from policy details. If not in policy details, return None
         if name not in self.SECEDIT_POLICIES:
@@ -195,9 +200,25 @@ class PolicyHelper(object):
                 return None, None
 
         # Get the value transform
+        policy = self.SECEDIT_POLICIES[name]
+
+        if 'LsaRights' in policy:
+            try:
+                # Convert String SID to SID object
+                value = [
+                    win32security.ConvertStringSidToSid(sid.lstrip('*'))
+                    for sid in value.split(',')
+                ]
+            except win32security.error:
+                # Convert account name to SID object
+                value = [
+                    win32security.LookupAccountName('', account)[0]
+                    for account in value.split(',')
+                ]
+
         value_ = _transform_value(
             value,
-            self.SECEDIT_POLICIES[name],
+            policy,
             transform_type='Get',
         )
 
