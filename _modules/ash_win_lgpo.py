@@ -187,8 +187,10 @@ class PolicyHelper(object):
 
     def validate_regpol(self, policy):
         """Validate regpol policy."""
-        if not all(key in policy for key in self.LGPO_VTYPE_KEYS) and not \
-                all(key in policy for key in self.LGPO_ACTION_KEYS):
+        if (
+            not all(key in policy for key in self.LGPO_VTYPE_KEYS) and
+            not all(key in policy for key in self.LGPO_ACTION_KEYS)
+        ):
             return False, 'Registry policy dictionary is malformed'
         hive, key_path, vname = self._regpol_key(policy.get('key', ''))
         value = str(policy.get('value', '')).replace('\\\\', '\\')
@@ -395,31 +397,13 @@ def _buildKnownDataSearchString(
         reg_key = reg_key.encode('utf-16-le')
     if reg_valueName:
         reg_valueName = reg_valueName.encode('utf-16-le')
-    if reg_data and not check_deleted:
+    if not check_deleted:
         if reg_vtype == 'REG_DWORD':
             this_element_value = struct.pack(b'I', int(reg_data))
         elif reg_vtype == "REG_QWORD":
             this_element_value = struct.pack(b'Q', int(reg_data))
         elif reg_vtype == 'REG_SZ':
             this_element_value = _encode_string(reg_data)
-    if check_deleted:
-        reg_vtype = 'REG_SZ'
-        return b''.join(['['.encode('utf-16-le'),
-                                    reg_key,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    '**del.'.encode('utf-16-le'),
-                                    reg_valueName,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    six.unichr(len(' {0}'.format(chr(0)).encode('utf-16-le'))).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    ' '.encode('utf-16-le'),
-                                    encoded_null,
-                                    ']'.encode('utf-16-le')])
-    else:
         return b''.join(['['.encode('utf-16-le'),
                                     reg_key,
                                     encoded_null,
@@ -432,6 +416,23 @@ def _buildKnownDataSearchString(
                                     six.unichr(len(this_element_value)).encode('utf-32-le'),
                                     encoded_semicolon,
                                     this_element_value,
+                                    ']'.encode('utf-16-le')])
+    else:
+        reg_vtype = 'REG_SZ'
+        return b''.join(['['.encode('utf-16-le'),
+                                    reg_key,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    '**Del.'.encode('utf-16-le'),
+                                    reg_valueName,
+                                    encoded_null,
+                                    encoded_semicolon,
+                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    six.unichr(len(' {0}'.format(chr(0)).encode('utf-16-le'))).encode('utf-32-le'),
+                                    encoded_semicolon,
+                                    ' '.encode('utf-16-le'),
+                                    encoded_null,
                                     ']'.encode('utf-16-le')])
 
 
@@ -495,7 +496,7 @@ def validate_policies(policies):
         policy_type = policy.get('policy_type', '').lower()
         try:
             result, reason = getattr(policy_helper, 'validate_{0}'
-                                     .format(policy_type))(policy)
+                                        .format(policy_type))(policy)
         except AttributeError:
             return (False,
                     '`policy_type` is missing or the value "{0}" is invalid'
@@ -588,7 +589,7 @@ def apply_policies(policies, overwrite_regpol=False):
     return valid_policies
 
 
-def construct_policy(mode, name, value=None, vtype=None):
+def construct_policy(mode, name, value='', vtype=''):
     """Map the mode and return a list containing the policy dictionary."""
     default = {
         'policy_type': 'unknown'
@@ -596,6 +597,10 @@ def construct_policy(mode, name, value=None, vtype=None):
     policy_map = {
         'set_reg_value': {
             'policy_type': 'regpol',
+        },
+        'delete_reg_value': {
+            'policy_type': 'regpol',
+            'action': 'DELETE'
         },
         'set_secedit_value': {
             'policy_type': 'secedit',
@@ -654,6 +659,30 @@ def set_reg_value(key, value, vtype):
             vtype=vtype
         ),
         overwrite_regpol=False,
+    ))
+
+
+def delete_reg_value(key):
+    r"""
+    Use a Local Group Policy Object to delete to a registry value.
+    :param key:
+        Path to the registry value to be removed by the policy. The path must
+        be in the form: ``<hive>\path\to\registry\key\value_name``. ``<hive>``
+        may be one of ``Computer`` or ``User``. ``<hive>`` also supports
+        aliases the following aliases:
+            'Computer'  : ['COMPUTER', 'HKLM', 'MACHINE', 'HKEY_LOCAL_MACHINE']
+            'User'      : ['USER', 'HKCU', 'HKEY_CURRENT_USER']
+        ``<hive>`` is case insensitive.
+    CLI Examples:
+    .. code-block:: bash
+        salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Foo'
+        salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Bar'
+    """
+    return (apply_policies(
+        policies=construct_policy(
+            mode='delete_reg_value',
+            name=key
+        ),
     ))
 
 
@@ -789,3 +818,11 @@ def list_secedit_policies(names=None, types=None, show_details=False):
         for type_, section in policies.items()
         if type_ in types and section['policies']
     }
+
+
+def get_regpol(regclass=None):
+    regpol = {
+        'Machine': REGPOL_MACHINE,
+        'User': REGPOL_USER
+    }
+    return {regclass: regpol[regclass]} if regclass else regpol
