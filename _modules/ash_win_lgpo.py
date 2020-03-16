@@ -413,7 +413,7 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
     policy_match = re.search(
         policy_pattern,
         policy,
-        flags=re.IGNORECASE,
+        flags=re.IGNORECASE|re.DOTALL,
     )
 
     # pattern to match `policy` in `policy_data`
@@ -431,7 +431,7 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
     policy_data_match = re.search(
         policy_data_pattern,
         policy_data,
-        flags=re.IGNORECASE,
+        flags=re.IGNORECASE|re.DOTALL,
     )
 
     if policy_data_match:
