@@ -48,9 +48,9 @@ if HAS_WINDOWS_MODULES:
     import salt.utils.files
 
     from salt.modules.win_lgpo import (
-        _policy_info, _policyFileReplaceOrAppend, UUID, _get_secedit_data,
-        _load_secedit_data, _transform_value, _read_regpol_file,
-        _write_regpol_data, _regexSearchRegPolData
+        _policy_info, UUID, _get_secedit_data, _load_secedit_data,
+        _transform_value, _read_regpol_file, _write_regpol_data,
+        _regexSearchRegPolData,
     )
 
     from salt.ext import six
@@ -363,6 +363,91 @@ def __virtual__():
     _write_regpol_data = _namespaced_function(_write_regpol_data, globals())
 
     return __virtualname__
+
+
+def _policyFileReplaceOrAppend(policy, policy_data, append=True):
+    '''
+    helper function to take a ADMX policy string for registry.pol file data and
+    update existing string or append the string to the data
+
+    Cut from win_lgpo.py due to bugs when there are DELETE policies
+    '''
+    # token to match policy start = encoded [
+    policy_start = re.escape('['.encode('utf-16-le'))
+
+    # token to match policy end = encoded ]
+    policy_end = re.escape(']'.encode('utf-16-le'))
+
+    # token to match policy delimiter = encoded null + encoded semicolon
+    policy_delimiter = b''.join([
+        chr(0).encode('utf-16-le'),
+        ';'.encode('utf-16-le'),
+    ])
+
+    # pattern group to OPTIONALLY match delete instructions in value token
+    policy_pattern_del = b''.join([
+        '(',
+        re.escape('**Del.'.encode('utf-16-le')),
+        '|',
+        re.escape('**DelVals.'.encode('utf-16-le')),
+        '){0,1}',
+    ])
+
+    # pattern group to match one delimited token in a policy
+    policy_token = b''.join([
+        '(',
+        '.*?',  # non-greedy match, up to next policy delimiter
+        policy_delimiter,
+        ')',
+    ])
+
+    # pattern to capture the key and value tokens from `policy`
+    policy_pattern = b''.join([
+        policy_start,
+        policy_token, # this is the registry key
+        policy_pattern_del,
+        policy_token, # this is the value
+        '.*?',        # this is the remainder of the policy tokens
+        policy_end,
+    ])
+
+    # parse the tokens from `policy`
+    policy_match = re.search(
+        policy_pattern,
+        policy,
+        flags=re.IGNORECASE,
+    )
+
+    # pattern to match `policy` in `policy_data`
+    policy_match_groups = policy_match.groups()
+    policy_data_pattern = b''.join([
+        policy_start,
+        re.escape(policy_match_groups[0]),  # key
+        policy_pattern_del,
+        re.escape(policy_match_groups[2]),  # value
+        '.*?',
+        policy_end,
+    ])
+
+    # search for `policy` in `policy_data`
+    policy_data_match = re.search(
+        policy_data_pattern,
+        policy_data,
+        flags=re.IGNORECASE,
+    )
+
+    if policy_data_match:
+        # replace a match with the policy
+        policy_repl = policy_data_match.group()
+        log.debug('replacing "%s" with "%s"', policy_repl, policy)
+        return policy_data.replace(policy_repl, policy)
+    elif append:
+        # append the policy
+        log.debug('appending "%s"', policy)
+        return b''.join([policy_data, policy])
+    else:
+        # no match, no append, just return what we were given
+        return policy_data
 
 
 def _encode_string(value):
