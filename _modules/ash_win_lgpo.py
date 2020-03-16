@@ -79,8 +79,6 @@ class PolicyHelper(object):
         self.REGISTRY_MAP = {
             'actions': {
                 'DELETE': 'DELETE',
-                'DELETEALLVALUES': 'DELETEALLVALUES',
-                'CREATEKEY': 'CREATEKEY',
             },
             'vtypes': {
                 'DWORD': 'REG_DWORD',
@@ -550,7 +548,7 @@ def validate_policies(policies):
             {
                 'policy_type' : 'regpol',
                 'key'    : '<hive>\path\to\registry\key\name',
-                'action' : 'DELETE' | 'DELETEALLVALUES' | 'CREATEKEY'
+                'action' : 'DELETE'
             }
         -OR-
             {
