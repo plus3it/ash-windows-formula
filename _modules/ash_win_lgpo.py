@@ -59,13 +59,8 @@ if HAS_WINDOWS_MODULES:
     from salt.utils.win_reg import Registry
 
     POLICY_INFO = _policy_info()
-    REGPOL_EMPTY = b''
-    REGPOL_MACHINE = _read_regpol_file(
-        POLICY_INFO.admx_registry_classes['Machine']['policy_path']
-    ) or REGPOL_EMPTY
-    REGPOL_USER = _read_regpol_file(
-        POLICY_INFO.admx_registry_classes['User']['policy_path']
-    ) or REGPOL_EMPTY
+    REGPOL_MACHINE = POLICY_INFO.admx_registry_classes['Machine']['policy_path']
+    REGPOL_USER = POLICY_INFO.admx_registry_classes['User']['policy_path']
 
 
 class PolicyHelper(object):
@@ -327,9 +322,18 @@ class PolicyHelper(object):
     def policy_object_regpol(self, policies, **kwargs):
         """Return a regpol policy object."""
         overwrite_regpol = kwargs.pop('overwrite_regpol', True)
+        machine_regpol = b''
+        user_regpol = b''
+
+        if not overwrite_regpol:
+            machine_regpol = _read_regpol_file(REGPOL_MACHINE) or b''
+
+        if not overwrite_regpol:
+            user_regpol = _read_regpol_file(REGPOL_USER) or b''
+
         policy_objects = {
-            'Machine': REGPOL_EMPTY if overwrite_regpol else REGPOL_MACHINE,
-            'User': REGPOL_EMPTY if overwrite_regpol else REGPOL_USER,
+            'Machine': machine_regpol,
+            'User': user_regpol,
         }
 
         for policy in policies:
@@ -905,7 +909,7 @@ def list_secedit_policies(names=None, types=None, show_details=False):
 
 def get_regpol(regclass=None):
     regpol = {
-        'Machine': REGPOL_MACHINE,
-        'User': REGPOL_USER
+        'Machine': _read_regpol_file(REGPOL_MACHINE) or b'',
+        'User': _read_regpol_file(REGPOL_USER) or b''
     }
     return {regclass: regpol[regclass]} if regclass else regpol
