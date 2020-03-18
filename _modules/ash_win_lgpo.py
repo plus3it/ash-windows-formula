@@ -48,8 +48,7 @@ if HAS_WINDOWS_MODULES:
     import salt.utils.files
 
     from salt.modules.win_lgpo import (
-        _policy_info, UUID, _get_secedit_data, _load_secedit_data,
-        _transform_value, _read_regpol_file, _write_regpol_data,
+        _policy_info, _transform_value, _read_regpol_file, _write_regpol_data,
         _regexSearchRegPolData,
     )
 
@@ -371,9 +370,7 @@ def __virtual__():
             .format(__virtualname__)
         )
 
-    global _get_secedit_data, _load_secedit_data, _write_regpol_data
-    _get_secedit_data = _namespaced_function(_get_secedit_data, globals())
-    _load_secedit_data = _namespaced_function(_load_secedit_data, globals())
+    global _write_regpol_data
     _write_regpol_data = _namespaced_function(_write_regpol_data, globals())
 
     return __virtualname__
@@ -677,13 +674,10 @@ def apply_policies(policies, overwrite_regpol=False):
         )
 
     # Apply secedit policies
-    secedit = policy_objects.get('secedit', {})
-    if secedit:
-        _ = _get_secedit_data()
-        __salt__['lgpo.set'](
-            computer_policy=secedit,
-            cumulative_rights_assignments=False,
-        )
+    __salt__['lgpo.set'](
+        computer_policy=policy_objects.get('secedit', {}),
+        cumulative_rights_assignments=False,
+    )
 
     return valid_policies
 
