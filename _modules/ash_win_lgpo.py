@@ -127,6 +127,9 @@ class PolicyHelper(object):
             if 'Registry' not in details
             and 'Registry Values' != details.get('Secedit', {}).get('Section')
         }
+        self.SECEDIT_POLICY_KEYS = {
+            key.upper(): key for key in self.SECEDIT_POLICIES
+        }
 
     def _regpol_hive(self, hive):
         try:
@@ -220,19 +223,29 @@ class PolicyHelper(object):
         log.debug('secedit value [initial] = "%s"; type = "%s"', value, type(value))
 
         if name.upper() in self.SECEDIT_MAP:
+            # Transform GPO ini names to salt lgpo names
             name = self.SECEDIT_MAP[name.upper()]['name']
             log.debug('secedit name [transformed] = "%s"', name)
-
-        # Check if name does not match the lgpo policy name, and if not look it
-        # up from policy details. If not in policy details, return None
-        if name not in self.SECEDIT_POLICIES:
-            for key, policy in self.SECEDIT_POLICIES.items():
-                if name == policy.get('Secedit', {}).get('Option'):
-                    name = key
-                    log.debug('secedit name [transformed] = "%s"', name)
-                    break
+        elif name not in self.SECEDIT_POLICIES:
+            # name is not an exact match
+            if name.upper() in self.SECEDIT_POLICY_KEYS:
+                # name is just a different case, transform to lgpo case
+                name = self.SECEDIT_POLICY_KEYS[name.upper()]
+                log.debug('secedit name [transformed] = "%s"', name)
             else:
-                return None, None
+                # search for name in secedit options of lgpo policy details
+                for key, policy in self.SECEDIT_POLICIES.items():
+                    if (
+                        name.upper() == policy.get(
+                            'Secedit', {}).get('Option', '').upper()
+                    ):
+                        # found it, set name to lgpo policy name
+                        name = key
+                        log.debug('secedit name [transformed] = "%s"', name)
+                        break
+                else:
+                    # name is invalid, return none
+                    return None, None
 
         # Get the value transform
         policy = self.SECEDIT_POLICIES[name]
