@@ -224,7 +224,7 @@ $policies=`
     'value':'Baz', `
     'vtype':'SZ'}, `
     {'policy_type':'secedit', `
-    'name':'MaxPasswordAge', `
+    'name':'MaximumPasswordAge', `
     'value':'60'} `
 ]"
 C:\salt\salt-call.bat --local ash_lgpo.apply_policies policies="$($policies -replace `"`r|`n`")"
@@ -238,7 +238,7 @@ C:\salt\salt-call.bat --local ash_lgpo.set_reg_value `
 # Manage a Privilige Right or Systems Access setting, using
 # `lgpo.set_secedit_value`
 C:\salt\salt-call.bat --local ash_lgpo.set_secedit_value `
-    name=MaxPasswordAge value=60
+    name=MaximumPasswordAge value=60
 
 # Get a list of valid secedit policies
 C:\salt\salt-call.bat --local ash_lgpo.list_secedit_policies

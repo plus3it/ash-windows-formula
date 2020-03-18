@@ -84,7 +84,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
 
         Set Secedit Value:
           ash_lgpo.present:
-            - name: MinPasswordAge
+            - name: MinimumPasswordAge
             - mode: set_secedit_value
             - value: 3
 
@@ -100,7 +100,7 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
                 value: 0
                 vtype: REG_DWORD
               - policy_type: secedit
-                name: MinPasswordAge
+                name: MinimumPasswordAge
                 value: 3
     """
     ret = {

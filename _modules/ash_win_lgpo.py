@@ -800,7 +800,7 @@ def set_secedit_value(name, value):
 
     .. code-block:: bash
 
-        salt '*' ash_lgpo.set_secedit_value name=MaxPasswordAge value=60
+        salt '*' ash_lgpo.set_secedit_value name=MaximumPasswordAge value=60
         salt '*' ash_lgpo.set_secedit_value name=SeDenyServiceLogonRight \
             value=Guests
         salt '*' ash_lgpo.set_secedit_value name=SeDenyNetworkLogonRight \
