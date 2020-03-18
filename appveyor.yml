@@ -32,11 +32,6 @@ install:
         Start-Process -FilePath "${env:temp}\salt-minion.exe" `
         -ArgumentList "/S" -NoNewWindow -PassThru -Wait
   - ps: C:\salt\salt-call.bat --versions-report
-  - ps: |
-      C:\salt\salt-call.bat --local `
-        --file-root="${env:SALT_FILEROOT}" `
-        --pillar-root="${env:SALT_PILLARROOT}" `
-        state.sls ash-windows.tools
 
 test_script:
   - ps: >
