@@ -250,25 +250,7 @@ class PolicyHelper(object):
         # Get the value transform
         policy = self.SECEDIT_POLICIES[name]
 
-        if 'LsaRights' in policy:
-            try:
-                # Convert String SID to SID object
-                value = [
-                    win32security.ConvertStringSidToSid(sid.lstrip('*'))
-                    for sid in value.split(',') if sid
-                ]
-            except win32security.error:
-                # Convert account name to SID object
-                value = [
-                    win32security.LookupAccountName('', account)[0]
-                    for account in value.split(',') if account
-                ]
-            log.debug(
-                'secedit value [coerced] = "%s"; type = "%s"',
-                value,
-                type(value)
-            )
-        elif 'NetUserModal' in policy:
+        if 'NetUserModal' in policy:
             value = to_num(value)
             value = 0 if value == -1 else value
             log.debug(
@@ -276,20 +258,37 @@ class PolicyHelper(object):
                 value,
                 type(value)
             )
+        else:
+            if 'LsaRights' in policy:
+                try:
+                    # Convert String SID to SID object
+                    value = [
+                        win32security.ConvertStringSidToSid(sid.lstrip('*'))
+                        for sid in value.split(',') if sid
+                    ]
+                except win32security.error:
+                    # Convert account name to SID object
+                    value = [
+                        win32security.LookupAccountName('', account)[0]
+                        for account in value.split(',') if account
+                    ]
+                log.debug(
+                    'secedit value [coerced] = "%s"; type = "%s"',
+                    value,
+                    type(value)
+                )
 
-        value_ = _transform_value(
-            value,
-            policy,
-            transform_type='Get',
-        )
-
-        value = value_ if value_ not in BAD_TRANSFORM_VALUES else value
-
-        log.debug(
-            'secedit value [transformed] = "%s"; type = "%s"',
-            value,
-            type(value_)
-        )
+            value_ = _transform_value(
+                value,
+                policy,
+                transform_type='Get',
+            )
+            value = value_ if value_ not in BAD_TRANSFORM_VALUES else value
+            log.debug(
+                'secedit value [transformed] = "%s"; type = "%s"',
+                value,
+                type(value)
+            )
 
         return name, value
 
