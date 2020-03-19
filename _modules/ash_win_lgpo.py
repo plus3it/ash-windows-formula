@@ -664,6 +664,7 @@ def apply_policies(policies, overwrite_regpol=False):
     )
 
     # Apply regpol policies
+    has_regpol = False
     for regclass, regpol in policy_objects.get('regpol', {}).items():
         _write_regpol_data(
             regpol,
@@ -672,12 +673,17 @@ def apply_policies(policies, overwrite_regpol=False):
             POLICY_INFO.admx_registry_classes[regclass]['gpt_extension_location'],
             POLICY_INFO.admx_registry_classes[regclass]['gpt_extension_guid']
         )
+        has_regpol = True if regpol else has_regpol
 
     # Apply secedit policies
     __salt__['lgpo.set'](
         computer_policy=policy_objects.get('secedit', {}),
         cumulative_rights_assignments=False,
     )
+
+    # Trigger gpupdate to create registry entries from regpol
+    if has_regpol:
+        _ = __salt__['cmd.retcode']('gpupdate')
 
     return valid_policies
 
