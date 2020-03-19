@@ -51,7 +51,7 @@
   vtype: DWORD
 - key: Computer\System\CurrentControlSet\Control\Lsa\UseMachineId
   policy_type: regpol
-  value: '1s'
+  value: '1'
   vtype: DWORD
 - key: Computer\System\CurrentControlSet\Control\Lsa\pku2u\AllowOnlineID
   policy_type: regpol

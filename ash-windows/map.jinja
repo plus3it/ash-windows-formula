@@ -58,12 +58,7 @@
 ) %}
 
 # Define lookup table with default paths
-{% set defaults = {
-    'logdir' : systemdrive ~ '\\Ash\\Logs',
-    'apply_lgpo_source' : 'https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe',
-    'apply_lgpo_source_hash' : 'https://watchmaker.cloudarmor.io/repo/microsoft/lgpo/Apply_LGPO_Delta.exe.SHA512',
-    'apply_lgpo_filename' : systemroot ~ '\\system32\\Apply_LGPO_Delta.exe',
-} %}
+{% set defaults = {} %}
 
 # Import user defined settings from pillar (if available)
 {% set ash = salt.pillar.get(
