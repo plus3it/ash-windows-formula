@@ -143,7 +143,7 @@ class PolicyHelper(object):
             key_ = pattern.split(key)
             hive = self._regpol_hive(key_[0])
             key_path = '\\'.join(key_[1:-1])
-            vname = key_[-1].replace('\\\\','\\').strip('"')
+            vname = key_[-1].strip('"')
             return hive, key_path, vname
         except AttributeError:
             pass

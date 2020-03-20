@@ -62,11 +62,11 @@
   policy_type: regpol
   value: '0'
   vtype: DWORD
-- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\SYSVOL
+- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\"\\*\SYSVOL"
   policy_type: regpol
   value: RequireMutualAuthentication=1,RequireIntegrity=1
   vtype: SZ
-- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\\\*\NETLOGON
+- key: Computer\Software\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths\"\\*\NETLOGON"
   policy_type: regpol
   value: RequireMutualAuthentication=1,RequireIntegrity=1
   vtype: SZ
