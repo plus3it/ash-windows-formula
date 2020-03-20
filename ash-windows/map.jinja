@@ -19,23 +19,12 @@
     'svcVersion').vdata
 %}
 
-# Get the IE version from the registry for IE 8 and 9
-{% if not ie_ver or ie_ver == '(value not set)' %}
-    {% set ie_ver = salt.reg.read_value(
-        'HKEY_LOCAL_MACHINE',
-        'SOFTWARE\Microsoft\Internet Explorer',
-        'Version').vdata
-    %}
-{% endif %}
-
 # Define default role for supported Operating System versions
 {% set default_role = salt.grains.filter_by(
     {
         '2019Server' : 'MemberServer',
         '2016Server' : 'MemberServer',
         '2012ServerR2' : 'MemberServer',
-        '2008ServerR2' : 'MemberServer',
-        '8.1' : 'Workstation',
         '10' : 'Workstation',
     },
     grain='osrelease'
