@@ -1,1 +1,0 @@
-{#- From GptTmpl.inf conversion #}

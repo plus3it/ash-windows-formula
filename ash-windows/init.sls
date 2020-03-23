@@ -5,7 +5,6 @@ def run():
     config['Print Available ash-windows Baselines'] = {
         'test.show_notification' : [ {
             'text': 'Available ash-windows baselines include:\n'
-                    '    ash-windows.scm\n'
                     '    ash-windows.sct\n'
                     '    ash-windows.stig\n'
                     '    ash-windows.delta\n'

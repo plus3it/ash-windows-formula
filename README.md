@@ -4,66 +4,33 @@
 Automated System Hardening - Windows (*ash-windows*) is a Salt Formula for
 applying a security baseline to a Windows system. The *ash-windows* security
 baselines are developed from guidance provided by the OS vendor and guidance
-derived from [Security Control Automated Protocol (SCAP) content][2] based on
-[DISA Secure Technical Implementation Guides (STIGs)][4]. [SCAP][1] is a
+derived from [Security Control Automated Protocol (SCAP) content][7] based on
+[DISA Secure Technical Implementation Guides (STIGs)][0]. [SCAP][6] is a
 program managed by the [National Institute of Standards and Technology
-(NIST)][0].
+(NIST)][5].
 
 
 ## Supported Windows and Internet Explorer Versions
 
-- Microsoft Windows Server 2008 R2
 - Microsoft Windows Server 2012 R2
 - Microsoft Windows Server 2016
 - Microsoft Windows Server 2019
-- Microsoft Windows 8.1
-- Microsoft Windows 10 (SCM Baseline only for now, until DISA STIG is released)
-- Microsoft Internet Explorer 8
-- Microsoft Internet Explorer 9
-- Microsoft Internet Explorer 10
+- Microsoft Windows 10
 - Microsoft Internet Explorer 11
 
 
 ## Available Baselines
 
 
-### ash-windows.scm
-
-**NOTE**: Microsoft has deprecated the SCM tool, and this baseline is no
-longer recommended. Please see the [ash-windows.sct](ash-windows.sct) baseline,
-instead. The SCM baseline will be removed in a future release.
-
-The **Microsoft SCM Baseline** (`ash-windows.scm`) is based on guidance
-provided by Microsoft through the [Microsoft Security Compliance Manager
-(SCM)][3]. This baseline includes the following steps:
-
-- Install the [Maximum Segment Size (MSS)][5] extensions for the local group
-policy editor
-- Install the [Pass the Hash (PtH)][6] extensions for the local group
-policy editor
-- Apply the OS security policies from the Microsoft SCM baseline
-- Apply the IE security policies from the Microsoft SCM baseline
-- Apply the audit policies from the Microsoft SCM baseline
-
-The SCM baseline supports the following components:
-
-- IE 8
-- IE 9
-- IE 10
-- IE 11
-- Windows 8.1
-- Windows Server 2008 R2
-
-
 ### ash-windows.sct
 
 The **Microsoft SCT Baseline** (`ash-windows.sct`) is based on guidance
 provided by Microsoft through the [Microsoft Security Compliance Toolkit
-(SCT)][11]. This baseline includes the following steps:
+(SCT)][8]. This baseline includes the following steps:
 
-- Install the [Maximum Segment Size (MSS)][5] extensions for the local group
+- Install the [Maximum Segment Size (MSS)][1] extensions for the local group
 policy editor
-- Install the [Pass the Hash (PtH)][6] extensions for the local group
+- Install the [Pass the Hash (PtH)][2] extensions for the local group
 policy editor
 - Apply the OS security policies from the Microsoft SCT baseline
 - Apply the IE security policies from the Microsoft SCT baseline
@@ -80,11 +47,11 @@ The SCT baseline supports the following components:
 ### ash-windows.stig
 
 The **DISA STIG Baseline** (`ash-windows.stig`) is derived from a SCAP scan
-based on the [DISA STIG][4] benchmark. This baseline includes the following
+based on the [DISA STIG][0] benchmark. This baseline includes the following
 steps:
 
-- Apply the Microsoft SCM baseline (includes everything listed in
-[ash-windows.scm](#ash-windowsscm))
+- Apply the Microsoft SCT baseline (includes everything listed in
+[ash-windows.sct](#ash-windowssct))
 - Apply the OS security policies from the DISA STIG baseline
     - The settings configured by the baseline are available from the DISA STIG
 website
@@ -96,7 +63,7 @@ website
 
 The **Delta baseline** (`ash-windows.delta`) is used both to enforce
 additional security settings, or to loosen them where they interfere with
-operation of the system. For example, the Microsoft SCM policy will prevent
+operation of the system. For example, the Microsoft SCT policy will prevent
 local accounts from logging on remotely, including the local administrator.
 When a system is joined to a domain, this isn't a problem as domain accounts
 would still be able to login. However, on a system that is not (or not yet)
@@ -246,27 +213,22 @@ C:\salt\salt-call.bat --local ash_lgpo.list_secedit_policies
 
 
 ## References
-- [DISA Secure Technical Implementation Guides (STIGs) for Windows][4]
-- [Microsoft SCM][3]
-- [Microsoft Maximum Segment Size (MSS) registry settings][5]
-- [Microsoft Pass the Hash (PtH) group policy extensions][6]
-- [Microsoft Local Group Policy Utilities][7]
-- [Microsoft LocalGPO][8] (Part of Microsoft SCM)
-- [Microsoft User / Privilege Rights][9]
-- [Microsoft Account / Systems Access Policies][10]
-- [National Institute of Standards and Technology (NIST)][0]
-- [Security Control Automated Protocol (SCAP)][1]
-- [SCAP Content][2]
+- [DISA Secure Technical Implementation Guides (STIGs) for Windows][0]
+- [Microsoft Maximum Segment Size (MSS) registry settings][1]
+- [Microsoft Pass the Hash (PtH) group policy extensions][2]
+- [Microsoft User / Privilege Rights][3]
+- [Microsoft Account / Systems Access Policies][4]
+- [Microsoft Security Compliance Toolkit][8]
+- [National Institute of Standards and Technology (NIST)][5]
+- [Security Control Automated Protocol (SCAP)][6]
+- [SCAP Content][7]
 
-[0]: http://www.nist.gov
-[1]: http://scap.nist.gov
-[2]: http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0
-[3]: http://www.microsoft.com/scm
-[4]: http://iase.disa.mil/stigs/os/windows
-[5]: https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx
-[6]: http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx
-[7]: http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx
-[8]: https://technet.microsoft.com/en-us/magazine/hh489604.aspx
-[9]: https://technet.microsoft.com/en-us/library/dd349804(v=ws.10).aspx
-[10]: https://technet.microsoft.com/en-us/library/jj852214(v=ws.11).aspx
-[11]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10
+[0]: http://iase.disa.mil/stigs/os/windows
+[1]: https://technet.microsoft.com/en-us/library/dd349797(v=ws.10).aspx
+[2]: http://blogs.technet.com/b/secguide/archive/2014/08/13/security-baselines-for-windows-8-1-windows-server-2012-r2-and-internet-explorer-11-final.aspx
+[3]: https://technet.microsoft.com/en-us/library/dd349804(v=ws.10).aspx
+[4]: https://technet.microsoft.com/en-us/library/jj852214(v=ws.11).aspx
+[5]: http://www.nist.gov
+[6]: http://scap.nist.gov
+[7]: http://web.nvd.nist.gov/view/ncp/repository?keyword=Microsoft+Windows&startIndex=0
+[8]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10
