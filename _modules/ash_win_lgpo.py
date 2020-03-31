@@ -397,19 +397,19 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
 
     # pattern group to OPTIONALLY match delete instructions in value token
     policy_pattern_del = b''.join([
-        '(',
+        b'(',
         re.escape('**Del.'.encode('utf-16-le')),
-        '|',
+        b'|',
         re.escape('**DelVals.'.encode('utf-16-le')),
-        '){0,1}',
+        b'){0,1}',
     ])
 
     # pattern group to match one delimited token in a policy
     policy_token = b''.join([
-        '(',
-        '.*?',  # non-greedy match, up to next policy delimiter
+        b'(',
+        b'.*?',  # non-greedy match, up to next policy delimiter
         policy_delimiter,
-        ')',
+        b')',
     ])
 
     # pattern to capture the key and value tokens from `policy`
@@ -418,7 +418,7 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
         policy_token, # this is the registry key
         policy_pattern_del,
         policy_token, # this is the value
-        '.*?',        # this is the remainder of the policy tokens
+        b'.*?',        # this is the remainder of the policy tokens
         policy_end,
     ])
 
@@ -436,7 +436,7 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
         re.escape(policy_match_groups[0]),  # key
         policy_pattern_del,
         re.escape(policy_match_groups[2]),  # value
-        '.*?',
+        b'.*?',
         policy_end,
     ])
 
