@@ -1,0 +1,245 @@
+# 2.2.21: Ensure 'Deny access to this computer from the network' is set to
+#    'Guests, Local account and member of Administrators group' (MS only)
+
+# 2.2.23: Ensure 'Deny log on as a service' to include 'Guests'
+
+# 2.2.26: Ensure 'Deny log on through Remote Desktop Services' is set to
+#    'Guests, Local account' (MS only)
+
+# 2.3.1.1: Ensure 'Accounts: Administrator account status' is set to 'Disabled'
+#    (MS only)
+
+# 2.3.1.2: Ensure 'Accounts: Block Microsoft accounts' is set to 'Users can't
+#    add or log on with Microsoft accounts'
+
+# 2.3.4.1: Ensure 'Devices: Allowed to format and eject removable media' is set
+#    to 'Administrators'
+
+# 2.3.7.1: Ensure 'Interactive logon: Do not display last user name' is set to
+#    'Enabled'
+
+# 2.3.7.8: Ensure 'Interactive logon: Require Domain Controller Authentication
+#    to unlock workstation' is set to 'Enabled' (MS only)
+
+# 2.3.9.5: Ensure 'Microsoft network server: Server SPN target name validation
+#    level' is set to 'Accept if provided by client' or higher (MS only)
+
+# 2.3.10.1: Ensure 'Network access: Allow anonymous SID/Name translation' is
+#    set to 'Disabled'
+
+# 9.1.4: Ensure 'Windows Firewall: Domain: Settings: Display a notification' is
+#    set to 'No'
+
+# 9.1.5: Ensure 'Windows Firewall: Domain: Logging: Name' is set to
+#    '%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log'
+
+# 9.1.6: Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to
+#    '16,384 KB or greater'
+
+# 9.1.7: Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set
+#    to 'Yes'
+
+# 9.1.8: Ensure 'Windows Firewall: Domain: Logging: Log successful connections'
+#    is set to 'Yes'
+
+# 9.2.4: Ensure 'Windows Firewall: Private: Settings: Display a notification'
+#    is set to 'No'
+
+# 9.2.5: Ensure 'Windows Firewall: Private: Logging: Name' is set to
+#    '%SYSTEMROOT%\System32\logfiles\firewall\privatefw.log'
+
+# 9.2.6: Ensure 'Windows Firewall: Private: Logging: Size limit (KB)' is set to
+#    '16,384 KB or greater'
+
+# 9.2.7: Ensure 'Windows Firewall: Private: Logging: Log dropped packets' is
+#    set to 'Yes'
+
+# 9.2.8: Ensure 'Windows Firewall: Private: Logging: Log successful
+#    connections' is set to 'Yes'
+
+# 9.3.4: Ensure 'Windows Firewall: Public: Settings: Display a notification' is
+#    set to 'No'
+
+# 9.3.5: Ensure 'Windows Firewall: Public: Settings: Apply local firewall
+#    rules' is set to 'No'
+
+# 9.3.6: Ensure 'Windows Firewall: Public: Settings: Apply local connection
+#    security rules' is set to 'No'
+
+# 9.3.7: Ensure 'Windows Firewall: Public: Logging: Name' is set to
+#    '%SYSTEMROOT%\System32\logfiles\firewall\publicfw.log'
+
+# 9.3.8: Ensure 'Windows Firewall: Public: Logging: Size limit (KB)' is set to
+#    '16,384 KB or greater'
+
+# 9.3.9: Ensure 'Windows Firewall: Public: Logging: Log dropped packets' is set
+#    to 'Yes'
+
+# 9.3.10: Ensure 'Windows Firewall: Public: Logging: Log successful
+#    connections' is set to 'Yes'
+
+# 17.2.1: Ensure 'Audit Application Group Management' is set to 'Success and
+#    Failure'
+
+# 17.2.2: Ensure 'Audit Computer Account Management' is set to 'Success and
+#    Failure'
+
+# 17.5.5: Ensure 'Audit Other Logon/Logoff Events' is set to 'Success and
+#    Failure'
+
+# 18.1.2.2: Ensure 'Allow input personalization' is set to 'Disabled'
+
+# 18.2.1: Ensure LAPS AdmPwd GPO Extension / CSE is installed (MS only)
+
+# 18.2.2: Ensure 'Do not allow password expiration time longer than required by
+#    policy' is set to 'Enabled' (MS only)
+
+# 18.2.4: Ensure 'Password Settings: Password Complexity' is set to 'Enabled:
+#    Large letters + small letters + numbers + special characters' (MS only)
+
+# 18.2.5: Ensure 'Password Settings: Password Length' is set to 'Enabled: 15 or
+#    more' (MS only)
+
+# 18.2.6: Ensure 'Password Settings: Password Age (Days)' is set to 'Enabled:
+#    30 or fewer' (MS only)
+
+# 18.3.5: Ensure 'Turn on Windows Defender protection against Potentially
+#    Unwanted Applications' is set to 'Enabled'
+
+# 18.4.1: Ensure 'MSS: (AutoAdminLogon) Enable Automatic Logon (not
+#    recommended)' is set to 'Disabled'
+
+# 18.4.8: Ensure 'MSS: (SafeDllSearchMode) Enable Safe DLL search mode
+#    (recommended)' is set to 'Enabled'
+
+# 18.4.9: Ensure 'MSS: (ScreenSaverGracePeriod) The time in seconds before the
+#    screen saver grace period expires (0 recommended)' is set to 'Enabled: 5 or
+#    fewer seconds'
+
+# 18.5.4.1: Set 'NetBIOS node type' to 'P-node' (Ensure NetBT Parameter
+#    'NodeType' is set to '0x2 (2)') (MS Only)
+
+# 18.5.11.2: Ensure 'Prohibit installation and configuration of Network Bridge
+#    on your DNS domain network' is set to 'Enabled'
+
+# 18.5.11.3: Ensure 'Prohibit use of Internet Connection Sharing on your DNS
+#    domain network' is set to 'Enabled'
+
+# 18.5.11.4: Ensure 'Require domain users to elevate when setting a network's
+#    location' is set to 'Enabled'
+
+# 18.5.21.1: Ensure 'Minimize the number of simultaneous connections to the
+#    Internet or a Windows Domain' is set to 'Enabled'
+
+# 18.8.3.1: Ensure 'Include command line in process creation events' is set to
+#    'Disabled'
+
+# 18.8.4.1: Ensure 'Remote host allows delegation of non-exportable
+#    credentials' is set to 'Enabled'
+
+# 18.8.21.4: Ensure 'Continue experiences on this device' is set to 'Disabled'
+
+# 18.8.22.1.5: Ensure 'Turn off Internet download for Web publishing and online
+#    ordering wizards' is set to 'Enabled'
+
+# 18.8.27.1: Ensure 'Block user from showing account details on signin' is set
+#    to 'Enabled'
+
+# 18.8.27.3: Ensure 'Do not enumerate connected users on domainjoined
+#    computers' is set to 'Enabled'
+
+# 18.8.27.6: Ensure 'Turn off picture password sign-in' is set to 'Enabled'
+
+# 18.8.27.7: Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled'
+
+# 18.8.35.1: Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'
+
+# 18.8.35.2: Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'
+
+# 18.9.6.1: Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'
+
+# 18.9.13.1: Ensure 'Turn off Microsoft consumer experiences' is set to
+#    'Enabled'
+
+# 18.9.14.1: Ensure 'Require pin for pairing' is set to 'Enabled'
+
+# 18.9.16.3: Ensure 'Disable pre-release features or settings' is set to
+#    'Disabled'
+
+# 18.9.16.4: Ensure 'Do not show feedback notifications' is set to 'Enabled'
+
+# 18.9.16.5: Ensure 'Toggle user control over Insider builds' is set to
+#    'Disabled'
+
+# 18.9.26.1.1: Ensure 'Application: Control Event Log behavior when the log
+#    file reaches its maximum size' is set to 'Disabled'
+
+# 18.9.26.2.1: Ensure 'Security: Control Event Log behavior when the log file
+#    reaches its maximum size' is set to 'Disabled'
+
+# 18.9.26.3.1: Ensure 'Setup: Control Event Log behavior when the log file
+#    reaches its maximum size' is set to 'Disabled'
+
+# 18.9.26.3.2: Ensure 'Setup: Specify the maximum log file size (KB)' is set to
+#    'Enabled: 32,768 or greater'
+
+# 18.9.26.4.1: Ensure 'System: Control Event Log behavior when the log file
+#    reaches its maximum size' is set to 'Disabled'
+
+# 18.9.44.1: Ensure 'Block all consumer Microsoft account user authentication'
+#    is set to 'Enabled'
+
+# 18.9.52.1: Ensure 'Prevent the usage of OneDrive for file storage' is set to
+#    'Enabled'
+
+# 18.9.58.3.11.1: Ensure 'Do not delete temp folders upon exit' is set to
+#    'Disabled'
+
+# 18.9.58.3.11.2: Ensure 'Do not use temporary folders per session' is set to
+#    'Disabled'
+
+# 18.9.76.14: Ensure 'Turn off Windows Defender AntiVirus' is set to 'Disabled'
+
+# 18.9.76.3.1: Ensure 'Configure local setting override for reporting to
+#    Microsoft MAPS' is set to 'Disabled'
+
+# 18.9.76.7.1: Ensure 'Turn on behavior monitoring' is set to 'Enabled'
+
+# 18.9.76.10.1: Ensure 'Scan removable drives' is set to 'Enabled'
+
+# 18.9.76.10.2: Ensure 'Turn on e-mail scanning' is set to 'Enabled'
+
+# 18.9.76.13.1.1: Ensure 'Configure Attack Surface Reduction rules' is set to
+#    'Enabled'
+
+# 18.9.76.13.1.2: Ensure 'Configure Attack Surface Reduction rules: Set the
+#    state for each ASR rule' is 'configured'
+
+# 18.9.76.13.3.1: Ensure 'Prevent users and apps from accessing dangerous
+#    websites' is set to 'Enabled: Block'
+
+# 18.9.79.1.1: Ensure 'Prevent users from modifying settings' is set to
+#    'Enabled'
+
+# 18.9.80.1.1: Ensure 'Configure Windows Defender SmartScreen' is set to
+#    'Enabled: Warn and prevent bypass'
+
+# 18.9.84.2: Ensure 'Allow Windows Ink Workspace' is set to 'Enabled: On, but
+#    disallow access above lock' OR 'Disabled' but not 'Enabled: On'
+
+# 18.9.95.1: Ensure 'Turn on PowerShell Script Block Logging' is set to
+#    'Disabled'
+
+# 18.9.95.2: Ensure 'Turn on PowerShell Transcription' is set to 'Disabled'
+
+# 18.9.101.1.1: Ensure 'Manage preview builds' is set to 'Enabled: Disable
+#    preview builds'
+
+# 18.9.101.1.2: Ensure 'Select when Preview Builds and Feature Updates are
+#    received' is set to 'Enabled: Semi-Annual Channel, 180 or more days'
+
+# 18.9.101.1.3: Ensure 'Select when Quality Updates are received' is set to
+#    'Enabled: 0 days'
+
+# 19.7.40.1: Ensure 'Always install with elevated privileges' is set to
+#    'Disabled
