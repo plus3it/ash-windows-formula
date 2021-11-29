@@ -953,9 +953,9 @@
   value: '1'
   vtype: DWORD
 
-- action: CREATEKEY
-  key: Computer\SOFTWARE\Policies\Microsoft\WindowsFirewall\FirewallRules\*
-  policy_type: regpol
+## - action: CREATEKEY
+##   key: Computer\SOFTWARE\Policies\Microsoft\WindowsFirewall\FirewallRules\*
+##   policy_type: regpol
 
 - key: Computer\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\DisableNotifications
   policy_type: regpol
