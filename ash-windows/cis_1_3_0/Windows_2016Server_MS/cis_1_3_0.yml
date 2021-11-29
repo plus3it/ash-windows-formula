@@ -1,3 +1,4 @@
+---
 - key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI\EnumerateAdministrators
   policy_type: regpol
   value: '0'
@@ -903,9 +904,9 @@
   value: '60000'
   vtype: DWORD
 
-- action: DELETEALLVALUES
-  key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\RAUnsolicit\*
-  policy_type: regpol
+## - action: DELETEALLVALUES
+##   key: Computer\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\RAUnsolicit\*
+##   policy_type: regpol
 
 - key: Computer\SOFTWARE\Policies\Microsoft\WindowsFirewall\PolicyVersion
   policy_type: regpol
@@ -1205,3 +1206,4 @@
   policy_type: regpol
   value: '1'
   vtype: SZ
+...
