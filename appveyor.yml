@@ -10,6 +10,7 @@ environment:
     - SALT_STATE: ash-windows.sct
     - SALT_STATE: ash-windows.stig
     - SALT_STATE: ash-windows.delta
+    - SALT_STATE: ash-windows.cis_1_3_0
     - SALT_STATE: ash-windows.custom
 matrix:
   fast_finish: true
