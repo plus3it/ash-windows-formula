@@ -1,4 +1,3 @@
----
 - key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI\EnumerateAdministrators
   policy_type: regpol
   value: '0'
@@ -1206,4 +1205,3 @@
   policy_type: regpol
   value: '1'
   vtype: SZ
-...
