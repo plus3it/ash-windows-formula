@@ -3,7 +3,7 @@ build: off
 environment:
   global:
     SALT_FILEROOT: '%APPVEYOR_BUILD_FOLDER%'
-    SALT_URL: https://repo.saltstack.com/windows/Salt-Minion-2019.2.3-Py2-AMD64-Setup.exe
+    SALT_URL: https://repo.saltproject.io/windows/Salt-Minion-3004-Py3-AMD64-Setup.exe
     SALT_PILLARROOT: '%APPVEYOR_BUILD_FOLDER%\tests\pillar\test-windows-main'
   matrix:
     - SALT_STATE: ash-windows
