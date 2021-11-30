@@ -1,5 +1,6 @@
 version: '{branch}-{build}'
 build: off
+image: Visual Studio 2017
 environment:
   global:
     SALT_FILEROOT: '%APPVEYOR_BUILD_FOLDER%'
