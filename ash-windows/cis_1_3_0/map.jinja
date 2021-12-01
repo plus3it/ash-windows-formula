@@ -12,5 +12,6 @@
 {# Define the `cis` dictionary #}
 {% set cis = ash or {} %}
 {% do cis.update({
-    'cis_policies': cis_policies
+    'cis_policies': cis_policies,
+    'audit_file_source': 'salt://' ~ tpldir ~ '/' ~ ash.os_path ~ '/audit.csv'
 }) %}
