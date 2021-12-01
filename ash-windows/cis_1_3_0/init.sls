@@ -4,7 +4,7 @@ Apply CIS 1.3.0 Local Group Policy Objects:
   ash_lgpo.present:
     - policies: {{ cis.cis_policies | yaml }}
 
-Appli CIS 1.3.0 Audit policy:
+Apply CIS 1.3.0 Audit policy:
   file.managed:
     - name: {{ cis.win_audit_file_name }}
     - source: {{ cis.audit_file_source }}
@@ -14,4 +14,4 @@ Appli CIS 1.3.0 Audit policy:
   cmd.run:
     - name: auditpol /clear /y && auditpol /restore /file:"{{ cis.win_audit_file_name }}"
     - require:
-      - file: Apply CIS Audit Policy
+      - file: Apply CIS 1.3.0 Audit policy
