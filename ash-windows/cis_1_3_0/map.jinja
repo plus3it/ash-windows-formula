@@ -1,0 +1,17 @@
+{% from 'ash-windows/map.jinja' import ash with context %}
+
+{# Import policies from yaml files. #}
+{% import_yaml tpldir ~ '/' ~ ash.os_path ~ '/cis_1_3_0.yml' as cis_policies %}
+
+{#
+    If the yaml file is empty, `import_yaml` returns None. Change that to an
+    empty list so that `ash_lgpo.present` interprets it properly.
+#}
+{% set cis_policies = cis_policies or [] %}
+
+{# Define the `cis` dictionary #}
+{% set cis = ash or {} %}
+{% do cis.update({
+    'cis_policies': cis_policies,
+    'audit_file_source': 'salt://' ~ tpldir ~ '/' ~ ash.os_path ~ '/audit.csv'
+}) %}

@@ -1,15 +1,17 @@
 version: '{branch}-{build}'
 build: off
+image: Visual Studio 2017
 environment:
   global:
     SALT_FILEROOT: '%APPVEYOR_BUILD_FOLDER%'
-    SALT_URL: https://repo.saltstack.com/windows/Salt-Minion-2019.2.3-Py2-AMD64-Setup.exe
+    SALT_URL: https://repo.saltproject.io/windows/Salt-Minion-3003.3-Py3-AMD64-Setup.exe
     SALT_PILLARROOT: '%APPVEYOR_BUILD_FOLDER%\tests\pillar\test-windows-main'
   matrix:
     - SALT_STATE: ash-windows
     - SALT_STATE: ash-windows.sct
     - SALT_STATE: ash-windows.stig
     - SALT_STATE: ash-windows.delta
+    - SALT_STATE: ash-windows.cis_1_3_0
     - SALT_STATE: ash-windows.custom
 matrix:
   fast_finish: true
