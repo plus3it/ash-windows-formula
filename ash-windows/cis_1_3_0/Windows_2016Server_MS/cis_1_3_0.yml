@@ -77,6 +77,11 @@
   value: '0'
   vtype: DWORD
 
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\NoConnectedUser
+  policy_type: regpol
+  value: '3'
+  vtype: DWORD
+
 - key: Computer\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoAdminLogon
   policy_type: regpol
   value: '0'
