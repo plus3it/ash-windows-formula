@@ -82,6 +82,11 @@
   value: '3'
   vtype: DWORD
 
+- key: Computer\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\dontdisplaylastusername
+  policy_type: regpol
+  value: '1'
+  vtype: DWORD
+
 - key: Computer\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoAdminLogon
   policy_type: regpol
   value: '0'
