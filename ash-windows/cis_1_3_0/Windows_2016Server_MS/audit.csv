@@ -12,7 +12,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,IPsec Extended Mode,{0CCE921A-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,IPsec Quick Mode,{0CCE9219-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,IPsec Main Mode,{0CCE9218-69AE-11D9-BED3-505054503030},No Auditing,,0
-,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},Failure,,2
+,System,Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Logoff,{0CCE9216-69AE-11D9-BED3-505054503030},Success,,1
 ,System,Logon,{0CCE9215-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Handle Manipulation,{0CCE9223-69AE-11D9-BED3-505054503030},No Auditing,,0
