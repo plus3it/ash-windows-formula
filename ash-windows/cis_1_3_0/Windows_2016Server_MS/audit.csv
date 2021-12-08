@@ -47,7 +47,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,Other Account Management Events,{0CCE923A-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Application Group Management,{0CCE9239-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Distribution Group Management,{0CCE9238-69AE-11D9-BED3-505054503030},No Auditing,,0
-,System,Security Group Management,{0CCE9237-69AE-11D9-BED3-505054503030},Success,,1
+,System,Security Group Management,{0CCE9237-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Computer Account Management,{0CCE9236-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,User Account Management,{0CCE9235-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Directory Service Replication,{0CCE923D-69AE-11D9-BED3-505054503030},No Auditing,,0
