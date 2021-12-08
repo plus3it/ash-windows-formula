@@ -1,7 +1,7 @@
 Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value
 ,System,IPsec Driver,{0CCE9213-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,System Integrity,{0CCE9212-69AE-11D9-BED3-505054503030},Success and Failure,,3
-,System,Security System Extension,{0CCE9211-69AE-11D9-BED3-505054503030},Success,,1
+,System,Security System Extension,{0CCE9211-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Security State Change,{0CCE9210-69AE-11D9-BED3-505054503030},Success,,1
 ,System,Other System Events,{0CCE9214-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Group Membership,{0CCE9249-69AE-11D9-BED3-505054503030},Success,,1
