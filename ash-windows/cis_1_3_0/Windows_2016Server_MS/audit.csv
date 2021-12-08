@@ -44,7 +44,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,Filtering Platform Policy Change,{0CCE9233-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},Success,,1
 ,System,MPSSVC Rule-Level Policy Change,{0CCE9232-69AE-11D9-BED3-505054503030},Success and Failure,,3
-,System,Other Account Management Events,{0CCE923A-69AE-11D9-BED3-505054503030},No Auditing,,0
+,System,Other Account Management Events,{0CCE923A-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Application Group Management,{0CCE9239-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Distribution Group Management,{0CCE9238-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Security Group Management,{0CCE9237-69AE-11D9-BED3-505054503030},Success,,1
