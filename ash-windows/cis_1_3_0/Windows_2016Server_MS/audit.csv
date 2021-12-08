@@ -40,7 +40,7 @@ Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclus
 ,System,DPAPI Activity,{0CCE922D-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Other Policy Change Events,{0CCE9234-69AE-11D9-BED3-505054503030},Failure,,2
 ,System,Authentication Policy Change,{0CCE9230-69AE-11D9-BED3-505054503030},Success,,1
-,System,Audit Policy Change,{0CCE922F-69AE-11D9-BED3-505054503030},Success,,1
+,System,Audit Policy Change,{0CCE922F-69AE-11D9-BED3-505054503030},Success and Failure,,3
 ,System,Filtering Platform Policy Change,{0CCE9233-69AE-11D9-BED3-505054503030},No Auditing,,0
 ,System,Authorization Policy Change,{0CCE9231-69AE-11D9-BED3-505054503030},Success,,1
 ,System,MPSSVC Rule-Level Policy Change,{0CCE9232-69AE-11D9-BED3-505054503030},Success and Failure,,3
