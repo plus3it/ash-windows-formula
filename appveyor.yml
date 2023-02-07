@@ -33,7 +33,7 @@ install:
         Start-Process -FilePath "${env:temp}\salt-minion.exe" `
         -ArgumentList "/S" -NoNewWindow -PassThru -Wait
   - ps: >
-      & "C:\Program Files\SaltStack\Salt\salt-call.bat" --versions-report
+      & "C:\Program Files\Salt Project\Salt\salt-call.bat" --versions-report
 
 test_script:
   - ps: >
@@ -41,14 +41,14 @@ test_script:
       "{extends: default, rules: {line-length: false, document-start: false, truthy: false}}"
       .
   - ps: |
-      C:\Program Files\SaltStack\Salt\salt-call.bat --local --retcode-passthrough `
+      C:\Program Files\Salt Project\Salt\salt-call.bat --local --retcode-passthrough `
         --log-file-level debug `
         --file-root="${env:SALT_FILEROOT}" `
         --pillar-root="${env:SALT_PILLARROOT}" `
         state.show_sls `
         "${env:SALT_STATE}"
   - ps: |
-      C:\Program Files\SaltStack\Salt\salt-call.bat --local --retcode-passthrough `
+      C:\Program Files\Salt Project\Salt\salt-call.bat --local --retcode-passthrough `
         --log-file-level debug `
         --file-root="${env:SALT_FILEROOT}" `
         --pillar-root="${env:SALT_PILLARROOT}" `
@@ -60,9 +60,9 @@ test_script:
 
 on_failure:
   - ps: >
-      & "C:\Program Files\SaltStack\Salt\salt-call.bat" --local grains.items
+      & "C:\Program Files\Salt Project\Salt\salt-call.bat" --local grains.items
   - ps: dir "env:"
-  - ps: get-content "C:\Program Files\SaltStack\Salt\var\log\salt\*"
+  - ps: get-content "C:\Program Files\Salt Project\Salt\var\log\salt\*"
 
 ### To enable remote debugging uncomment this (also, see: http://www.appveyor.com/docs/how-to/rdp-to-build-worker):
 # on_finish:
