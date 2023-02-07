@@ -4,7 +4,7 @@ image: Visual Studio 2017
 environment:
   global:
     SALT_FILEROOT: '%APPVEYOR_BUILD_FOLDER%'
-    SALT_URL: https://repo.saltproject.io/windows/Salt-Minion-3003.3-Py3-AMD64-Setup.exe
+    SALT_URL: https://watchmaker.cloudarmor.io/watchmaker/repo/saltstack/salt/windows/Salt-Minion-3004.2-1-Py3-AMD64-Setup.exe
     SALT_PILLARROOT: '%APPVEYOR_BUILD_FOLDER%\tests\pillar\test-windows-main'
   matrix:
     - SALT_STATE: ash-windows
