@@ -60,7 +60,7 @@ test_script:
 on_failure:
   - ps: C:\Program Files\SaltStack\Salt\salt-call.bat --local grains.items
   - ps: dir "env:"
-  - ps: get-content C:\salt\var\log\salt\*
+  - ps: get-content C:\Program Files\SaltStack\Salt\var\log\salt\*
 
 ### To enable remote debugging uncomment this (also, see: http://www.appveyor.com/docs/how-to/rdp-to-build-worker):
 # on_finish:
