@@ -41,14 +41,14 @@ test_script:
       "{extends: default, rules: {line-length: false, document-start: false, truthy: false}}"
       .
   - ps: |
-      "C:\Program Files\Salt Project\Salt\salt-call.bat" --local --retcode-passthrough `
+      & "C:\Program Files\Salt Project\Salt\salt-call.bat" --local --retcode-passthrough `
         --log-file-level debug `
         --file-root="${env:SALT_FILEROOT}" `
         --pillar-root="${env:SALT_PILLARROOT}" `
         state.show_sls `
         "${env:SALT_STATE}"
   - ps: |
-      "C:\Program Files\Salt Project\Salt\salt-call.bat" --local --retcode-passthrough `
+      & "C:\Program Files\Salt Project\Salt\salt-call.bat" --local --retcode-passthrough `
         --log-file-level debug `
         --file-root="${env:SALT_FILEROOT}" `
         --pillar-root="${env:SALT_PILLARROOT}" `
