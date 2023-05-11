@@ -47,12 +47,16 @@ if HAS_WINDOWS_MODULES:
 
     import salt.utils.files
 
-    from salt.modules.win_lgpo import (
+    from .win_lgpo import (
         _policy_info, _transform_value, _read_regpol_file, _write_regpol_data,
         _regexSearchRegPolData,
     )
 
-    from salt.ext import six
+    try:
+        from salt.ext import six
+    except ImportError:
+        import six
+
     from salt.utils.functools import namespaced_function as _namespaced_function
     from salt.utils.stringutils import to_num
     from salt.utils.win_reg import Registry
