@@ -19,7 +19,6 @@ their own organization.
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals, with_statement)
 
-import collections
 import logging
 import io
 import os
@@ -27,6 +26,11 @@ import re
 
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 from salt.modules.win_lgpo import HAS_WINDOWS_MODULES
+
+try:
+    from collections.abc import Sequence, Mapping
+except ImportError:
+    from collections import Sequence, Mapping
 
 try:
     from salt.utils.files import mkstemp
@@ -47,12 +51,16 @@ if HAS_WINDOWS_MODULES:
 
     import salt.utils.files
 
-    from salt.modules.win_lgpo import (
+    from .win_lgpo import (
         _policy_info, _transform_value, _read_regpol_file, _write_regpol_data,
         _regexSearchRegPolData,
     )
 
-    from salt.ext import six
+    try:
+        from salt.ext import six
+    except ImportError:
+        import six
+
     from salt.utils.functools import namespaced_function as _namespaced_function
     from salt.utils.stringutils import to_num
     from salt.utils.win_reg import Registry
@@ -584,10 +592,10 @@ def validate_policies(policies):
     """
     ret = {}
     policy_helper = PolicyHelper()
-    if not isinstance(policies, collections.Sequence):
+    if not isinstance(policies, Sequence):
         policies = [policies]
     for policy in policies:
-        if not isinstance(policy, collections.Mapping):
+        if not isinstance(policy, Mapping):
             return False, 'Policy is not a dictionary object', policy
         policy_type = policy.get('policy_type', '').lower()
         try:
