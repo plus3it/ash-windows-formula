@@ -1,0 +1,15 @@
+pull_request_rules:
+  - name: approve dependabot pull requests
+    conditions:
+      - author=dependabot[bot]
+    actions:
+      review:
+        type: APPROVE
+
+  - name: merge dependabot pull requests
+    conditions:
+      - author=dependabot[bot]
+      - "#approved-reviews-by>=1"
+    actions:
+      merge:
+        method: merge

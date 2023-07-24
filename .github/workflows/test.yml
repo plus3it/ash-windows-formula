@@ -1,0 +1,24 @@
+name: Run salt tests
+on:
+  pull_request:
+
+concurrency:
+  group: test-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    uses: plus3it/actions-workflows/.github/workflows/test-salt-windows.yml@84885d2116bdcaab046d6bf927127bb58cb74ae8
+    strategy:
+      matrix:
+        os_version:
+          - windows-2019
+          - windows-2022
+        salt_state:
+          - ash-windows
+        salt_pillar_root:
+          - ./tests/pillar/test-windows-main
+    with:
+      salt-os-version: ${{ matrix.os_version }}
+      salt-state: ${{ matrix.salt_state }}
+      salt-pillar-root: ${{ matrix.salt_pillar_root }} 
