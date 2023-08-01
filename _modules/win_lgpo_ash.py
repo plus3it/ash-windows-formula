@@ -16,8 +16,13 @@ their own organization.
 :depends:    Apply_LGPO_Delta.exe in %SystemRoot%\System32\
 :platform:   Windows
 """
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals, with_statement)
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+    with_statement,
+)
 
 import logging
 import io
@@ -43,7 +48,7 @@ except ImportError:
     from salt.utils import is_windows
 
 log = logging.getLogger(__name__)
-__virtualname__ = 'ash_lgpo'
+__virtualname__ = "ash_lgpo"
 
 if HAS_WINDOWS_MODULES:
     import struct
@@ -52,7 +57,10 @@ if HAS_WINDOWS_MODULES:
     import salt.utils.files
 
     from .win_lgpo import (
-        _policy_info, _transform_value, _read_regpol_file, _write_regpol_data,
+        _policy_info,
+        _transform_value,
+        _read_regpol_file,
+        _write_regpol_data,
         _regexSearchRegPolData,
     )
 
@@ -66,8 +74,8 @@ if HAS_WINDOWS_MODULES:
     from salt.utils.win_reg import Registry
 
     POLICY_INFO = _policy_info()
-    REGPOL_MACHINE = POLICY_INFO.admx_registry_classes['Machine']['policy_path']
-    REGPOL_USER = POLICY_INFO.admx_registry_classes['User']['policy_path']
+    REGPOL_MACHINE = POLICY_INFO.admx_registry_classes["Machine"]["policy_path"]
+    REGPOL_USER = POLICY_INFO.admx_registry_classes["User"]["policy_path"]
 
 
 class PolicyHelper(object):
@@ -75,72 +83,70 @@ class PolicyHelper(object):
 
     def __init__(self):
         """Initialize PolicyHelper class."""
-        self.LGPO_VTYPE_KEYS = ['key', 'value', 'vtype']
-        self.LGPO_ACTION_KEYS = ['key', 'action']
-        self.LGPO_SECEDIT_KEYS = ['name', 'value']
+        self.LGPO_VTYPE_KEYS = ["key", "value", "vtype"]
+        self.LGPO_ACTION_KEYS = ["key", "action"]
+        self.LGPO_SECEDIT_KEYS = ["name", "value"]
         self.REGISTRY_MAP = {
-            'actions': {
-                'DELETE': 'DELETE',
+            "actions": {
+                "DELETE": "DELETE",
             },
-            'vtypes': {
-                'DWORD': 'REG_DWORD',
-                'REG_DWORD': 'REG_DWORD',
-                'SZ': 'REG_SZ',
-                'REG_SZ': 'REG_SZ',
+            "vtypes": {
+                "DWORD": "REG_DWORD",
+                "REG_DWORD": "REG_DWORD",
+                "SZ": "REG_SZ",
+                "REG_SZ": "REG_SZ",
             },
-            'hives': {
-                'COMPUTER': 'Machine',
-                'HKLM': 'Machine',
-                'MACHINE': 'Machine',
-                'HKEY_LOCAL_MACHINE': 'Machine',
-                'USER': 'User',
-                'HKCU': 'User',
-                'HKEY_CURRENT_USER': 'User',
+            "hives": {
+                "COMPUTER": "Machine",
+                "HKLM": "Machine",
+                "MACHINE": "Machine",
+                "HKEY_LOCAL_MACHINE": "Machine",
+                "USER": "User",
+                "HKCU": "User",
+                "HKEY_CURRENT_USER": "User",
             },
         }
         self.SECEDIT_MAP = {
-            'MINIMUMPASSWORDAGE': {
-                'type': 'NetUserModal',
-                'name': 'MinPasswordAge',
+            "MINIMUMPASSWORDAGE": {
+                "type": "NetUserModal",
+                "name": "MinPasswordAge",
             },
-            'MAXIMUMPASSWORDAGE': {
-                'type': 'NetUserModal',
-                'name': 'MaxPasswordAge',
+            "MAXIMUMPASSWORDAGE": {
+                "type": "NetUserModal",
+                "name": "MaxPasswordAge",
             },
-            'MINIMUMPASSWORDLENGTH': {
-                'type': 'NetUserModal',
-                'name': 'MinPasswordLen',
+            "MINIMUMPASSWORDLENGTH": {
+                "type": "NetUserModal",
+                "name": "MinPasswordLen",
             },
-            'PASSWORDHISTORYSIZE': {
-                'type': 'NetUserModal',
-                'name': 'PasswordHistory',
+            "PASSWORDHISTORYSIZE": {
+                "type": "NetUserModal",
+                "name": "PasswordHistory",
             },
-            'LOCKOUTBADCOUNT': {
-                'type': 'NetUserModal',
-                'name': 'LockoutThreshold',
+            "LOCKOUTBADCOUNT": {
+                "type": "NetUserModal",
+                "name": "LockoutThreshold",
             },
-            'RESETLOCKOUTCOUNT': {
-                'type': 'NetUserModal',
-                'name': 'LockoutWindow',
+            "RESETLOCKOUTCOUNT": {
+                "type": "NetUserModal",
+                "name": "LockoutWindow",
             },
-            'LOCKOUTDURATION': {
-                'type': 'NetUserModal',
-                'name': 'LockoutDuration',
+            "LOCKOUTDURATION": {
+                "type": "NetUserModal",
+                "name": "LockoutDuration",
             },
         }
         self.SECEDIT_POLICIES = {
-            policy: details for policy, details
-            in POLICY_INFO.policies['Machine']['policies'].items()
-            if 'Registry' not in details
-            and 'Registry Values' != details.get('Secedit', {}).get('Section')
+            policy: details
+            for policy, details in POLICY_INFO.policies["Machine"]["policies"].items()
+            if "Registry" not in details
+            and "Registry Values" != details.get("Secedit", {}).get("Section")
         }
-        self.SECEDIT_POLICY_KEYS = {
-            key.upper(): key for key in self.SECEDIT_POLICIES
-        }
+        self.SECEDIT_POLICY_KEYS = {key.upper(): key for key in self.SECEDIT_POLICIES}
 
     def _regpol_hive(self, hive):
         try:
-            return self.REGISTRY_MAP['hives'][hive.upper()]
+            return self.REGISTRY_MAP["hives"][hive.upper()]
         except KeyError:
             pass
         return None
@@ -150,7 +156,7 @@ class PolicyHelper(object):
             pattern = re.compile(r'\\+(?=(?:[^"]*"[^"]*")*[^"]*$)')
             key_ = pattern.split(key)
             hive = self._regpol_hive(key_[0])
-            key_path = '\\'.join(key_[1:-1])
+            key_path = "\\".join(key_[1:-1])
             vname = key_[-1].strip('"')
             return hive, key_path, vname
         except AttributeError:
@@ -159,79 +165,82 @@ class PolicyHelper(object):
 
     def _regpol_vtype(self, vtype):
         try:
-            return self.REGISTRY_MAP['vtypes'][vtype.upper()]
+            return self.REGISTRY_MAP["vtypes"][vtype.upper()]
         except KeyError:
             pass
         return None
 
     def _regpol_action(self, action):
         try:
-            return self.REGISTRY_MAP['actions'][action.upper()]
+            return self.REGISTRY_MAP["actions"][action.upper()]
         except KeyError:
             pass
         return None
 
     def _key_path_picker(self, key_path, vname, action):
-        if not action or action in ['DELETE']:
+        if not action or action in ["DELETE"]:
             # Action is setvalue or delete
             return key_path
         # Action is deleteallkeys or createkey
-        return '\\'.join([key_path, vname])
+        return "\\".join([key_path, vname])
 
     def _vname_picker(self, vname, action):
-        if not action or action in ['DELETE']:
+        if not action or action in ["DELETE"]:
             # Action is setvalue or delete
             return vname
         # Action is deleteallkeys or createkey
-        return '*'
+        return "*"
 
     def _action_picker(self, vtype, value, action):
-        return action if action else '{0}:{1}'.format(vtype, value)
+        return action if action else "{0}:{1}".format(vtype, value)
 
     def validate_regpol(self, policy):
         """Validate regpol policy."""
-        if (
-            not all(key in policy for key in self.LGPO_VTYPE_KEYS) and
-            not all(key in policy for key in self.LGPO_ACTION_KEYS)
+        if not all(key in policy for key in self.LGPO_VTYPE_KEYS) and not all(
+            key in policy for key in self.LGPO_ACTION_KEYS
         ):
-            return False, 'Registry policy dictionary is malformed'
-        hive, key_path, vname = self._regpol_key(policy.get('key', ''))
-        value = str(policy.get('value', '')).replace('\\\\', '\\')
-        vtype = self._regpol_vtype(policy.get('vtype', ''))
-        action = self._regpol_action(policy.get('action', ''))
+            return False, "Registry policy dictionary is malformed"
+        hive, key_path, vname = self._regpol_key(policy.get("key", ""))
+        value = str(policy.get("value", "")).replace("\\\\", "\\")
+        vtype = self._regpol_vtype(policy.get("vtype", ""))
+        action = self._regpol_action(policy.get("action", ""))
         if not key_path:
-            return (False, 'Value of "key" is malformed, it must contain the '
-                           '"hive" and the path to the registry key or '
-                           'registry value')
+            return (
+                False,
+                'Value of "key" is malformed, it must contain the '
+                '"hive" and the path to the registry key or '
+                "registry value",
+            )
         if not hive:
-            return (False, 'Value of "hive" (the first token in "key") is '
-                           'invalid')
-        if policy.get('vtype') and not vtype:
+            return (False, 'Value of "hive" (the first token in "key") is ' "invalid")
+        if policy.get("vtype") and not vtype:
             return False, 'Value of "vtype" is invalid'
-        if policy.get('action') and not action:
+        if policy.get("action") and not action:
             return False, 'Value of "action" is invalid'
         if vtype and action:
-            return (False, 'Detected both "vtype" and "action", ensure only '
-                           'one is present')
+            return (
+                False,
+                'Detected both "vtype" and "action", ensure only ' "one is present",
+            )
         return (
             {
-                'hive': hive,
-                'key_path': self._key_path_picker(key_path, vname, action),
-                'vname': self._vname_picker(vname, action),
-                'action': self._action_picker(vtype, value, action),
+                "hive": hive,
+                "key_path": self._key_path_picker(key_path, vname, action),
+                "vname": self._vname_picker(vname, action),
+                "action": self._action_picker(vtype, value, action),
             },
-            ''
+            "",
         )
 
     def _secedit_transform(self, name, value):
-        BAD_TRANSFORM_VALUES = ['Invalid Value']
+        BAD_TRANSFORM_VALUES = ["Invalid Value"]
 
         log.debug('secedit name [initial] = "%s"', name)
         log.debug('secedit value [initial] = "%s"; type = "%s"', value, type(value))
 
         if name.upper() in self.SECEDIT_MAP:
             # Transform GPO ini names to salt lgpo names
-            name = self.SECEDIT_MAP[name.upper()]['name']
+            name = self.SECEDIT_MAP[name.upper()]["name"]
             log.debug('secedit name [transformed] = "%s"', name)
         elif name not in self.SECEDIT_POLICIES:
             # name is not an exact match
@@ -243,8 +252,8 @@ class PolicyHelper(object):
                 # search for name in secedit options of lgpo policy details
                 for key, policy in self.SECEDIT_POLICIES.items():
                     if (
-                        name.upper() == policy.get(
-                            'Secedit', {}).get('Option', '').upper()
+                        name.upper()
+                        == policy.get("Secedit", {}).get("Option", "").upper()
                     ):
                         # found it, set name to lgpo policy name
                         name = key
@@ -257,44 +266,38 @@ class PolicyHelper(object):
         # Get the value transform
         policy = self.SECEDIT_POLICIES[name]
 
-        if 'NetUserModal' in policy:
+        if "NetUserModal" in policy:
             value = to_num(value)
             value = 0 if value == -1 else value
-            log.debug(
-                'secedit value [coerced] = "%s"; type = "%s"',
-                value,
-                type(value)
-            )
+            log.debug('secedit value [coerced] = "%s"; type = "%s"', value, type(value))
         else:
-            if 'LsaRights' in policy:
+            if "LsaRights" in policy:
                 try:
                     # Convert String SID to SID object
                     value = [
-                        win32security.ConvertStringSidToSid(sid.lstrip('*'))
-                        for sid in value.split(',') if sid
+                        win32security.ConvertStringSidToSid(sid.lstrip("*"))
+                        for sid in value.split(",")
+                        if sid
                     ]
                 except win32security.error:
                     # Convert account name to SID object
                     value = [
-                        win32security.LookupAccountName('', account)[0]
-                        for account in value.split(',') if account
+                        win32security.LookupAccountName("", account)[0]
+                        for account in value.split(",")
+                        if account
                     ]
                 log.debug(
-                    'secedit value [coerced] = "%s"; type = "%s"',
-                    value,
-                    type(value)
+                    'secedit value [coerced] = "%s"; type = "%s"', value, type(value)
                 )
 
             value_ = _transform_value(
                 value,
                 policy,
-                transform_type='Get',
+                transform_type="Get",
             )
             value = value_ if value_ not in BAD_TRANSFORM_VALUES else value
             log.debug(
-                'secedit value [transformed] = "%s"; type = "%s"',
-                value,
-                type(value)
+                'secedit value [transformed] = "%s"; type = "%s"', value, type(value)
             )
 
         return name, value
@@ -302,81 +305,71 @@ class PolicyHelper(object):
     def validate_secedit(self, policy):
         """Validate secedit policy."""
         if not all(key in policy for key in self.LGPO_SECEDIT_KEYS):
-            return False, 'Secedit policy dictionary is malformed'
+            return False, "Secedit policy dictionary is malformed"
         name, value = self._secedit_transform(
-            name=policy.get('name', ''),
-            value=policy.get('value', ''),
+            name=policy.get("name", ""),
+            value=policy.get("value", ""),
         )
         if not name:
             return (
                 False,
-                'Secedit policy name "{0}" is unknown'
-                .format(policy.get('name'))
+                'Secedit policy name "{0}" is unknown'.format(policy.get("name")),
             )
-        return (
-            {
-                'name': name,
-                'value': value
-            },
-            ''
-        )
+        return ({"name": name, "value": value}, "")
 
     def _reg_to_pol(self, policy, regpol):
-        action = policy['action'].split(':')
-        vtype, vdata = action[0], ':'.join(action[1:])
+        action = policy["action"].split(":")
+        vtype, vdata = action[0], ":".join(action[1:])
 
         kwargs = {
-            'reg_key': policy['key_path'],
-            'reg_valueName': policy['vname'],
-            'reg_vtype': vtype,
-            'reg_data': None if vdata == '' else vdata,
-            'check_deleted': vtype == 'DELETE'
+            "reg_key": policy["key_path"],
+            "reg_valueName": policy["vname"],
+            "reg_vtype": vtype,
+            "reg_data": None if vdata == "" else vdata,
+            "check_deleted": vtype == "DELETE",
         }
 
-        log.debug('converting policy to regpol search string = %s', kwargs)
+        log.debug("converting policy to regpol search string = %s", kwargs)
         setting = _buildKnownDataSearchString(**kwargs)
 
         return _policyFileReplaceOrAppend(setting, regpol)
 
     def policy_object_regpol(self, policies, **kwargs):
         """Return a regpol policy object."""
-        overwrite_regpol = kwargs.pop('overwrite_regpol', True)
-        machine_regpol = b''
-        user_regpol = b''
+        overwrite_regpol = kwargs.pop("overwrite_regpol", True)
+        machine_regpol = b""
+        user_regpol = b""
 
         if not overwrite_regpol:
-            machine_regpol = _read_regpol_file(REGPOL_MACHINE) or b''
+            machine_regpol = _read_regpol_file(REGPOL_MACHINE) or b""
 
         if not overwrite_regpol:
-            user_regpol = _read_regpol_file(REGPOL_USER) or b''
+            user_regpol = _read_regpol_file(REGPOL_USER) or b""
 
         policy_objects = {
-            'Machine': machine_regpol,
-            'User': user_regpol,
+            "Machine": machine_regpol,
+            "User": user_regpol,
         }
 
         for policy in policies:
-            policy_objects[policy['hive']] = self._reg_to_pol(
+            policy_objects[policy["hive"]] = self._reg_to_pol(
                 policy,
-                policy_objects[policy['hive']],
+                policy_objects[policy["hive"]],
             )
 
         return policy_objects
 
     def policy_object_secedit(self, policies, **kwargs):
         """Return a secedit policy object."""
-        return { policy['name']: policy['value'] for policy in policies }
+        return {policy["name"]: policy["value"] for policy in policies}
+
 
 def __virtual__():
     """Load only on Windows and only if Apply_LGPO_Delta is present."""
     if not is_windows():
         return False
     if not HAS_WINDOWS_MODULES:
-        return (
-            False,
-            '{0}: Required modules failed to load'
-            .format(__virtualname__)
-        )
+        return (False, "{0}: Required modules failed to load".format(__virtualname__))
 
     global _write_regpol_data
     _write_regpol_data = _namespaced_function(_write_regpol_data, globals())
@@ -385,74 +378,84 @@ def __virtual__():
 
 
 def _policyFileReplaceOrAppend(policy, policy_data, append=True):
-    '''
+    """
     helper function to take a ADMX policy string for registry.pol file data and
     update existing string or append the string to the data
 
     Cut from win_lgpo.py due to bugs when there are DELETE policies
-    '''
+    """
     # token to match policy start = encoded [
-    policy_start = re.escape('['.encode('utf-16-le'))
+    policy_start = re.escape("[".encode("utf-16-le"))
 
     # token to match policy end = encoded ]
-    policy_end = re.escape(']'.encode('utf-16-le'))
+    policy_end = re.escape("]".encode("utf-16-le"))
 
     # token to match policy delimiter = encoded null + encoded semicolon
-    policy_delimiter = b''.join([
-        chr(0).encode('utf-16-le'),
-        ';'.encode('utf-16-le'),
-    ])
+    policy_delimiter = b"".join(
+        [
+            chr(0).encode("utf-16-le"),
+            ";".encode("utf-16-le"),
+        ]
+    )
 
     # pattern group to OPTIONALLY match delete instructions in value token
-    policy_pattern_del = b''.join([
-        b'(',
-        re.escape('**Del.'.encode('utf-16-le')),
-        b'|',
-        re.escape('**DelVals.'.encode('utf-16-le')),
-        b'){0,1}',
-    ])
+    policy_pattern_del = b"".join(
+        [
+            b"(",
+            re.escape("**Del.".encode("utf-16-le")),
+            b"|",
+            re.escape("**DelVals.".encode("utf-16-le")),
+            b"){0,1}",
+        ]
+    )
 
     # pattern group to match one delimited token in a policy
-    policy_token = b''.join([
-        b'(',
-        b'.*?',  # non-greedy match, up to next policy delimiter
-        policy_delimiter,
-        b')',
-    ])
+    policy_token = b"".join(
+        [
+            b"(",
+            b".*?",  # non-greedy match, up to next policy delimiter
+            policy_delimiter,
+            b")",
+        ]
+    )
 
     # pattern to capture the key and value tokens from `policy`
-    policy_pattern = b''.join([
-        policy_start,
-        policy_token, # this is the registry key
-        policy_pattern_del,
-        policy_token, # this is the value
-        b'.*?',        # this is the remainder of the policy tokens
-        policy_end,
-    ])
+    policy_pattern = b"".join(
+        [
+            policy_start,
+            policy_token,  # this is the registry key
+            policy_pattern_del,
+            policy_token,  # this is the value
+            b".*?",  # this is the remainder of the policy tokens
+            policy_end,
+        ]
+    )
 
     # parse the tokens from `policy`
     policy_match = re.search(
         policy_pattern,
         policy,
-        flags=re.IGNORECASE|re.DOTALL,
+        flags=re.IGNORECASE | re.DOTALL,
     )
 
     # pattern to match `policy` in `policy_data`
     policy_match_groups = policy_match.groups()
-    policy_data_pattern = b''.join([
-        policy_start,
-        re.escape(policy_match_groups[0]),  # key
-        policy_pattern_del,
-        re.escape(policy_match_groups[2]),  # value
-        b'.*?',
-        policy_end,
-    ])
+    policy_data_pattern = b"".join(
+        [
+            policy_start,
+            re.escape(policy_match_groups[0]),  # key
+            policy_pattern_del,
+            re.escape(policy_match_groups[2]),  # value
+            b".*?",
+            policy_end,
+        ]
+    )
 
     # search for `policy` in `policy_data`
     policy_data_match = re.search(
         policy_data_pattern,
         policy_data,
-        flags=re.IGNORECASE|re.DOTALL,
+        flags=re.IGNORECASE | re.DOTALL,
     )
 
     if policy_data_match:
@@ -463,81 +466,89 @@ def _policyFileReplaceOrAppend(policy, policy_data, append=True):
     elif append:
         # append the policy
         log.debug('appending "%s"', policy)
-        return b''.join([policy_data, policy])
+        return b"".join([policy_data, policy])
     else:
         # no match, no append, just return what we were given
         return policy_data
 
 
 def _encode_string(value):
-    '''Cut from win_lgpo.py due to bugs in _buildKnownDataSearchString.'''
-    encoded_null = chr(0).encode('utf-16-le')
+    """Cut from win_lgpo.py due to bugs in _buildKnownDataSearchString."""
+    encoded_null = chr(0).encode("utf-16-le")
     if value is None:
         return encoded_null
     elif not isinstance(value, six.string_types):
         # Should we raise an error here, or attempt to cast to a string
-        raise TypeError('Value {0} is not a string type\n'
-                        'Type: {1}'.format(repr(value), type(value)))
-    return b''.join([value.encode('utf-16-le'), encoded_null])
+        raise TypeError(
+            "Value {0} is not a string type\n"
+            "Type: {1}".format(repr(value), type(value))
+        )
+    return b"".join([value.encode("utf-16-le"), encoded_null])
 
 
 def _buildKnownDataSearchString(
-    reg_key,
-    reg_valueName,
-    reg_vtype,
-    reg_data,
-    check_deleted=False
+    reg_key, reg_valueName, reg_vtype, reg_data, check_deleted=False
 ):
-    '''
+    """
     Helper function to build a search string for a known key/value/type/data.
 
     Cut from win_lgpo.py due to bugs in empty reg_data values.
-    '''
+    """
     registry = Registry()
-    encoded_semicolon = ';'.encode('utf-16-le')
-    encoded_null = chr(0).encode('utf-16-le')
+    encoded_semicolon = ";".encode("utf-16-le")
+    encoded_null = chr(0).encode("utf-16-le")
     this_element_value = encoded_null
     if reg_key:
-        reg_key = reg_key.encode('utf-16-le')
+        reg_key = reg_key.encode("utf-16-le")
     if reg_valueName:
-        reg_valueName = reg_valueName.encode('utf-16-le')
+        reg_valueName = reg_valueName.encode("utf-16-le")
     if not check_deleted:
-        if reg_vtype == 'REG_DWORD':
-            this_element_value = struct.pack(b'I', int(reg_data))
+        if reg_vtype == "REG_DWORD":
+            this_element_value = struct.pack(b"I", int(reg_data))
         elif reg_vtype == "REG_QWORD":
-            this_element_value = struct.pack(b'Q', int(reg_data))
-        elif reg_vtype == 'REG_SZ':
+            this_element_value = struct.pack(b"Q", int(reg_data))
+        elif reg_vtype == "REG_SZ":
             this_element_value = _encode_string(reg_data)
-        return b''.join(['['.encode('utf-16-le'),
-                                    reg_key,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    reg_valueName,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    six.unichr(len(this_element_value)).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    this_element_value,
-                                    ']'.encode('utf-16-le')])
+        return b"".join(
+            [
+                "[".encode("utf-16-le"),
+                reg_key,
+                encoded_null,
+                encoded_semicolon,
+                reg_valueName,
+                encoded_null,
+                encoded_semicolon,
+                chr(registry.vtype[reg_vtype]).encode("utf-32-le"),
+                encoded_semicolon,
+                six.unichr(len(this_element_value)).encode("utf-32-le"),
+                encoded_semicolon,
+                this_element_value,
+                "]".encode("utf-16-le"),
+            ]
+        )
     else:
-        reg_vtype = 'REG_SZ'
-        return b''.join(['['.encode('utf-16-le'),
-                                    reg_key,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    '**Del.'.encode('utf-16-le'),
-                                    reg_valueName,
-                                    encoded_null,
-                                    encoded_semicolon,
-                                    chr(registry.vtype[reg_vtype]).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    six.unichr(len(' {0}'.format(chr(0)).encode('utf-16-le'))).encode('utf-32-le'),
-                                    encoded_semicolon,
-                                    ' '.encode('utf-16-le'),
-                                    encoded_null,
-                                    ']'.encode('utf-16-le')])
+        reg_vtype = "REG_SZ"
+        return b"".join(
+            [
+                "[".encode("utf-16-le"),
+                reg_key,
+                encoded_null,
+                encoded_semicolon,
+                "**Del.".encode("utf-16-le"),
+                reg_valueName,
+                encoded_null,
+                encoded_semicolon,
+                chr(registry.vtype[reg_vtype]).encode("utf-32-le"),
+                encoded_semicolon,
+                six.unichr(len(" {0}".format(chr(0)).encode("utf-16-le"))).encode(
+                    "utf-32-le"
+                ),
+                encoded_semicolon,
+                " ".encode("utf-16-le"),
+                encoded_null,
+                "]".encode("utf-16-le"),
+            ]
+        )
 
 
 def validate_policies(policies):
@@ -596,23 +607,27 @@ def validate_policies(policies):
         policies = [policies]
     for policy in policies:
         if not isinstance(policy, Mapping):
-            return False, 'Policy is not a dictionary object', policy
-        policy_type = policy.get('policy_type', '').lower()
+            return False, "Policy is not a dictionary object", policy
+        policy_type = policy.get("policy_type", "").lower()
         try:
-            result, reason = getattr(policy_helper, 'validate_{0}'
-                                        .format(policy_type))(policy)
+            result, reason = getattr(policy_helper, "validate_{0}".format(policy_type))(
+                policy
+            )
         except AttributeError:
-            return (False,
-                    '`policy_type` is missing or the value "{0}" is invalid'
-                    .format(policy_type),
-                    policy)
+            return (
+                False,
+                '`policy_type` is missing or the value "{0}" is invalid'.format(
+                    policy_type
+                ),
+                policy,
+            )
         if not result:
             return False, reason, policy
         try:
             ret[policy_type].append(result)
         except KeyError:
             ret[policy_type] = [result]
-    return ret, '', {}
+    return ret, "", {}
 
 
 def _get_policy_objects(policies, **kwargs):
@@ -620,8 +635,8 @@ def _get_policy_objects(policies, **kwargs):
     policy_helper = PolicyHelper()
     for policy_type, policy_data in policies.items():
         policy_objects[policy_type] = getattr(
-            policy_helper,
-            'policy_object_{0}'.format(policy_type))(policy_data, **kwargs)
+            policy_helper, "policy_object_{0}".format(policy_type)
+        )(policy_data, **kwargs)
     return policy_objects
 
 
@@ -664,60 +679,54 @@ def apply_policies(policies, overwrite_regpol=False):
     """
     valid_policies, reason, policy = validate_policies(policies)
     if not valid_policies:
-        raise SaltInvocationError('{0}; policy={1}'.format(reason, policy))
+        raise SaltInvocationError("{0}; policy={1}".format(reason, policy))
 
     policy_objects = _get_policy_objects(
-        valid_policies,
-        overwrite_regpol=overwrite_regpol
+        valid_policies, overwrite_regpol=overwrite_regpol
     )
 
     # Apply regpol policies
     has_regpol = False
-    for regclass, regpol in policy_objects.get('regpol', {}).items():
+    for regclass, regpol in policy_objects.get("regpol", {}).items():
         _write_regpol_data(
             regpol,
-            POLICY_INFO.admx_registry_classes[regclass]['policy_path'],
+            POLICY_INFO.admx_registry_classes[regclass]["policy_path"],
             POLICY_INFO.gpt_ini_path,
-            POLICY_INFO.admx_registry_classes[regclass]['gpt_extension_location'],
-            POLICY_INFO.admx_registry_classes[regclass]['gpt_extension_guid']
+            POLICY_INFO.admx_registry_classes[regclass]["gpt_extension_location"],
+            POLICY_INFO.admx_registry_classes[regclass]["gpt_extension_guid"],
         )
         has_regpol = True if regpol else has_regpol
 
     # Apply secedit policies
-    __salt__['lgpo.set'](
-        computer_policy=policy_objects.get('secedit', {}),
+    __salt__["lgpo.set"](
+        computer_policy=policy_objects.get("secedit", {}),
         cumulative_rights_assignments=False,
     )
 
     # Trigger gpupdate to create registry entries from regpol
     if has_regpol:
-        _ = __salt__['cmd.retcode']('gpupdate')
+        _ = __salt__["cmd.retcode"]("gpupdate")
 
     return valid_policies
 
 
-def construct_policy(mode, name, value='', vtype=''):
+def construct_policy(mode, name, value="", vtype=""):
     """Map the mode and return a list containing the policy dictionary."""
-    default = {
-        'policy_type': 'unknown'
-    }
+    default = {"policy_type": "unknown"}
     policy_map = {
-        'set_reg_value': {
-            'policy_type': 'regpol',
+        "set_reg_value": {
+            "policy_type": "regpol",
         },
-        'delete_reg_value': {
-            'policy_type': 'regpol',
-            'action': 'DELETE'
-        },
-        'set_secedit_value': {
-            'policy_type': 'secedit',
+        "delete_reg_value": {"policy_type": "regpol", "action": "DELETE"},
+        "set_secedit_value": {
+            "policy_type": "secedit",
         },
     }
     mapped = policy_map.get(mode, default)
-    mapped['key'] = name
-    mapped['name'] = name
-    mapped['value'] = value
-    mapped['vtype'] = vtype
+    mapped["key"] = name
+    mapped["name"] = name
+    mapped["value"] = value
+    mapped["vtype"] = vtype
     return [mapped]
 
 
@@ -758,15 +767,12 @@ def set_reg_value(key, value, vtype):
             value='baz' \
             vtype='SZ'
     """
-    return (apply_policies(
+    return apply_policies(
         policies=construct_policy(
-            mode='set_reg_value',
-            name=key,
-            value=value,
-            vtype=vtype
+            mode="set_reg_value", name=key, value=value, vtype=vtype
         ),
         overwrite_regpol=False,
-    ))
+    )
 
 
 def delete_reg_value(key):
@@ -785,12 +791,9 @@ def delete_reg_value(key):
         salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Foo'
         salt '*' lgpo.delete_reg_value key='HKLM\Software\Salt\Policies\Bar'
     """
-    return (apply_policies(
-        policies=construct_policy(
-            mode='delete_reg_value',
-            name=key
-        ),
-    ))
+    return apply_policies(
+        policies=construct_policy(mode="delete_reg_value", name=key),
+    )
 
 
 def set_secedit_value(name, value):
@@ -814,13 +817,13 @@ def set_secedit_value(name, value):
         salt '*' ash_lgpo.set_secedit_value name=SeDenyNetworkLogonRight \
             value='*S-1-5-32-546'
     """
-    return (apply_policies(
+    return apply_policies(
         policies=construct_policy(
-            mode='set_secedit_value',
+            mode="set_secedit_value",
             name=name,
             value=value,
         ),
-    ))
+    )
 
 
 def list_secedit_policies(names=None, types=None, show_details=False):
@@ -849,46 +852,46 @@ def list_secedit_policies(names=None, types=None, show_details=False):
             types=Secedit,LsaRights
     """
     policies = {
-        'Secedit': {
-            'policy_keys': [
-                'Secedit',
-                'NetUserModal',
+        "Secedit": {
+            "policy_keys": [
+                "Secedit",
+                "NetUserModal",
             ],
-            'policies': [],
-            'display_name': 'System Access',
+            "policies": [],
+            "display_name": "System Access",
         },
-        'AdvAudit': {
-            'policy_keys': [
-                'AdvAudit',
+        "AdvAudit": {
+            "policy_keys": [
+                "AdvAudit",
             ],
-            'policies': [],
-            'display_name': 'Advanced Audit',
+            "policies": [],
+            "display_name": "Advanced Audit",
         },
-        'LsaRights': {
-            'policy_keys': [
-                'LsaRights',
+        "LsaRights": {
+            "policy_keys": [
+                "LsaRights",
             ],
-            'policies': [],
-            'display_name': 'Privilege Rights',
+            "policies": [],
+            "display_name": "Privilege Rights",
         },
-        'NetSH': {
-            'policy_keys': [
-                'NetSH',
+        "NetSH": {
+            "policy_keys": [
+                "NetSH",
             ],
-            'policies': [],
-            'display_name': 'NetSH',
+            "policies": [],
+            "display_name": "NetSH",
         },
-        'ScriptIni': {
-            'policy_keys': [
-                'ScriptIni',
+        "ScriptIni": {
+            "policy_keys": [
+                "ScriptIni",
             ],
-            'policies': [],
-            'display_name': 'Startup/Shutdown Scripts',
+            "policies": [],
+            "display_name": "Startup/Shutdown Scripts",
         },
-        'Other': {
-            'policy_keys': [],
-            'policies': [],
-            'display_name': 'Other',
+        "Other": {
+            "policy_keys": [],
+            "policies": [],
+            "display_name": "Other",
         },
     }
 
@@ -898,9 +901,9 @@ def list_secedit_policies(names=None, types=None, show_details=False):
 
     # Coerce names and types to lists
     if isinstance(names, six.text_type):
-        names = names.split(',')
+        names = names.split(",")
     if isinstance(types, six.text_type):
-        types = types.split(',')
+        types = types.split(",")
 
     for name, policy in secedit_policies.items():
         # Skip any names not requested
@@ -909,27 +912,27 @@ def list_secedit_policies(names=None, types=None, show_details=False):
 
         for type_ in policies.keys():
             # Map known lgpo policy types to their respective policies key
-            keys = policies[type_]['policy_keys']
+            keys = policies[type_]["policy_keys"]
             if keys and any([key in policy for key in keys]):
-                policies[type_]['policies'].append(
+                policies[type_]["policies"].append(
                     name if not show_details else {name: policy}
                 )
                 break
         else:
             # Map unknown lgpo policy types to the 'Other' key
-            policies['Other']['policies'].append({name: policy})
+            policies["Other"]["policies"].append({name: policy})
 
     # Create map of requested types and policy names
     return {
-        section['display_name']: sorted(section['policies'])
+        section["display_name"]: sorted(section["policies"])
         for type_, section in policies.items()
-        if type_ in types and section['policies']
+        if type_ in types and section["policies"]
     }
 
 
 def get_regpol(regclass=None):
     regpol = {
-        'Machine': _read_regpol_file(REGPOL_MACHINE) or b'',
-        'User': _read_regpol_file(REGPOL_USER) or b''
+        "Machine": _read_regpol_file(REGPOL_MACHINE) or b"",
+        "User": _read_regpol_file(REGPOL_USER) or b"",
     }
     return {regclass: regpol[regclass]} if regclass else regpol

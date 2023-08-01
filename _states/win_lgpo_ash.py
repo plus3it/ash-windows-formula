@@ -11,16 +11,19 @@ import salt.utils
 from salt.exceptions import CommandExecutionError, SaltInvocationError
 
 log = logging.getLogger(__name__)
-__virtualname__ = 'ash_lgpo'
+__virtualname__ = "ash_lgpo"
 
 
 def __virtual__():
     """Only load if ash_lgpo execution module is available."""
-    if 'ash_lgpo.apply_policies' in __salt__:
+    if "ash_lgpo.apply_policies" in __salt__:
         return __virtualname__
     else:
-        return (False, 'State "{0}" not loaded because the "{0}" execution '
-                       'module was not present'.format(__virtualname__))
+        return (
+            False,
+            'State "{0}" not loaded because the "{0}" execution '
+            "module was not present".format(__virtualname__),
+        )
 
 
 def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
@@ -103,43 +106,35 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
                 name: MinimumPasswordAge
                 value: 3
     """
-    ret = {
-        'name': name,
-        'result': True,
-        'comment': '',
-        'changes': {}
-    }
+    ret = {"name": name, "result": True, "comment": "", "changes": {}}
 
     if policies == []:
         # Passed an empty policies list, return without failing.
-        ret['comment'] = '"policies" is an empty list'
+        ret["comment"] = '"policies" is an empty list'
         return ret
 
-    policies = policies or __salt__['ash_lgpo.construct_policy'](
-        name=name,
-        mode=mode,
-        value=value,
-        vtype=vtype
+    policies = policies or __salt__["ash_lgpo.construct_policy"](
+        name=name, mode=mode, value=value, vtype=vtype
     )
 
-    if __opts__['test']:
-        valid_policies, reason, policy = __salt__['ash_lgpo.validate_policies'](
+    if __opts__["test"]:
+        valid_policies, reason, policy = __salt__["ash_lgpo.validate_policies"](
             policies=policies
         )
         if not valid_policies:
-            ret['result'] = False
-            ret['comment'] = '{0}; policy={1}'.format(reason, policy)
+            ret["result"] = False
+            ret["comment"] = "{0}; policy={1}".format(reason, policy)
         else:
-            ret['comment'] = 'Would have applied local group policy objects'
-            ret['changes'] = valid_policies
+            ret["comment"] = "Would have applied local group policy objects"
+            ret["changes"] = valid_policies
     else:
         try:
-            result = __salt__['ash_lgpo.apply_policies'](policies=policies)
-            ret['comment'] = 'Successfully applied local group policy objects'
-            ret['changes'] = result
+            result = __salt__["ash_lgpo.apply_policies"](policies=policies)
+            ret["comment"] = "Successfully applied local group policy objects"
+            ret["changes"] = result
         except (CommandExecutionError, SaltInvocationError) as exc:
-            ret['result'] = False
-            ret['comment'] = exc
+            ret["result"] = False
+            ret["comment"] = exc
 
     return ret
 
@@ -152,40 +147,40 @@ def mod_aggregate(low, chunks, running):
     chunks and merges them into a single policies ref in the present low data
     """
     policies = []
-    agg_enabled = [
-        'present'
-    ]
-    if low.get('fun') not in agg_enabled:
+    agg_enabled = ["present"]
+    if low.get("fun") not in agg_enabled:
         return low
     for chunk in chunks:
         tag = salt.utils.gen_state_tag(chunk)
         if tag in running:
             # Already ran the lgpo state, skip aggregation
             continue
-        if chunk.get('state') == 'lgpo':
-            if '__agg__' in chunk:
+        if chunk.get("state") == "lgpo":
+            if "__agg__" in chunk:
                 continue
             # Check for the same function
-            if chunk.get('fun') != low.get('fun'):
+            if chunk.get("fun") != low.get("fun"):
                 continue
             # Check if the state disables aggregation
-            if chunk.get('aggregate') is False:
+            if chunk.get("aggregate") is False:
                 continue
             # Pull out the policy objects!
-            if 'policies' in chunk:
-                policies.extend(chunk['policies'])
-                chunk['__agg__'] = True
-            elif 'name' in chunk:
-                policies.extend(__salt__['ash_lgpo.construct_policy'](
-                    name=chunk['name'],
-                    mode=chunk.get('mode', None),
-                    value=chunk.get('value', None),
-                    vtype=chunk.get('vtype', None)
-                ))
-                chunk['__agg__'] = True
+            if "policies" in chunk:
+                policies.extend(chunk["policies"])
+                chunk["__agg__"] = True
+            elif "name" in chunk:
+                policies.extend(
+                    __salt__["ash_lgpo.construct_policy"](
+                        name=chunk["name"],
+                        mode=chunk.get("mode", None),
+                        value=chunk.get("value", None),
+                        vtype=chunk.get("vtype", None),
+                    )
+                )
+                chunk["__agg__"] = True
     if policies:
-        if 'policies' in low:
-            low['policies'].extend(policies)
+        if "policies" in low:
+            low["policies"].extend(policies)
         else:
-            low['policies'] = policies
+            low["policies"] = policies
     return low
