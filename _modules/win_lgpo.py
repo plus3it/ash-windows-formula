@@ -29,6 +29,8 @@ Current known limitations
   configurable.
 - Not all "Security Settings" policies exist in the _policy_info class
 
+# pylint: skip-file
+
 :depends:
   - pywin32 Python module
   - lxml
