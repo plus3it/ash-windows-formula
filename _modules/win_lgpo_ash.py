@@ -16,6 +16,9 @@ their own organization.
 :depends:    Apply_LGPO_Delta.exe in %SystemRoot%\System32\
 :platform:   Windows
 """
+
+# pylint: skip-file
+
 from __future__ import (
     absolute_import,
     division,
