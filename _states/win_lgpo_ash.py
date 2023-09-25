@@ -5,6 +5,9 @@ Manage Local Policy Group Policy Objects on Windows.
 :maintainer: Loren Gordon <loren.gordon@plus3it.com>
 :platform:   Windows
 """
+
+# pylint: skip-file
+
 import logging
 import salt.utils
 
