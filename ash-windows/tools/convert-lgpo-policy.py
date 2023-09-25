@@ -4,6 +4,7 @@ import chardet
 import sys
 import yaml
 
+# pylint: skip-file
 
 REG_CODE_MAP = {"1": "SZ", "2": "EXSZ", "3": "BINARY", "4": "DWORD", "7": "MULTISZ"}
 REG_MODES = ("DELETE", "DELETEALLVALUES", "CREATEKEY")
