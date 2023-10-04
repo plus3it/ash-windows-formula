@@ -19,6 +19,12 @@ indent_size = 4
 [win_lgpo.py]
 indent_size = unset
 
+[*.adml]
+indent_size = unset
+
+[*.admx]
+indent_size = unset
+
 [go.mod]
 indent_style = tab
 indent_size = 1
@@ -37,3 +43,6 @@ indent_size = 1
 
 [LICENSE]
 indent_size = none
+end_of_line = unset
+insert_final_newline = unset
+
