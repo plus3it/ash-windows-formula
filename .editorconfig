@@ -16,6 +16,9 @@ trim_trailing_whitespace = false
 [*.py]
 indent_size = 4
 
+[win_lgpo.py]
+indent_size = unset
+
 [go.mod]
 indent_style = tab
 indent_size = 1

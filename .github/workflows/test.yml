@@ -21,4 +21,4 @@ jobs:
     with:
       salt-os-version: ${{ matrix.os_version }}
       salt-state: ${{ matrix.salt_state }}
-      salt-pillar-root: ${{ matrix.salt_pillar_root }} 
+      salt-pillar-root: ${{ matrix.salt_pillar_root }}

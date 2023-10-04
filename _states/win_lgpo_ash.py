@@ -82,30 +82,30 @@ def present(name, mode=None, value=None, vtype=None, policies=None, **kwargs):
     .. code-block:: yaml
 
         Set Registry Value:
-          ash_lgpo.present:
+            ash_lgpo.present:
             - name: HKLM\Software\Salt\Foo
             - mode: set_reg_value
             - value: 0
             - vtype: REG_DWORD
 
         Set Secedit Value:
-          ash_lgpo.present:
+            ash_lgpo.present:
             - name: MinimumPasswordAge
             - mode: set_secedit_value
             - value: 3
 
         Set Multiple Policies In One State:
-          ash_lgpo.present:
+            ash_lgpo.present:
             - policies:
-              - policy_type: regpol
+                - policy_type: regpol
                 key: HKLM\Software\Salt\Foo
                 value: 0
                 vtype: REG_DWORD
-              - policy_type: regpol
+                - policy_type: regpol
                 key: HKLM\Software\Salt\Bar
                 value: 0
                 vtype: REG_DWORD
-              - policy_type: secedit
+                - policy_type: secedit
                 name: MinimumPasswordAge
                 value: 3
     """
