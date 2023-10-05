@@ -21,9 +21,11 @@ indent_size = unset
 
 [*.adml]
 indent_size = unset
+trim_trailing_whitespace = unset
 
 [*.admx]
 indent_size = unset
+trim_trailing_whitespace = unset
 
 [go.mod]
 indent_style = tab
