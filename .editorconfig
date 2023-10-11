@@ -19,6 +19,9 @@ indent_size = 4
 [win_lgpo.py]
 indent_size = unset
 
+[win_lgpo_ash.py]
+indent_size = unset
+
 [*.adml]
 indent_size = unset
 trim_trailing_whitespace = unset
