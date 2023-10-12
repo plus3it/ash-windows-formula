@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   windows:
-    uses: plus3it/actions-workflows/.github/workflows/test-salt-windows.yml@84885d2116bdcaab046d6bf927127bb58cb74ae8
+    uses: plus3it/actions-workflows/.github/workflows/test-salt-windows.yml@93a9326e07945e5441d0fadef735563290edd729
     strategy:
       matrix:
         os_version:
