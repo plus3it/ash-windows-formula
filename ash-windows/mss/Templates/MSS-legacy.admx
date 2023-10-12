@@ -276,7 +276,7 @@ MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\EnableDeadGWDetect,4,
 MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\EnableICMPRedirect,4,%EnableICMPRedirect%,0
 MACHINE\System\CurrentControlSet\Services\Lanmanserver\Parameters\Hidden,4,%HideFromBrowseList%,0
 MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime,4,%KeepAliveTime%,3,150000|%KeepAliveTime0%,300000|%KeepAliveTime1%,600000|%KeepAliveTime2%,1200000|%KeepAliveTime3%,2400000|%KeepAliveTime4%,3600000|%KeepAliveTime5%,7200000|%KeepAliveTime6%
-MACHINE\System\CurrentControlSet\Services\IPSEC\NoDefaultExempt,4,%NoDefaultExempt%,3,0|%NoDefaultExempt0%,1|%NoDefaultExempt1%,2|%NoDefaultExempt2%,3|%NoDefaultExempt3%
+MACHINE\System\CurrentControlSet\Services\IPSEC\NoDefaultExempt,4,%NoDefaultExempt%,3,0|%NoDefaultExempt0%,1|%NoDefaultExempt1%,2|%NoDefaultExempt2%,3|%NoDefaultExempt3% 
 MACHINE\System\CurrentControlSet\Services\Netbt\Parameters\NoNameReleaseOnDemand,4,%NoNameReleaseOnDemand%,0
 MACHINE\System\CurrentControlSet\Control\FileSystem\NtfsDisable8dot3NameCreation,4,%NtfsDisable8dot3NameCreation%,3,0|%NtfsDisable8dot3NameCreation0%,1|%NtfsDisable8dot3NameCreation1%,2|%NtfsDisable8dot3NameCreation2%,3|%NtfsDisable8dot3NameCreation3%
 MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\PerformRouterDiscovery,4,%PerformRouterDiscovery%,0
