@@ -1,0 +1,53 @@
+# see http://editorconfig.org
+root = true
+
+[*]
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+charset = utf-8
+tab_width = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4
+
+[win_lgpo.py]
+indent_size = unset
+
+[win_lgpo_ash.py]
+indent_size = unset
+
+[*.adml]
+indent_size = unset
+trim_trailing_whitespace = unset
+
+[*.admx]
+indent_size = unset
+trim_trailing_whitespace = unset
+
+[go.mod]
+indent_style = tab
+indent_size = 1
+
+[*.go]
+indent_style = tab
+indent_size = 1
+
+[Makefile]
+indent_style = tab
+indent_size = 1
+
+[Makefile.*]
+indent_style = tab
+indent_size = 1
+
+[LICENSE]
+indent_size = none
+end_of_line = unset
+insert_final_newline = unset
+

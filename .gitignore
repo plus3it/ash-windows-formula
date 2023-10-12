@@ -14,6 +14,10 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# tardigrade-ci
+.tardigrade-ci
+tardigrade-ci/
+
 # =========================
 # Operating System Files
 # =========================

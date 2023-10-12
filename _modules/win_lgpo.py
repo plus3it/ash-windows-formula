@@ -36,6 +36,9 @@ Current known limitations
   - struct
   - salt.utils.win_reg
 """
+
+# pylint: skip-file
+
 import csv
 import ctypes
 import glob
@@ -5057,7 +5060,6 @@ def _parse_xml(adm_file):
 
         # Lowercase all the keys
         with salt.utils.files.fopen(adm_file, "rb") as rfh:
-
             encoding = "utf-8"
             raw = rfh.read()
             try:
