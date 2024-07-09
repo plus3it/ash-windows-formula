@@ -9,7 +9,7 @@ import yaml
 REG_CODE_MAP = {"1": "SZ", "2": "EXSZ", "3": "BINARY", "4": "DWORD", "7": "MULTISZ"}
 REG_MODES = ("DELETE", "DELETEALLVALUES", "CREATEKEY")
 REG_HIVES = ("USER", "COMPUTER")
-REG_TYPES = ("DWORD", "SZ", "EXSZ")
+REG_TYPES = ("DWORD", "SZ", "EXSZ", "MULTISZ")
 
 
 def _convert_regpol(src):
