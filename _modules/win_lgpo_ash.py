@@ -98,6 +98,8 @@ class PolicyHelper(object):
                 "REG_DWORD": "REG_DWORD",
                 "SZ": "REG_SZ",
                 "REG_SZ": "REG_SZ",
+                "MULTISZ": "REG_MULTI_SZ",
+                "REG_MULTI_SZ": "REG_MULTI_SZ",
             },
             "hives": {
                 "COMPUTER": "Machine",
@@ -511,6 +513,8 @@ def _buildKnownDataSearchString(
         elif reg_vtype == "REG_QWORD":
             this_element_value = struct.pack(b"Q", int(reg_data))
         elif reg_vtype == "REG_SZ":
+            this_element_value = _encode_string(reg_data)
+        elif reg_vtype == "REG_MULTI_SZ":
             this_element_value = _encode_string(reg_data)
         return b"".join(
             [
