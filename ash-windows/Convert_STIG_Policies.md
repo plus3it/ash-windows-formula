@@ -12,8 +12,7 @@
 
   - Check for `audit.csv` and `GptTmpl.inf` files under `{GUID}\DomainSysvol\GPO\Machine\microsoft\windows nt\` and copy them to `stig/<baseline>`
 
-  - Open `{GUID}\DomainSysvol\GPO\User` and copy `registry.pol` to the `stig/<baseline>` folder, renaming it to `user_registry.pol`.  Again, skip if
- `registry.pol` is missing or contains no policies (e.g. File size is very small)
+  - Open `{GUID}\DomainSysvol\GPO\User` and copy `registry.pol` to the `stig/<baseline>` folder, renaming it to `user_registry.pol`.  Again, skip if `registry.pol` is missing or contains no policies (e.g. File size is very small)
 
   - Run the PowerShell code below from the root of the ash-windows-formula repo
 
