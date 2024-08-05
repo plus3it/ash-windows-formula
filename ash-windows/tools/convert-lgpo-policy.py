@@ -73,7 +73,10 @@ def _convert_secedit(src):
             policy["key"] = line.split("=")[0].strip()
             policy["vtype"] = REG_CODE_MAP[line.split("=")[1].split(",")[0].strip()]
             policy["value"] = (
-                "".join(line.split("=")[1].split(",")[1:]).strip().strip('"').replace('""','')
+                "".join(line.split("=")[1].split(",")[1:])
+                .strip()
+                .strip('"')
+                .replace('""', "")
             )
             if not policy["vtype"].upper() in REG_TYPES:
                 print(
