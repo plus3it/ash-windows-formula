@@ -304,12 +304,6 @@
 - name: LockoutDuration
   policy_type: secedit
   value: '15'
-- name: NewAdministratorName
-  policy_type: secedit
-  value: '"X_Admin"'
-- name: NewGuestName
-  policy_type: secedit
-  value: '"Visitor"'
 - name: ClearTextPassword
   policy_type: secedit
   value: '0'
@@ -509,7 +503,7 @@
   vtype: DWORD
 - name: SeDenyNetworkLogonRight
   policy_type: secedit
-  value: '*S-1-5-114,*S-1-5-32-546'
+  value: '*S-1-5-32-546'
 - name: SeDenyBatchLogonRight
   policy_type: secedit
   value: '*S-1-5-32-546'
@@ -518,7 +512,7 @@
   value: '*S-1-5-32-546'
 - name: SeDenyRemoteInteractiveLogonRight
   policy_type: secedit
-  value: '*S-1-5-113,*S-1-5-32-546'
+  value: '*S-1-5-32-546'
 - name: SeInteractiveLogonRight
   policy_type: secedit
   value: '*S-1-5-32-544'
@@ -528,15 +522,9 @@
 - name: SeCreatePagefilePrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
-- name: SeCreateTokenPrivilege
-  policy_type: secedit
-  value: ''
 - name: SeCreateGlobalPrivilege
   policy_type: secedit
   value: '*S-1-5-6,*S-1-5-20,*S-1-5-19,*S-1-5-32-544'
-- name: SeCreatePermanentPrivilege
-  policy_type: secedit
-  value: ''
 - name: SeCreateSymbolicLinkPrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
@@ -558,9 +546,6 @@
 - name: SeLoadDriverPrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
-- name: SeLockMemoryPrivilege
-  policy_type: secedit
-  value: ''
 - name: SeSecurityPrivilege
   policy_type: secedit
   value: '*S-1-5-32-544'
@@ -582,12 +567,3 @@
 - name: SeNetworkLogonRight
   policy_type: secedit
   value: '*S-1-5-32-544,*S-1-5-11'
-- name: SeEnableDelegationPrivilege
-  policy_type: secedit
-  value: ''
-- name: SeTcbPrivilege
-  policy_type: secedit
-  value: ''
-- name: SeTrustedCredManAccessPrivilege
-  policy_type: secedit
-  value: ''
