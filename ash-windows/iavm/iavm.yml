@@ -14,7 +14,7 @@
   policy_type: regpol
   value: '2048'
   vtype: DWORD
-- key: Computer\Software\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\IEDevTools\Disabled
+- key: Computer\Software\Policies\Microsoft\Internet Explorer\IEDevTools\Disabled
   policy_type: regpol
   value: '1'
   vtype: DWORD
