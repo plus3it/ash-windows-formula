@@ -96,7 +96,9 @@
   vtype: DWORD
 - key: Computer\SOFTWARE\Policies\Microsoft\Cryptography\Configuration\SSL\00010002\EccCurves
   policy_type: regpol
-  value: NistP384\0NistP256
+  value: 'NistP384
+
+    NistP256'
   vtype: MULTISZ
 - key: Computer\SOFTWARE\Policies\Microsoft\FVE\UseAdvancedStartup
   policy_type: regpol

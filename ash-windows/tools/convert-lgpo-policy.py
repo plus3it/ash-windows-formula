@@ -37,7 +37,7 @@ def _convert_regpol(src):
                     policy["action"] = src[index + 3]
                 else:
                     policy["vtype"] = src[index + 3].split(":")[0]
-                    policy["value"] = src[index + 3].split(":")[1]
+                    policy["value"] = src[index + 3].split(":")[1].replace("\\0", "\n")
                 policies.append(policy)
             except IndexError as exc:
                 raise SystemError(
