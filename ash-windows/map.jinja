@@ -22,9 +22,11 @@
 # Define default role for supported Operating System versions
 {% set default_role = salt.grains.filter_by(
     {
+        '2022Server' : 'MemberServer',
         '2019Server' : 'MemberServer',
         '2016Server' : 'MemberServer',
         '2012ServerR2' : 'MemberServer',
+        '11' : 'Workstation',
         '10' : 'Workstation',
     },
     grain='osrelease'

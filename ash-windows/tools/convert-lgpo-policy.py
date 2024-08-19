@@ -9,7 +9,7 @@ import yaml
 REG_CODE_MAP = {"1": "SZ", "2": "EXSZ", "3": "BINARY", "4": "DWORD", "7": "MULTISZ"}
 REG_MODES = ("DELETE", "DELETEALLVALUES", "CREATEKEY")
 REG_HIVES = ("USER", "COMPUTER")
-REG_TYPES = ("DWORD", "SZ", "EXSZ")
+REG_TYPES = ("DWORD", "SZ", "EXSZ", "MULTISZ")
 
 
 def _convert_regpol(src):
@@ -37,7 +37,7 @@ def _convert_regpol(src):
                     policy["action"] = src[index + 3]
                 else:
                     policy["vtype"] = src[index + 3].split(":")[0]
-                    policy["value"] = src[index + 3].split(":")[1]
+                    policy["value"] = src[index + 3].split(":")[1].replace("\\0", "\n")
                 policies.append(policy)
             except IndexError as exc:
                 raise SystemError(
@@ -73,7 +73,16 @@ def _convert_secedit(src):
             policy["key"] = line.split("=")[0].strip()
             policy["vtype"] = REG_CODE_MAP[line.split("=")[1].split(",")[0].strip()]
             policy["value"] = (
-                "".join(line.split("=")[1].split(",")[1:]).strip().strip('"')
+                ",".join(
+                    [
+                        segment.replace(",", "\n")
+                        for segment in ",".join(
+                            line.split("=")[1].split(",")[1:]
+                        ).split('","')
+                    ]
+                )
+                .strip()
+                .strip('"')
             )
             if not policy["vtype"].upper() in REG_TYPES:
                 print(
