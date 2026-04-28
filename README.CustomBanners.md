@@ -63,3 +63,6 @@ ash-windows:
           This information system may contain Controlled Unclassified Information (CUI) that is subject to safeguarding or dissemination controls in accordance with law, regulation, or Government-wide policy. Accessing and using this system indicates your understanding of this warning
         vtype: REG_SZ
 ```
+
+The above custom content will result in a login screen that looks like:
+<img src="/docs/images/ash-windows-CustomBanner-USGciv.png">
