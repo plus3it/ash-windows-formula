@@ -2,12 +2,12 @@ Windows login banners are implmented via registry-keys. Specifically the keys:
 
 * `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption`: The line presented before the banner-text. The dedfault value implemented through the ash-windows-formula project is, "US Department of Defense Warning Statement"
 * `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText`. This is the (multi-) paragraph login-banner text. See the project-files:
-    * ash-windows/stig/Windows_11/stig.yml
-    * ash-windows/stig/Windows_2022Server_MS/stig.yml
-    * ash-windows/stig/Windows_2022Server_DC/stig.yml
+    * [ash-windows/stig/Windows_11/stig.yml](ash-windows/stig/Windows_11/stig.yml)
+    * [ash-windows/stig/Windows_2022Server_MS/stig.yml](ash-windows/stig/Windows_2022Server_MS/stig.yml)[^1]
+    * [ash-windows/stig/Windows_2022Server_DC/stig.yml](ash-windows/stig/Windows_2022Server_DC/stig.yml)[^1]
 
     For illustrative content.
- 
+
 While the project-readme's [configuration](https://github.com/plus3it/ash-windows-formula#configuration) section provides general guidance for setting cutom registry entries, that guidance may not be adequately illustrative of how it applies to login-banners. Further, the content in the previously-noted YAML files may not work correctly under current versions of Windows or Saltstack. The following is meant to be a more-illustrative summary of how the pillar-content should be constructed.
 
 ```yaml
@@ -66,3 +66,5 @@ ash-windows:
 
 The above custom content will result in a login screen that looks like:
 <img src="/docs/images/ash-windows-CustomBanner-USGciv.png">
+
+[^1]:The `.../Windows_2022Server_*/stig.yml` files produce a login banner as shown <a href="docs/images/ash-windows-DefaultBanner-DoD.png">here</a>.
