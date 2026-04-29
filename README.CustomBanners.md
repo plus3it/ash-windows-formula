@@ -1,6 +1,6 @@
 Windows login banners are implmented via registry-keys. Specifically the keys:
 
-* `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption`: The line presented before the banner-text. The dedfault value implemented through the ash-windows-formula project is, "US Department of Defense Warning Statement"
+* `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption`: The line presented before the banner-text. The default value implemented through the ash-windows-formula project is, "US Department of Defense Warning Statement"
 * `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText`. This is the (multi-) paragraph login-banner text. See the project-files:
     * [ash-windows/stig/Windows_11/stig.yml](ash-windows/stig/Windows_11/stig.yml)
     * [ash-windows/stig/Windows_2022Server_MS/stig.yml](ash-windows/stig/Windows_2022Server_MS/stig.yml)[^1]
@@ -8,7 +8,7 @@ Windows login banners are implmented via registry-keys. Specifically the keys:
 
     For illustrative content.
 
-While the project-readme's [configuration](https://github.com/plus3it/ash-windows-formula#configuration) section provides general guidance for setting cutom registry entries, that guidance may not be adequately illustrative of how it applies to login-banners. Further, the content in the previously-noted YAML files may not work correctly under current versions of Windows or Saltstack. The following is meant to be a more-illustrative summary of how the pillar-content should be constructed.
+While the project-readme's [configuration](https://github.com/plus3it/ash-windows-formula#configuration) section provides general guidance for setting custom registry entries, that guidance may not be adequately illustrative of how it applies to login-banners. Further, the content in the previously-noted YAML files may not work correctly under current versions of Windows. The following is meant to be a more-illustrative summary of how the pillar-content should be constructed.
 
 ```yaml
 ash-windows:
