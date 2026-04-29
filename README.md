@@ -163,6 +163,8 @@ ash-windows:
         value: superadmin
 ```
 
+For guidance on configuring customized consent-banners, please see the [Custom Banners README](README.CustomBanners.md) file.
+
 
 ## Applying Policies from the Command Line
 
