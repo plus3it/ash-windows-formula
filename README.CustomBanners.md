@@ -28,10 +28,10 @@ ash-windows:
         vtype: REG_SZ
 ```
 
-* `vtype`: While the previously-noted files use a `vtype` value of `SZ` for the `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption` registry-key and a `vtype` value of `MULTISZ` for the `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText`, it is currently recommended to use a `vtype` value of `REG_SZ` for both.
-* `value`: While the `value` parameter _can_ be specified a simple string-value, this can prove problematic depending on the text that needs to be passed. In particular, if the text needs to contain special characters (the `*` character is known to cause problems), the rendering of the data can break when using simple key-value specification-style. It is better to use a content-block specification-style.
+* `vtype`: The previously-noted files use a `vtype` value of `SZ` for the `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption` registry-key and a `vtype` value of `MULTISZ` for the `MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText`. When using a literal-block[^2] specification-style for the notice-text payload, problems were observed when using the `MULTISZ` type. These issues disappeared when the type was switched to `REG_SZ`. For consistency's sake, it is currently recommended to use a `vtype` value of `REG_SZ`[^3] for both.
+* `value`: While the `value` parameter _can_ be specified as a simple string-value, this can prove problematic depending on the text that needs to be passed. In particular, if the text needs to contain special characters (the `*` character is known to cause problems), the rendering of the data can break when using the key:simple-string value-specification style. It is better to use a literal-block method for specifying the key's value.
 
-To illustrate with text that can trigger problems with simple, key-value specification-style, the following shows using content-block specification-style:
+To illustrate with text that can trigger problems when using a simple string key-value specification-style, the following shows using a literal-block specification-style for the `value` parameter's payload.:
 
 ```yaml
 ash-windows:
@@ -67,4 +67,6 @@ ash-windows:
 The above custom content will result in a login screen that looks like:
 <img src="/docs/images/ash-windows-CustomBanner-USGciv.png">
 
-[^1]:The `.../Windows_2022Server_*/stig.yml` files produce a login banner as shown <a href="docs/images/ash-windows-DefaultBanner-DoD.png">here</a>.
+[^1]: The `.../Windows_2022Server_*/stig.yml` files produce a login banner as shown <a href="docs/images/ash-windows-DefaultBanner-DoD.png">here</a>.
+[^2]: See https://yaml-multiline.info/ for a more-detailed discussion on string-formatting for YAML.
+[^3]: The `SZ` value for the `vtype` parameter is an alias for the `REG_SZ` value. The valid values are described in the `salt.states.reg` document's [reg.present](https://docs.saltproject.io/en/latest/ref/states/all/salt.states.reg.html#salt.states.reg.present) section.
