@@ -35,7 +35,7 @@ jobs:
           - win16
           - win19
           - win22
-    uses: plus3it/actions-workflows/.github/workflows/test-terrafirm-integration.yml@0a03f75193a010b3532cc90e8ad0b15a09ed33c1
+    uses: plus3it/actions-workflows/.github/workflows/test-terrafirm-integration.yml@a6e41877e630b2e3f15b265c2567cfb1076b1346
     with:
       source-build: ${{ matrix.source-build }}
       watchmaker-git-url: ${{ github.event.inputs.watchmaker-git-url }}
